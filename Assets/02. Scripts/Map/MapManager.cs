@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum TrackType
 {
-    TILE_1 = 0,
-    TILE_2,
-    TILE_3,
+    Tile1 = 0,
+    Tile2,
+    Tile3,
 }
 
 public class MapManager : MonoBehaviour
@@ -14,22 +14,21 @@ public class MapManager : MonoBehaviour
     public TrackType nowTrack;
     [SerializeField] private GameObject[] trackPrefabs;
     public Transform Pool => transform;
-
     [SerializeField] private float speed = 5f;
     private float previousSpeed;
-
-    [SerializeField] private Vector3 generatePos = new Vector3(0, 0, 10);
-    [SerializeField] private Vector3 disposePos = new Vector3(0, 0, -10);
+    private Vector3 generatePos;
+    private Vector3 disposePos;
 
     void Start()
     {
+        generatePos = Utils.GetTopViewportPosition(0f);
+        disposePos = Utils.GetBottomViewportPosition(5f);
         previousSpeed = speed;
         StartCoroutine(GenerateMapCoroutine());
     }
 
     private void Update()
     {
-        // Inspector에서 속도가 변경되었는지 확인
         if (previousSpeed != speed)
         {
             previousSpeed = speed;
@@ -42,9 +41,12 @@ public class MapManager : MonoBehaviour
         while (true)
         {
             var lastTile = GenerateTile(nowTrack, generatePos, Quaternion.identity);
-            float correctionVal = speed * 0.01f;
-            var threshold = lastTile.TrackSize.z / 2 + correctionVal;
-            yield return new WaitUntil(() => lastTile.transform.position.z - lastTile.TrackSize.z / 2 <= threshold);
+
+            // 다음 타일이 생성될 위치 계산 (현재 타일의 끝 지점)
+            float nextGenerateThreshold = generatePos.z - lastTile.TrackSize.z;
+
+            // 타일의 뒷부분이 생성 위치를 지나갈 때까지 대기
+            yield return new WaitUntil(() => lastTile.transform.position.z <= nextGenerateThreshold);
         }
     }
 
@@ -58,7 +60,7 @@ public class MapManager : MonoBehaviour
                 child.transform.position = pos;
                 child.transform.rotation = rot;
                 child.disposePos = disposePos;
-                child.speed = speed; // 생성 시 속도 설정
+                child.speed = speed;
                 return child;
             }
         }
@@ -69,7 +71,7 @@ public class MapManager : MonoBehaviour
         var track = temp.GetComponent<Track>();
         track.trackType = type;
         track.disposePos = disposePos;
-        track.speed = speed; // 생성 시 속도 설정
+        track.speed = speed;
         return track;
     }
 

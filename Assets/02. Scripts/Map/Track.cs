@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Track : MonoBehaviour
 {
+    public Renderer meshRenderer;
     public Vector3 TrackSize
     {
         get
         {
-            return gameObject.GetComponent<Renderer>().bounds.size;
+            return meshRenderer.bounds.size;
         }
     }
 
