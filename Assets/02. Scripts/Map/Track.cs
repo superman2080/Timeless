@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class Track : MonoBehaviour
 {
-    public Vector3 TileSize
+    public Vector3 TrackSize
     {
         get
         {
@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour
 
     [HideInInspector] public float speed;
     [HideInInspector] public Vector3 disposePos;
+    public TrackType trackType;
 
 
     private void OnEnable()

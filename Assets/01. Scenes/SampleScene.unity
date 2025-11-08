@@ -148,7 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17f05eeac9f265468ea330357a42ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
-  tile: {fileID: -8824266297300821913, guid: f9166ce2d9eca86439ec823679270402, type: 3}
+  nowTrack: 0
+  trackPrefabs:
+  - {fileID: 2799032995380399550, guid: f9166ce2d9eca86439ec823679270402, type: 3}
   speed: 5
   generatePos: {x: 0, y: 0, z: 20}
   disposePos: {x: 0, y: 0, z: -15}
