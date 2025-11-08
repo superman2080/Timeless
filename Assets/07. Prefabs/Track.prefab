@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7715724597901959868}
   - component: {fileID: -8824266297300821913}
   m_Layer: 0
-  m_Name: Tile
+  m_Name: Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,3 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   speed: 5
   disposePos: {x: 0, y: 0, z: 0}
+  trackType: 0
