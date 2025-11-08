@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7339568171074885228}
   - component: {fileID: 8960403081302623870}
   - component: {fileID: 8010953219795352061}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: wall_inner_054
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 8268568036264210023}
   - component: {fileID: 4672023109715884947}
   - component: {fileID: 4711567511465576877}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BozaGi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 7524375354558100489}
   - component: {fileID: 8053501963027642865}
   - component: {fileID: 1111345276139287739}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: wall_inner_056
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 556867402447467144}
   - component: {fileID: 5074739636783523216}
   - component: {fileID: 6260843349648537596}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: debris_094
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -851,7 +851,7 @@ GameObject:
   - component: {fileID: 5116485612223009282}
   - component: {fileID: 9126461818084032409}
   - component: {fileID: 3393794843673381518}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: wall_inner_055
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1667,6 +1667,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: fb5769dfbec134242a7975232d23d908, type: 3}
       propertyPath: m_Name
       value: prop_megaphone
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: fb5769dfbec134242a7975232d23d908, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fb5769dfbec134242a7975232d23d908, type: 3}
       propertyPath: m_LocalScale.x
