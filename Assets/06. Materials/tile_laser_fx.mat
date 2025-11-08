@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: tile_laser_fx
   m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
-  m_Parent: {fileID: 2100000, guid: ded06cc66ee54c940ab0aa123d273b3f, type: 2}
+  m_Parent: {fileID: 2100000, guid: 95a17367db09fb94aab08cf386c85bd0, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
