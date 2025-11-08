@@ -1,17 +1,21 @@
+using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Lane : MonoBehaviour
 {
-    public int laneIndex;
+    public int LaneIndex { get; private set; }
 
-    public float laneX => transform.position.x;
+    public float LaneX => transform.position.x;
 
     public List<InteractionObject> laneObjectList = new();
+    [HideInInspector] public List<InteractionObject> currentLaneObjects = new();
 
-    public void GenerateObject()
+    public void GenerateObject(InteractionObject obj)
     {
-
+        
     }
 
 
