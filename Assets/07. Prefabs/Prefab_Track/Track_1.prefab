@@ -1596,6 +1596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4799487282880985388}
+  - component: {fileID: 8552488792315163250}
   m_Layer: 0
   m_Name: Track_1
   m_TagString: Untagged
@@ -1626,6 +1627,22 @@ Transform:
   - {fileID: 8288048767621718592}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8552488792315163250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4885948109782844580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e0dfd2d9c56434781a81715c0e4c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tile
+  meshRenderer: {fileID: 5983615790273192945}
+  speed: 5
+  disposePos: {x: 0, y: 0, z: 0}
+  trackType: 0
 --- !u!1 &5137410902472422796
 GameObject:
   m_ObjectHideFlags: 0
