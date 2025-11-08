@@ -90,4 +90,10 @@ public static class Utils
         return true;
     }
 
+    public static bool IsAnimationTerminated(Animator animator, int layer, string animName)
+    {
+        var stateInfo = animator.GetCurrentAnimatorStateInfo(layer);
+        
+        return stateInfo.IsName(animName) && stateInfo.normalizedTime >= 0.95f && !animator.IsInTransition(layer);
+    }
 }

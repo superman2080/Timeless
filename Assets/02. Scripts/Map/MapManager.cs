@@ -24,6 +24,10 @@ public class MapManager : MonoBehaviour
         generatePos = Utils.GetTopViewportPosition(0f);
         disposePos = Utils.GetBottomViewportPosition(5f);
         previousSpeed = speed;
+
+        // 시작 시 화면을 타일로 채우기
+        InitializeTrackFill();
+
         StartCoroutine(GenerateMapCoroutine());
     }
 
@@ -36,15 +40,31 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    private void InitializeTrackFill()
+    {
+        Vector3 currentPos = generatePos;
+        float totalDistance = generatePos.z - disposePos.z;
+        float filledDistance = 0f;
+
+        // disposePos부터 generatePos까지 타일로 채우기
+        while (filledDistance < totalDistance)
+        {
+            var tile = GenerateTile(nowTrack, currentPos, Quaternion.identity);
+            float tileSize = tile.TrackSize.z;
+
+            // 다음 타일 위치 계산
+            currentPos = new Vector3(currentPos.x, currentPos.y, currentPos.z - tileSize);
+            filledDistance += tileSize;
+        }
+    }
+
     private IEnumerator GenerateMapCoroutine()
     {
         while (true)
         {
             var lastTile = GenerateTile(nowTrack, generatePos, Quaternion.identity);
-
             // 다음 타일이 생성될 위치 계산 (현재 타일의 끝 지점)
             float nextGenerateThreshold = generatePos.z - lastTile.TrackSize.z;
-
             // 타일의 뒷부분이 생성 위치를 지나갈 때까지 대기
             yield return new WaitUntil(() => lastTile.transform.position.z <= nextGenerateThreshold);
         }

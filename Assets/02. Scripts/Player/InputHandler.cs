@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    public Vector2 MoveInput { get; private set; }
+    public float MoveInput { get; private set; }
 
     public bool Jump { get; private set; }
 
@@ -16,8 +16,8 @@ public class InputHandler : MonoBehaviour
     private void OnEnable()
     {
         input.Enable();
-        input.Player.Move.performed += ctx => MoveInput = ctx.ReadValue<Vector2>();
-        input.Player.Move.canceled += ctx => MoveInput = Vector2.zero;
+        input.Player.Move.performed += ctx => MoveInput = ctx.ReadValue<float>();
+        input.Player.Move.canceled += ctx => MoveInput = 0;
 
         input.Player.Jump.performed += ctx => Jump = true;
     }
