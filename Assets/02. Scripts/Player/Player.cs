@@ -61,12 +61,15 @@ public class Stat<T> where T : MonoBehaviour
     }
 }
 
+[RequireComponent(typeof(Rigidbody))]
 public class Player : InteractionObject
 {
+    public Rigidbody rb { get; private set; }
     private InputHandler handler;
     private PlayerAnimator playerAnimator;
 
     #region Relate to Lane
+    public int currentLane;
     private Coroutine changeLaneCor;
     #endregion
 
@@ -76,7 +79,6 @@ public class Player : InteractionObject
     public Stat<Player> stat { get; private set; }
     [SerializeField] private float hpDecrement;
     public bool IsJump { get; private set; }
-
     private Coroutine jumpCoroutine;
     #endregion
 
@@ -87,25 +89,18 @@ public class Player : InteractionObject
 
     #endregion
 
-    protected override void OnEnable()
+    private void Start()
     {
-    }
-    protected override void OnDisable()
-    {
-    }
-
-    protected override void Start()
-    {
-        base.Start();
         #region Stat Initialization 
         stat = new Stat<Player>(this, maxHP);
-        stat.onHPChanged += (player, hp) => onPlayerStatChanged.RaiseEvent();
-        stat.onDied += (player) => onPlayerDied.RaiseEvent();
+        //stat.onHPChanged += (player, hp) => onPlayerStatChanged.RaiseEvent();
+        //stat.onDied += (player) => onPlayerDied.RaiseEvent();
         #endregion
 
         #region Component Initialization
         handler = gameObject.GetComponent<InputHandler>();
         playerAnimator = gameObject.GetComponent<PlayerAnimator>();
+        rb = gameObject.GetComponent<Rigidbody>();
         #endregion
 
         #region Position Initialization 
@@ -132,7 +127,7 @@ public class Player : InteractionObject
         }
     }
 
-    void Jump()
+    public void Jump()
     {
         if (jumpCoroutine != null)
             return;
@@ -153,18 +148,18 @@ public class Player : InteractionObject
 
     private IEnumerator ChangeLaneCoroutine(int laneIndex, float changeTime = 0.2f)
     {
-        var origin = Rb.position;
-        var target = new Vector3(GameManager.Instance.laneManager.lanes[laneIndex].LaneX, Rb.position.y, Rb.position.z);
+        var origin = rb.position;
+        var target = new Vector3(GameManager.Instance.laneManager.lanes[laneIndex].LaneX, rb.position.y, rb.position.z);
 
         for (float elapsedTime = 0f; elapsedTime < changeTime; elapsedTime += Time.fixedDeltaTime)
         {
             float t = elapsedTime / changeTime;
             var step = Vector3.Lerp(origin, target, t);
-            Rb.MovePosition(step);
+            rb.MovePosition(step);
             yield return new WaitForFixedUpdate();
         }
 
-        Rb.position = target;
+        rb.position = target;
         currentLane = laneIndex;
         changeLaneCor = null;
     }
@@ -181,4 +176,5 @@ public class Player : InteractionObject
     {
         stat.TakeDamage(hpDecrement * Time.deltaTime);
     }
+
 }
