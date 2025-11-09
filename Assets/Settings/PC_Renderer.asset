@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PixelateRendererFeature
   m_Active: 1
   settings:
-    pixelScale: 4
+    pixelScale: 1
 --- !u!114 &7833122117494664109
 MonoBehaviour:
   m_ObjectHideFlags: 0
