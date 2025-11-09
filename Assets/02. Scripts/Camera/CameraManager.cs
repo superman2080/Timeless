@@ -28,7 +28,6 @@ public class CameraManager : Singleton<CameraManager>
     {
         cinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
         StartCoroutine(CameraActionCoroutine());
-        //SwitchCamera(ViewMode.View2D);
     }
 
     private IEnumerator CameraActionCoroutine()
@@ -51,12 +50,6 @@ public class CameraManager : Singleton<CameraManager>
         if (vCam2D == null || vCam3D == null)
         {
             Debug.LogError("Cinemachine Cameras are not assigned.");
-            yield break;
-        }
-
-        if(mode == GameManager.Instance.nowViewMode)
-        {
-            Debug.LogWarning("Already in the requested view mode.");
             yield break;
         }
 
