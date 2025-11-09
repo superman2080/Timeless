@@ -24,6 +24,9 @@ public class GameManager : Singleton<GameManager>
     public Vector3 GeneratePos => generatePos;
     public Vector3 DisposePos => disposePos;
 
+    [Range(0, 1)] public float threshold2DView = 0.5f;
+    [Range(0, 1)] public float threshold3DView = 0.7f;
+
     private void Start()
     {
         player ??= FindAnyObjectByType<Player>();
