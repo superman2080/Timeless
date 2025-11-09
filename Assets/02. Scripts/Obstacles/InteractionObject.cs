@@ -8,13 +8,12 @@ public abstract class InteractionObject : MonoBehaviour, ICollisionable
     public Action<ICollisionable> onTargetHitEvent;
     public Action<ICollisionable> onTakeHitEvent;
 
-    private List<ICollisionable> collisionables;
+    private List<ICollisionable> collisionables = new();
     public Collider Col { get; private set; }
-
 
     private void Start()
     {
-        Col = GetComponent<Collider>(); 
+        Col = GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider other)

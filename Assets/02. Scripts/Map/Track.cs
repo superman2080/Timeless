@@ -11,10 +11,13 @@ public class Track : MonoBehaviour
         }
     }
 
-    [HideInInspector] public float speed;
-    [HideInInspector] public Vector3 disposePos;
     public TrackType trackType;
+    private Vector3 disposePos;
 
+    private void Start()
+    {
+        disposePos = GameManager.Instance.positionLimits.disposePos;
+    }
 
     private void OnEnable()
     {
@@ -27,7 +30,7 @@ public class Track : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.back * speed * Time.deltaTime);
+        transform.Translate(Vector3.back * GameManager.Instance.mapSpeed * Time.deltaTime);
         if(transform.position.z <= disposePos.z)
             gameObject.SetActive(false);
     }

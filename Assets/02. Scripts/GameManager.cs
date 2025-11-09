@@ -17,6 +17,17 @@ public class GameManager : Singleton<GameManager>
     public LaneManager laneManager { get; private set; }
     public int laneLength => laneManager.laneLength;
 
+    public float mapSpeed = 5f;
+
+    public (Vector3 generatePos, Vector3 disposePos) positionLimits
+    {
+        get
+        {
+            Vector3 generatePos = Utils.GetTopViewportPosition(0f);
+            Vector3 disposePos = Utils.GetBottomViewportPosition(5f);
+            return (generatePos, disposePos);
+        }
+    }
 
     private void Start()
     {
