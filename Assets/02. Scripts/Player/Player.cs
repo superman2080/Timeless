@@ -154,11 +154,13 @@ public class Player : InteractionObject
         stat.onHPChanged += (player, hp) => onPlayerStatChanged.RaiseEvent();
         stat.onHPChanged += (player, hp) => CheckChangeView();
 
-        stat.onDied += (player) => CameraManager.Instance.FadeGlitch(0.01f, 1f, 1.25f);
+        stat.onDied += (player) => {
+            CameraManager.Instance.FadeGlitch(0.01f, 0.9f, 1f);
+            Col.enabled = false;
+            Invoke("Restart", 1.5f);
+        };
         stat.onDied += (player) => onPlayerDied.RaiseEvent();
         stat.onDied += (player) => enabled = false;
-
-        stat.onHealed += (player, healAmount) => Debug.Log($"Healed: {healAmount}, Current HP: {stat.HP}");
 
         originSpeed = GameManager.Instance.mapSpeed;
         stat.onInvincibleStart += (player) => GameManager.Instance.mapSpeed = invincibleSpeed;
@@ -174,6 +176,8 @@ public class Player : InteractionObject
         currentLane = Mathf.RoundToInt(GameManager.Instance.laneManager.laneLength / 2);
         ChangeLane(currentLane);
         #endregion
+
+        CameraManager.Instance.FadeGlitch(0.9f, 0.002f, 1.5f);
     }
 
     private void Update()
@@ -268,5 +272,12 @@ public class Player : InteractionObject
     private void HPDecrement()
     {
         stat.TakeDamage(hpDecrement * Time.deltaTime);
+    }
+
+    private void Restart()
+    {
+        CameraManager.Instance.SetGlitch(0.02f);
+        CameraManager.Instance.SetPixelateIntensity(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }
 }

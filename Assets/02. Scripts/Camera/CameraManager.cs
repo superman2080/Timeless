@@ -39,7 +39,7 @@ public class CameraManager : Singleton<CameraManager>
 
         StartCoroutine(CameraActionCoroutine());
 
-        FadeGlitch(0.3f, 0.002f, 2f);
+        
     }
 
     #region PostProcessing Feature
