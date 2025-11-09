@@ -5,8 +5,6 @@ using UnityEngine;
 public class Obstacle : InteractionObject
 {
     public Rigidbody rb;
-    public ObstacleType obstacleType;
-
     private float damageAmount;
     public float DamageAmount => damageAmount;
 

@@ -476,13 +476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2fff328afa9a04d813e972b83ca811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
-  laneObjectList:
-  - {fileID: -5192823917726319107, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
-  - {fileID: 3552891465432832539, guid: 0549e2b9d1c498b4c83118cf5e69c218, type: 3}
-  - {fileID: 6142101848488564980, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
-  - {fileID: 4074492470041807097, guid: 4006bda88b399244d9e289696b1df874, type: 3}
-  - {fileID: 7212009335378231290, guid: 28ded0861077dc84682ad579c0732d6f, type: 3}
-  currentLaneObjects: []
 --- !u!1 &690753019
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,11 +505,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e952ff689f71948b55620c0c941e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LaneManager
+  objectDataSet: {fileID: 11400000, guid: 59ec27de38916af4c88b756164fa7fd0, type: 2}
   lanes:
   - {fileID: 422546294}
   - {fileID: 1555383172}
   - {fileID: 1904004964}
   laneInterval: 1
+  createInterval: 2
 --- !u!4 &690753021
 Transform:
   m_ObjectHideFlags: 0
@@ -640,8 +635,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a70d890011ff33459f9a5e8a7495c30, type: 2}
-  - {fileID: 2100000, guid: 2784fedc9b0e7fd4db6623ad0907a92f, type: 2}
+  - {fileID: 2100000, guid: 1f6c9a3a5baafac4a823be867c6d19b6, type: 2}
+  - {fileID: 2100000, guid: f17d20fdbf422c645b336890daf7f376, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -877,8 +872,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1415619866}
   - {fileID: 1415619966}
@@ -2369,7 +2364,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4c50b00276b1e794c951fe97fbab023a, type: 2}
+  - {fileID: 2100000, guid: 1f6c9a3a5baafac4a823be867c6d19b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2639,13 +2634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2fff328afa9a04d813e972b83ca811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
-  laneObjectList:
-  - {fileID: -5192823917726319107, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
-  - {fileID: 3552891465432832539, guid: 0549e2b9d1c498b4c83118cf5e69c218, type: 3}
-  - {fileID: 6142101848488564980, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
-  - {fileID: 4074492470041807097, guid: 4006bda88b399244d9e289696b1df874, type: 3}
-  - {fileID: 7212009335378231290, guid: 28ded0861077dc84682ad579c0732d6f, type: 3}
-  currentLaneObjects: []
 --- !u!4 &1555383173
 Transform:
   m_ObjectHideFlags: 0
@@ -2706,17 +2694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstaclePool
   dontDestroyOnLoad: 0
-  obstacleDatas:
-  - type: 0
-    prefab: {fileID: 3720953440862370034, guid: 0549e2b9d1c498b4c83118cf5e69c218, type: 3}
-  - type: 1
-    prefab: {fileID: 4881554015665768165, guid: 4006bda88b399244d9e289696b1df874, type: 3}
-  - type: 2
-    prefab: {fileID: 6182261464962284201, guid: 28ded0861077dc84682ad579c0732d6f, type: 3}
-  - type: 3
-    prefab: {fileID: 6646477587490579054, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
-  - type: 4
-    prefab: {fileID: 6684161305456805488, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
+  datas: {fileID: 11400000, guid: ec2b6e33fa3ec994d9c774e07600d0bd, type: 2}
   defaultParticleType: 0
 --- !u!1 &1904004963
 GameObject:
@@ -2747,13 +2725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2fff328afa9a04d813e972b83ca811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
-  laneObjectList:
-  - {fileID: -5192823917726319107, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
-  - {fileID: 3552891465432832539, guid: 0549e2b9d1c498b4c83118cf5e69c218, type: 3}
-  - {fileID: 6142101848488564980, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
-  - {fileID: 4074492470041807097, guid: 4006bda88b399244d9e289696b1df874, type: 3}
-  - {fileID: 7212009335378231290, guid: 28ded0861077dc84682ad579c0732d6f, type: 3}
-  currentLaneObjects: []
 --- !u!4 &1904004965
 Transform:
   m_ObjectHideFlags: 0

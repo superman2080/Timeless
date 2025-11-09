@@ -79,6 +79,7 @@ public class Player : InteractionObject
     public Stat<Player> stat { get; private set; }
     [SerializeField] private float hpDecrement;
     public bool IsJump { get; private set; }
+
     private Coroutine jumpCoroutine;
     #endregion
 
@@ -127,7 +128,7 @@ public class Player : InteractionObject
         }
     }
 
-    public void Jump()
+    void Jump()
     {
         if (jumpCoroutine != null)
             return;
@@ -176,5 +177,4 @@ public class Player : InteractionObject
     {
         stat.TakeDamage(hpDecrement * Time.deltaTime);
     }
-
 }

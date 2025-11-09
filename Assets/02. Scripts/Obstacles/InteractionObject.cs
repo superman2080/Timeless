@@ -2,9 +2,31 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+public enum ObjectType
+{
+    NONE,
+
+    LASER,      // ∑π¿Ã¿˙
+    BARREL,     // πË∑≤
+    BLOCKADE,   // ∫Ì∑œ
+    FAN,        // ∆“
+    ROBOT_ARM,  // ∑Œ∫ø∆»
+
+    HP,
+    KEY_CARD,
+}
+
+[Serializable]
+public struct ObjectData
+{
+    public ObjectType type;
+    public GameObject prefab;
+}
+
 [RequireComponent(typeof(Collider))]
 public abstract class InteractionObject : MonoBehaviour, ICollisionable
 {
+    public ObjectData objectData;
     public Action<ICollisionable> onTargetHitEvent;
     public Action<ICollisionable> onTakeHitEvent;
 
@@ -13,7 +35,7 @@ public abstract class InteractionObject : MonoBehaviour, ICollisionable
 
     private void Start()
     {
-        Col = GetComponent<Collider>();
+        Col = gameObject.GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider other)
