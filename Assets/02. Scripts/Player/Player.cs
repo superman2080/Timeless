@@ -16,42 +16,64 @@ public class Stat<T> where T : MonoBehaviour
         }
     }
 
+    public bool isInvincible { get; private set; } = false;
+    private bool isInvincibleCooldown = false;
+    private Coroutine invincibleCoroutine;
+
     public float MaxHP { get; private set; }
+    public float invincibleDuration = 5f;
+    public float invincibleCooldown = 10f;
 
     public Action<T, float> onHPChanged;
     public Action<T, float> onTakeDamaged;
     public Action<T, float> onHealed;
     public Action<T> onDied;
+    public Action<T> onInvincibleStart;
+    public Action<T> onInvincibleEnd;
 
-    public Stat(T owner, float maxHP)
+    public Stat(T owner, float maxHP, float invincibleDuration = 5f, float invincibleCooldown = 10f)
     {
-        this.owner = owner; 
+        this.owner = owner;
         MaxHP = maxHP;
         hp = MaxHP;
+        this.invincibleDuration = invincibleDuration;
+        this.invincibleCooldown = invincibleCooldown;
     }
 
     public void TakeDamage(float damage)
     {
-        if(damage < 0)
+        if (damage < 0)
             throw new ArgumentOutOfRangeException("Damage cannot be negative.");
+
+        if (isInvincible)
+            return;
 
         onTakeDamaged?.Invoke(owner, damage);
         HP -= Mathf.Abs(damage);
 
         if (HP <= 0)
         {
-            Debug.Log("OnDied invoked");    
+            Debug.Log("OnDied invoked");
             onDied?.Invoke(owner);
         }
     }
 
     public void Heal(float healAmount)
     {
-        if(healAmount < 0)
+        if (healAmount < 0)
             throw new ArgumentOutOfRangeException("Heal amount cannot be negative.");
 
+        float previousHP = HP;
         onHealed?.Invoke(owner, healAmount);
         HP += Mathf.Abs(healAmount);
+
+        // 초과 회복 체크: HP가 MaxHP를 초과했고, 무적/쿨다운 상태가 아닐 때
+        if (previousHP < MaxHP && HP >= MaxHP && !isInvincible && !isInvincibleCooldown)
+        {
+            if (invincibleCoroutine != null)
+                owner.StopCoroutine(invincibleCoroutine);
+            invincibleCoroutine = owner.StartCoroutine(InvincibleCoroutine());
+        }
     }
 
     public void SetMaxHP(float newMaxHP)
@@ -60,7 +82,30 @@ public class Stat<T> where T : MonoBehaviour
             throw new ArgumentOutOfRangeException(nameof(newMaxHP), "Max HP must be greater than 0.");
 
         MaxHP = newMaxHP;
-        HP = Mathf.Min(hp, MaxHP); // 현재 HP가 새로운 MaxHP를 초과하지 않도록
+        HP = Mathf.Min(hp, MaxHP);
+    }
+
+    private IEnumerator InvincibleCoroutine()
+    {
+        // 무적 시작
+        isInvincible = true;
+        onInvincibleStart?.Invoke(owner);
+
+        // 무적 지속
+        yield return new WaitForSeconds(invincibleDuration);
+
+        // 무적 종료
+        isInvincible = false;
+        onInvincibleEnd?.Invoke(owner);
+
+        // 쿨다운 시작
+        isInvincibleCooldown = true;
+
+        yield return new WaitForSeconds(invincibleCooldown);
+
+        // 쿨다운 종료
+        isInvincibleCooldown = false;
+        invincibleCoroutine = null;
     }
 }
 
@@ -76,11 +121,13 @@ public class Player : InteractionObject
     #region Player Variable
 
     [SerializeField] float maxHP = 100f;
+    [SerializeField] float invincibleDuration = 5f;
+    [SerializeField] float invincibleCooldown = 10f;
+    [SerializeField] float invincibleSpeed = 10f;
+    [SerializeField] float normalSpeed = 5f;
     public Stat<Player> stat { get; private set; }
     [SerializeField] private float hpDecrement;
     public bool IsJump { get; private set; }
-
-    private Coroutine jumpCoroutine;
     #endregion
 
     #region EventChannels
@@ -103,12 +150,18 @@ public class Player : InteractionObject
     {
         base.Start();
         #region Stat Initialization 
-        stat = new Stat<Player>(this, maxHP);
+        stat = new Stat<Player>(this, maxHP, invincibleDuration, invincibleCooldown);
         stat.onHPChanged += (player, hp) => onPlayerStatChanged.RaiseEvent();
         stat.onHPChanged += (player, hp) => CheckChangeView();
+
         stat.onDied += (player) => CameraManager.Instance.FadeGlitch(0.01f, 1f, 1.25f);
         stat.onDied += (player) => onPlayerDied.RaiseEvent();
         stat.onDied += (player) => enabled = false;
+
+        stat.onHealed += (player, healAmount) => Debug.Log($"Healed: {healAmount}, Current HP: {stat.HP}");
+
+        stat.onInvincibleStart += (player) => GameManager.Instance.mapSpeed = invincibleSpeed;
+        stat.onInvincibleEnd += (player) => GameManager.Instance.mapSpeed = normalSpeed;
         #endregion
 
         #region Component Initialization
@@ -119,16 +172,20 @@ public class Player : InteractionObject
         #region Position Initialization 
         currentLane = Mathf.RoundToInt(GameManager.Instance.laneManager.laneLength / 2);
         ChangeLane(currentLane);
-
         #endregion
     }
 
     private void Update()
     {
         Move();
-        HPDecrement();
 
-        if(currentLane != GameManager.Instance.laneManager.laneLength - 1 && GameManager.Instance.currentViewMode == ViewMode.View2D)
+        // 무적 상태가 아닐 때만 HP 감소
+        if (!stat.isInvincible)
+        {
+            HPDecrement();
+        }
+
+        if (currentLane != GameManager.Instance.laneManager.laneLength - 1 && GameManager.Instance.currentViewMode == ViewMode.View2D)
             ChangeLane(GameManager.Instance.laneManager.laneLength - 1);
     }
 
@@ -146,12 +203,13 @@ public class Player : InteractionObject
 
     void Jump()
     {
-        if (jumpCoroutine != null)
+        if (IsJump == true)
             return;
 
-        jumpCoroutine = StartCoroutine(JumpCoroutine());
+        StartCoroutine(JumpCoroutine());
         playerAnimator.Jump();
     }
+
     public void ChangeLane(int laneIndex)
     {
         if (GameManager.Instance.currentViewMode == ViewMode.View2D ||
@@ -186,12 +244,10 @@ public class Player : InteractionObject
         IsJump = true;
         yield return new WaitUntil(() => Utils.IsAnimationTerminated(playerAnimator.animator, 0, "Jump"));
         IsJump = false;
-        jumpCoroutine = null;
     }
 
     private void CheckChangeView()
     {
-        // 수정: InverseLerp(min, max, value) 순서
         float hpRatio = Mathf.InverseLerp(0, stat.MaxHP, stat.HP);
 
         if (hpRatio <= GameManager.Instance.threshold2DView && GameManager.Instance.currentViewMode == ViewMode.View3D)

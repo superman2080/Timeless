@@ -143,6 +143,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
   damageAmount: 20
   ignoreJumpedPlayer: 0
+  hitSFX: {fileID: 8300000, guid: d46ced8ba38d1df47a6fb33779812c03, type: 3}
 --- !u!54 &-1448459162915080486
 Rigidbody:
   m_ObjectHideFlags: 0
