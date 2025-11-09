@@ -414,13 +414,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioPlayer
   audioClips:
-  - {fileID: 8300000, guid: 14a7c18297045e5468395e6efc9d5d90, type: 3}
-  - {fileID: 8300000, guid: 583cc856362205f40898f7f617be0846, type: 3}
-  - {fileID: 8300000, guid: a1783e6dca623c640b316c2cec701263, type: 3}
+  - {fileID: 8300000, guid: d46ced8ba38d1df47a6fb33779812c03, type: 3}
+  - {fileID: 8300000, guid: bcd650d25c31cb44e9a808fe59b25651, type: 3}
+  - {fileID: 8300000, guid: 39f6bf2d39a752c4f87795c6eb9a8325, type: 3}
+  - {fileID: 8300000, guid: 3ee561a6e2895bb4cabcafba22eb85e8, type: 3}
+  - {fileID: 8300000, guid: 39f6bf2d39a752c4f87795c6eb9a8325, type: 3}
+  - {fileID: 8300000, guid: 8c6b445515cf3054d8e24109321c8753, type: 3}
   fadeOut: 1
   fadeIn: 1
   trigger: 0
-  clipNumber: 1
+  clipNumber: 2
 --- !u!82 &618394453
 AudioSource:
   m_ObjectHideFlags: 0

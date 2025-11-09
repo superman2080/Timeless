@@ -505,7 +505,7 @@ MonoBehaviour:
   objectData:
     type: 0
     prefab: {fileID: 0}
-  healAmount: 10
+  healAmount: 6
 --- !u!1 &8552899506872947536
 GameObject:
   m_ObjectHideFlags: 0
