@@ -26,10 +26,18 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _Alpha: 0
+    - _BaseBlinkPower: 0
     - _Float: 5
     - _Float_1: 0
+    - _NoiseDirection: 10
+    - _NoisePower: 10
+    - _Power: 50
     - _QueueControl: 0
     m_Colors:
+    - _BaseGlitchPower: {r: 50, g: 50, b: 0, a: 0}
+    - _Noise: {r: 50, g: 50, b: 0, a: 0}
+    - _NoiseDirection: {r: 0, g: 50, b: 0, a: 0}
     - _Vector2: {r: 2, g: 99, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
