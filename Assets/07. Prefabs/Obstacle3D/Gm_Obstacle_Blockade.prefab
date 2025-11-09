@@ -119,7 +119,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.48, y: 1.48, z: 1.48}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5118847626866966874}
@@ -137,8 +137,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d3ffc825387a04a84a6cf762db6c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Obstacle
-  rb: {fileID: 0}
-  obstacleType: 2
+  currentLane: 0
+  objectData:
+    type: 0
+    prefab: {fileID: 0}
+  damageAmount: 10
+  ignoreJumpedPlayer: 0
 --- !u!54 &-1448459162915080486
 Rigidbody:
   m_ObjectHideFlags: 0

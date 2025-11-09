@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1168831480427874484}
+  - component: {fileID: -6663664738993456565}
   m_Layer: 0
   m_Name: Background_3
   m_TagString: Untagged
@@ -38,6 +39,22 @@ Transform:
   - {fileID: 8970451782873547425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6663664738993456565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71162151818602414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f46bd8ca10b425140a41f9d01569b62b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundManager
+  backgroundLengthZ: 30
+  backgroundType: 2
+  parallaxSpeedMultiplier: 1
+  meshRenderer: {fileID: 0}
 --- !u!1 &547758106298555769
 GameObject:
   m_ObjectHideFlags: 0
