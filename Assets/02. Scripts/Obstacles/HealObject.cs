@@ -31,7 +31,7 @@ public class HealObject : InteractionObject
             if (player.IsJump)
                 return;
 
-            AudioSource.PlayClipAtPoint(healSFX, player.transform.position, 0.5f);
+            AudioSource.PlayClipAtPoint(healSFX, player.transform.position, 10000f);
             player.stat.Heal(HealAmount);
             gameObject.SetActive(false);    
         }
