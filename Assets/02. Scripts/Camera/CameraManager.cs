@@ -12,6 +12,8 @@ public enum CameraShakeMode
     DECREMENT,
     INCREMENT,
 }
+
+//
 public class CameraManager : Singleton<CameraManager>
 {
     [SerializeField] private CinemachineCamera vCam3D;
