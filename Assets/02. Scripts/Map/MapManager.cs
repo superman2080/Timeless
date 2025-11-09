@@ -14,30 +14,18 @@ public class MapManager : MonoBehaviour
     public TrackType nowTrack;
     [SerializeField] private GameObject[] trackPrefabs;
     public Transform Pool => transform;
-    [SerializeField] private float speed = 5f;
-    private float previousSpeed;
     private Vector3 generatePos;
     private Vector3 disposePos;
 
     void Start()
     {
-        generatePos = Utils.GetTopViewportPosition(0f);
-        disposePos = Utils.GetBottomViewportPosition(5f);
-        previousSpeed = speed;
+        generatePos = GameManager.Instance.positionLimits.generatePos;
+        disposePos = GameManager.Instance.positionLimits.disposePos;
 
         // 시작 시 화면을 타일로 채우기
         InitializeTrackFill();
 
         StartCoroutine(GenerateMapCoroutine());
-    }
-
-    private void Update()
-    {
-        if (previousSpeed != speed)
-        {
-            previousSpeed = speed;
-            ModifyTileSpeed();
-        }
     }
 
     private void InitializeTrackFill()
@@ -79,8 +67,6 @@ public class MapManager : MonoBehaviour
                 child.gameObject.SetActive(true);
                 child.transform.position = pos;
                 child.transform.rotation = rot;
-                child.disposePos = disposePos;
-                child.speed = speed;
                 return child;
             }
         }
@@ -90,17 +76,7 @@ public class MapManager : MonoBehaviour
         temp.transform.rotation = rot;
         var track = temp.GetComponent<Track>();
         track.trackType = type;
-        track.disposePos = disposePos;
-        track.speed = speed;
         return track;
-    }
-
-    private void ModifyTileSpeed()
-    {
-        foreach (var tile in GetChildTiles())
-        {
-            tile.speed = speed;
-        }
     }
 
     private Track[] GetChildTiles() => Pool.GetComponentsInChildren<Track>(true);

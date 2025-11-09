@@ -153,7 +153,6 @@ MonoBehaviour:
   - {fileID: 4885948109782844580, guid: d5601df4b93e1994cbea641d94229156, type: 3}
   - {fileID: 1877101129893443433, guid: 92339e93403a6ef48a879762d2459c06, type: 3}
   - {fileID: 3106388154907336648, guid: 1714833670a2fa849b65cada4a63a9a0, type: 3}
-  speed: 5
 --- !u!4 &75296388
 Transform:
   m_ObjectHideFlags: 0
@@ -459,7 +458,7 @@ Transform:
   m_GameObject: {fileID: 422546292}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 153.33844}
+  m_LocalPosition: {x: -1, y: -0.00000047683716, z: 66.22521}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -477,7 +476,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2fff328afa9a04d813e972b83ca811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
-  laneObjectList: []
+  laneObjectList:
+  - {fileID: -5192823917726319107, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
+  - {fileID: 3552891465432832539, guid: 0549e2b9d1c498b4c83118cf5e69c218, type: 3}
+  - {fileID: 6142101848488564980, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
+  - {fileID: 4074492470041807097, guid: 4006bda88b399244d9e289696b1df874, type: 3}
+  - {fileID: 7212009335378231290, guid: 28ded0861077dc84682ad579c0732d6f, type: 3}
   currentLaneObjects: []
 --- !u!1 &690753019
 GameObject:
@@ -2484,7 +2488,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2505,6 +2509,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   currentLane: 0
+  maxHP: 100
+  hpDecrement: 0
+  onPlayerStatChanged: {fileID: 0}
+  onPlayerDied: {fileID: 0}
 --- !u!54 &1425427195
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2527,7 +2535,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -2601,6 +2609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   dontDestroyOnLoad: 0
+  mapSpeed: 5
 --- !u!1 &1555383171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,7 +2639,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2fff328afa9a04d813e972b83ca811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
-  laneObjectList: []
+  laneObjectList:
+  - {fileID: -5192823917726319107, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
+  - {fileID: 3552891465432832539, guid: 0549e2b9d1c498b4c83118cf5e69c218, type: 3}
+  - {fileID: 6142101848488564980, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
+  - {fileID: 4074492470041807097, guid: 4006bda88b399244d9e289696b1df874, type: 3}
+  - {fileID: 7212009335378231290, guid: 28ded0861077dc84682ad579c0732d6f, type: 3}
   currentLaneObjects: []
 --- !u!4 &1555383173
 Transform:
@@ -2641,12 +2655,69 @@ Transform:
   m_GameObject: {fileID: 1555383171}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 153.33844}
+  m_LocalPosition: {x: 0, y: -0.00000047683716, z: 66.22521}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 690753021}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1863112425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863112426}
+  - component: {fileID: 1863112427}
+  m_Layer: 0
+  m_Name: Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1863112426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863112425}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1863112427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863112425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 271d761fd815b9f4188cd38db1852611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstaclePool
+  dontDestroyOnLoad: 0
+  obstacleDatas:
+  - type: 0
+    prefab: {fileID: 3720953440862370034, guid: 0549e2b9d1c498b4c83118cf5e69c218, type: 3}
+  - type: 1
+    prefab: {fileID: 4881554015665768165, guid: 4006bda88b399244d9e289696b1df874, type: 3}
+  - type: 2
+    prefab: {fileID: 6182261464962284201, guid: 28ded0861077dc84682ad579c0732d6f, type: 3}
+  - type: 3
+    prefab: {fileID: 6646477587490579054, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
+  - type: 4
+    prefab: {fileID: 6684161305456805488, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
+  defaultParticleType: 0
 --- !u!1 &1904004963
 GameObject:
   m_ObjectHideFlags: 0
@@ -2676,7 +2747,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2fff328afa9a04d813e972b83ca811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
-  laneObjectList: []
+  laneObjectList:
+  - {fileID: -5192823917726319107, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
+  - {fileID: 3552891465432832539, guid: 0549e2b9d1c498b4c83118cf5e69c218, type: 3}
+  - {fileID: 6142101848488564980, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
+  - {fileID: 4074492470041807097, guid: 4006bda88b399244d9e289696b1df874, type: 3}
+  - {fileID: 7212009335378231290, guid: 28ded0861077dc84682ad579c0732d6f, type: 3}
   currentLaneObjects: []
 --- !u!4 &1904004965
 Transform:
@@ -2687,7 +2763,7 @@ Transform:
   m_GameObject: {fileID: 1904004963}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 153.33844}
+  m_LocalPosition: {x: 1, y: -0.00000047683716, z: 66.22521}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2705,3 +2781,4 @@ SceneRoots:
   - {fileID: 75296388}
   - {fileID: 1433911721}
   - {fileID: 690753021}
+  - {fileID: 1863112426}

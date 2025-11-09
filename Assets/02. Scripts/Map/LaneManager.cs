@@ -11,7 +11,7 @@ public class LaneManager : MonoBehaviour
         InitLanes();
     }
 
-    private void Reset()
+    void Reset()
     {
         InitLanes();
     }
@@ -38,4 +38,6 @@ public class LaneManager : MonoBehaviour
             lanes[i].transform.position = new Vector3(xOffset, basePosition.y, basePosition.z);
         }
     }
+
+
 }
