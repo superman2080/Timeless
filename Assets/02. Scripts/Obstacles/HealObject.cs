@@ -1,18 +1,14 @@
-using System.Collections;
 using UnityEngine;
 
-public class Obstacle : InteractionObject
+public class HealObject : InteractionObject
 {
-    [SerializeField] private float damageAmount = 10;
-    public float DamageAmount => damageAmount;
-    public bool ignoreJumpedPlayer = false;
-
+    [SerializeField] private float healAmount = 10;
+    public float HealAmount => healAmount;
 
     protected override void Start()
     {
         base.Start();
         onTargetHitEvent += OnCollded;
-
     }
 
     void FixedUpdate()
@@ -29,13 +25,13 @@ public class Obstacle : InteractionObject
 
     private void OnCollded(ICollisionable collision)
     {
-        if(collision is Player player)
+        if (collision is Player player)
         {
-            if (!ignoreJumpedPlayer && player.IsJump)
+            if (player.IsJump)
                 return;
-            CameraManager.Instance.CameraShake(0.3f, 5f, 0.2f, CameraShakeMode.DECREMENT);
-            player.stat.TakeDamage(DamageAmount);
+
+            player.stat.Heal(HealAmount);
+            gameObject.SetActive(false);    
         }
     }
-
 }

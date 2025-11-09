@@ -1,5 +1,7 @@
-using System.Collections.Generic;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum ObjectType
@@ -23,20 +25,59 @@ public struct ObjectData
     public GameObject prefab;
 }
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public abstract class InteractionObject : MonoBehaviour, ICollisionable
 {
-    public int currentLane;
+    [HideInInspector] public int currentLane;
     public ObjectData objectData;
     public Action<ICollisionable> onTargetHitEvent;
     public Action<ICollisionable> onTakeHitEvent;
 
     private List<ICollisionable> collisionables = new();
     public Collider Col { get; private set; }
+    public Rigidbody Rb { get; private set; }
 
-    private void Start()
+    private Vector3 disposePos;
+    private Coroutine disposeCor;
+
+    protected virtual void Reset()
     {
         Col = gameObject.GetComponent<Collider>();
+        Rb = gameObject.GetComponent<Rigidbody>();
+    }   
+
+    protected virtual void Start()
+    {
+        Col = gameObject.GetComponent<Collider>();
+        Rb = gameObject.GetComponent<Rigidbody>();
+        disposePos = GameManager.Instance.positionLimits.disposePos;
+    }
+
+    protected virtual void OnEnable()
+    {
+        disposeCor = StartCoroutine(DisposeCoroutine());
+    }
+
+    protected virtual void OnDisable()
+    {
+        if (disposeCor != null)
+        {
+            collisionables.Clear();
+            StopCoroutine(disposeCor);
+            disposeCor = null;
+        }
+    }
+    private IEnumerator DisposeCoroutine()
+    {
+        while (true)
+        {
+            if (transform.position.z < disposePos.z)
+            {
+                gameObject.SetActive(false);
+                yield break;
+            }
+            yield return null;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
