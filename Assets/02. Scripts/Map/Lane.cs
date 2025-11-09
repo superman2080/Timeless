@@ -9,13 +9,9 @@ public class Lane : MonoBehaviour
 
     public float LaneX => transform.position.x;
 
-
-    public List<InteractionObject> laneObjectList = new();
-    [HideInInspector] public List<InteractionObject> currentLaneObjects = new();
-
     public void GenerateObstacle(ObjectType type)
     {
-        (Pool<InteractionObject>.Instance as InteractionObjectPool).Get(type, transform.position, Quaternion.identity);
+        var obj = (Pool<InteractionObject>.Instance as InteractionObjectPool).Get(type, transform.position, Quaternion.identity);
     }
 
 
@@ -31,7 +27,7 @@ public class Lane : MonoBehaviour
 
     private void CreateObject()
     {
-        GenerateObstacle(ObjectType.NONE);
+        GenerateObstacle(ObjectType.ROBOT_ARM);
     }
 #endif
 }

@@ -62,7 +62,7 @@ public class Stat<T> where T : MonoBehaviour
 }
 
 [RequireComponent(typeof(Rigidbody))]
-public class Player : MonoBehaviour, ICollisionable
+public class Player : InteractionObject
 {
     public Rigidbody rb { get; private set; }
     private InputHandler handler;
@@ -79,8 +79,6 @@ public class Player : MonoBehaviour, ICollisionable
     public Stat<Player> stat { get; private set; }
     [SerializeField] private float hpDecrement;
     public bool IsJump { get; private set; }
-
-    public Collider Col { get; private set; }
 
     private Coroutine jumpCoroutine;
     #endregion
@@ -104,7 +102,6 @@ public class Player : MonoBehaviour, ICollisionable
         handler = gameObject.GetComponent<InputHandler>();
         playerAnimator = gameObject.GetComponent<PlayerAnimator>();
         rb = gameObject.GetComponent<Rigidbody>();
-        Col = gameObject.GetComponent<Collider>();
         #endregion
 
         #region Position Initialization 

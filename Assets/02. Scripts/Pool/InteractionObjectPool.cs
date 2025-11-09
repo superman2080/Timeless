@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class InteractionObjectPool : Pool<InteractionObject>
 {
-    [SerializeField] private ObjectData[] obstacleDatas;
+    [SerializeField] private ObjectDataSO datas;
     [SerializeField] private ObjectType defaultParticleType = ObjectType.NONE;
     public override GameObject Prefab => GetPrefabByType(defaultParticleType);
 
@@ -22,11 +22,11 @@ public class InteractionObjectPool : Pool<InteractionObject>
     private void InitializeObstacleDict()
     {
         prefabDictionary = new Dictionary<ObjectType, GameObject>();
-        foreach (var data in obstacleDatas)
+        foreach (var data in datas.objectDatas)
         {
             if (data.prefab != null && !prefabDictionary.ContainsKey(data.type))
             {
-                prefabDictionary.Add(data.type, data.prefab);
+                prefabDictionary.Add(data.type, data.prefab.gameObject);
             }
         }
     }
@@ -39,7 +39,7 @@ public class InteractionObjectPool : Pool<InteractionObject>
         }
 
         // Dictionary가 초기화되지 않았을 때 직접 찾기
-        foreach (var data in obstacleDatas)
+        foreach (var data in datas.objectDatas)
         {
             if (data.type == obstacleType && data.prefab != null)
             {
@@ -70,7 +70,7 @@ public class InteractionObjectPool : Pool<InteractionObject>
 
         // 없으면 새로 생성
         var prefab = prefabDictionary[objectType];
-        var newParticle = Instantiate(prefab, Vector3.zero, Quaternion.identity, pool).GetComponent<Obstacle>();
+        var newParticle = Instantiate(prefab, Vector3.zero, Quaternion.identity, pool).GetComponent<InteractionObject>();
         newParticle.objectData.type = objectType;
 
         return newParticle;

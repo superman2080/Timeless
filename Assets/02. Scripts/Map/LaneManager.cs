@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class LaneManager : MonoBehaviour
@@ -9,9 +10,12 @@ public class LaneManager : MonoBehaviour
 
     public float createInterval = 2f;
 
+    private Coroutine generateCoroutine;
+
     void Start()
     {
         InitLanes();
+        generateCoroutine = StartCoroutine(GenerateObjectCoroutine());
     }
 
     void Reset()
@@ -42,5 +46,30 @@ public class LaneManager : MonoBehaviour
         }
     }
 
+    private IEnumerator GenerateObjectCoroutine()
+    {
+        while (true)
+        {
+            int patternIndex = Random.Range(0, objectDataSet.objectSpawnDatas.Length);
+            GeneratePattern(patternIndex);
+            yield return new WaitForSeconds(createInterval);
+        }
+    }
 
+    void GeneratePattern(int patternIndex)
+    {
+        if (objectDataSet == null || patternIndex < 0 || patternIndex >= objectDataSet.objectSpawnDatas.Length)
+        {
+            Debug.LogWarning("Invalid pattern index or object data set is null.");
+            return;
+        }
+        var pattern = objectDataSet.objectSpawnDatas[patternIndex];
+        foreach (var spawnData in pattern.objectSpawnDatas)
+        {
+            if (spawnData.laneIndex >= 0 && spawnData.laneIndex < laneLength)
+            {
+                lanes[spawnData.laneIndex].GenerateObstacle(spawnData.type);
+            }
+        }
+    }
 }

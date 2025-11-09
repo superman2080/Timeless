@@ -35,7 +35,7 @@ public abstract class InteractionObject : MonoBehaviour, ICollisionable
 
     private void Start()
     {
-        Col = GetComponent<Collider>();
+        Col = gameObject.GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider other)
