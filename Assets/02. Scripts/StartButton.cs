@@ -27,5 +27,6 @@ public class StartButton : MonoBehaviour
             // 4. 다음 프레임까지 대기 (메인 스레드 유지)
             yield return null;
         }
+        
     }
 }
