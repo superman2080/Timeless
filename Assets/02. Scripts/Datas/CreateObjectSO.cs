@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -19,11 +18,15 @@ public struct ObjectSpawnData
 [Serializable]
 public class ObjectSpawnDataSet
 {
-    public ObjectSpawnData[] objectSpawnDatas = new ObjectSpawnData[3];
+    [Tooltip("각 행은 동시에 생성될 오브젝트들")]
+    public ObjectSpawnData[][] objectSpawnDatas = new ObjectSpawnData[3][];
 }
 
 [CreateAssetMenu(fileName = "CreateObjectSO", menuName = "Scriptable Objects/CreateObjectSO")]
 public class CreateObjectSO : ScriptableObject
 {
     public ObjectSpawnDataSet[] objectSpawnDatas;
+
+    [Tooltip("패턴 내 각 줄 사이의 생성 간격 (초)")]
+    public float patternIntervalTime = 0.5f;
 }
