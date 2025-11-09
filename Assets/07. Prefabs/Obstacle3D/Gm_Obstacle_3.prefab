@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7655639828780123668}
   - component: {fileID: 6777318558123355439}
+  - component: {fileID: 6142101848488564980}
+  - component: {fileID: -2209344383904733189}
   m_Layer: 0
-  m_Name: Gm_Obstacle_3
+  m_Name: Gm_Obstacle_Fan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,6 +57,47 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 0.5, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6142101848488564980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646477587490579054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d3ffc825387a04a84a6cf762db6c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Obstacle
+  rb: {fileID: 0}
+  obstacleType: 3
+--- !u!54 &-2209344383904733189
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646477587490579054}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1807526966258110553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -235,14 +278,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8210669688854108875}
+      addedObject: {fileID: 3635819649055589199}
   m_SourcePrefab: {fileID: 100100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
 --- !u!1 &7177578346220438173 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
   m_PrefabInstance: {fileID: 7177578346220405821}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8210669688854108875
+--- !u!114 &3635819649055589199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,13 +294,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7177578346220438173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d338aba91db3e3748a1bb66056dff77b, type: 3}
+  m_Script: {fileID: 11500000, guid: 88b3b05c883af044585b37e2dfa7f790, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DrumRotate
-  rotationSpeed: 1
-  X_Rotate: 1
-  Y_Rotate: 0
-  Z_Rotate: 0
+  m_EditorClassIdentifier: Assembly-CSharp::FanRotate
+  rotationSpeed: 100
 --- !u!4 &7177578346220805821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
