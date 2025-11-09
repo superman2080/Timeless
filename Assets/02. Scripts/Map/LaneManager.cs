@@ -77,6 +77,9 @@ public class LaneManager : MonoBehaviour
     {
         foreach (var spawnData in rowData)
         {
+            if (spawnData.type == ObjectType.NONE)
+                continue;
+
             if (spawnData.laneIndex >= 0 && spawnData.laneIndex < laneLength)
             {
                 lanes[spawnData.laneIndex].GenerateObstacle(spawnData.type);

@@ -9,8 +9,13 @@ public class Lane : MonoBehaviour
 
     public float LaneX => transform.position.x;
 
+    private List<InteractionObject> spawnedObjects = new List<InteractionObject>();
+
     public void GenerateObstacle(ObjectType type)
     {
+        if (type == ObjectType.NONE)
+            return;
+
         var obj = (Pool<InteractionObject>.Instance as InteractionObjectPool).Get(type, transform.position, Quaternion.identity);
     }
 
@@ -20,14 +25,4 @@ public class Lane : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector3.back * 1000);
     }
-
-#if UNITY_EDITOR
-
-    [ContextMenu("Create Object")]
-
-    private void CreateObject()
-    {
-        GenerateObstacle(ObjectType.ROBOT_ARM);
-    }
-#endif
 }
