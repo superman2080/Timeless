@@ -26,8 +26,8 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Alpha: 0
-    - _BaseBlinkPower: 0
+    - _Alpha: 0.01
+    - _BaseBlinkPower: 5
     - _Float: 5
     - _Float_1: 0
     - _NoiseDirection: 10

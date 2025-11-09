@@ -487,7 +487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a761c8c204c2a2843bd543a7a0afacd2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 274df73c2f41f1a40a9a357dae4811a6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -534,7 +534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2bc3b5a6d4e4c74e90dbf7e600bddda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartButton
-  sceneToLoad: SampleScene
 --- !u!4 &881459525
 Transform:
   m_ObjectHideFlags: 0
@@ -744,7 +743,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 278994163, guid: aff7df85b4e9d304c86c930905428df3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aff7df85b4e9d304c86c930905428df3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
