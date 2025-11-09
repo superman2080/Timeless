@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class LaneManager : MonoBehaviour
 {
-    public CreateObjectSO objectDataSet;
+    public CreateObjectSO objectDataSet3D;
+    public CreateObjectSO objectDataSet2D;
     public Lane[] lanes;
     public int laneLength => lanes.Length;
     public float laneInterval = 1f;
@@ -50,20 +51,15 @@ public class LaneManager : MonoBehaviour
     {
         while (true)
         {
-            int patternIndex = Random.Range(0, objectDataSet.objectSpawnDatas.Length);
-            GeneratePattern(patternIndex);
+            GeneratePattern(GameManager.Instance.currentViewMode == ViewMode.View2D ? objectDataSet2D : objectDataSet3D);
             yield return new WaitForSeconds(createInterval);
         }
     }
 
-    void GeneratePattern(int patternIndex)
+    void GeneratePattern(CreateObjectSO dataSet)
     {
-        if (objectDataSet == null || patternIndex < 0 || patternIndex >= objectDataSet.objectSpawnDatas.Length)
-        {
-            Debug.LogWarning("Invalid pattern index or object data set is null.");
-            return;
-        }
-        var pattern = objectDataSet.objectSpawnDatas[patternIndex];
+        int patternIndex = Random.Range(0, dataSet.objectSpawnDatas.Length);
+        var pattern = dataSet.objectSpawnDatas[patternIndex];
         foreach (var spawnData in pattern.objectSpawnDatas)
         {
             if (spawnData.laneIndex >= 0 && spawnData.laneIndex < laneLength)
