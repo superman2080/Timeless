@@ -70,10 +70,10 @@ public class InteractionObjectPool : Pool<InteractionObject>
 
         // 없으면 새로 생성
         var prefab = prefabDictionary[objectType];
-        var newParticle = Instantiate(prefab, Vector3.zero, Quaternion.identity, pool).GetComponent<InteractionObject>();
-        newParticle.objectData.type = objectType;
+        var newPrefab = Instantiate(prefab, Vector3.zero, Quaternion.identity, pool).GetComponent<InteractionObject>();
+        newPrefab.objectData.type = objectType;
 
-        return newParticle;
+        return newPrefab;
     }
 
     public InteractionObject Get(ObjectType obstacleType, Vector3 position)

@@ -40,7 +40,8 @@ public class Stat<T> where T : MonoBehaviour
 
         if (HP <= 0)
         {
-            OnDied();
+            Debug.Log("OnDied invoked");    
+            onDied?.Invoke(owner);
         }
     }
 
@@ -52,8 +53,6 @@ public class Stat<T> where T : MonoBehaviour
         onHealed?.Invoke(owner, healAmount);
         HP += Mathf.Abs(healAmount);
     }
-
-    public void OnDied() => onDied?.Invoke(owner);
 
     public void SetMaxHP(float newMaxHP)
     {
@@ -81,8 +80,6 @@ public class Player : InteractionObject
     [SerializeField] private float hpDecrement;
     public bool IsJump { get; private set; }
 
-    public float threshold2DView = 0.5f;
-
     private Coroutine jumpCoroutine;
     #endregion
 
@@ -109,7 +106,9 @@ public class Player : InteractionObject
         stat = new Stat<Player>(this, maxHP);
         stat.onHPChanged += (player, hp) => onPlayerStatChanged.RaiseEvent();
         stat.onHPChanged += (player, hp) => CheckChangeView();
+        stat.onDied += (player) => CameraManager.Instance.FadeGlitch(0.01f, 1f, 1.25f);
         stat.onDied += (player) => onPlayerDied.RaiseEvent();
+        stat.onDied += (player) => this.enabled = false;
         #endregion
 
         #region Component Initialization
