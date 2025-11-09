@@ -19,34 +19,34 @@ public class GameManager : Singleton<GameManager>
 
     public float mapSpeed = 5f;
 
-    public Vector3 generatePos { get; private set; }
-    public Vector3 disposePos { get; private set; }
+    [SerializeField] private Vector3 generatePos = Vector3.forward * 20;
+    [SerializeField] private Vector3 disposePos = Vector3.back * 20;
+    public Vector3 GeneratePos => generatePos;
+    public Vector3 DisposePos => disposePos;
 
-    public (Vector3 generatePos, Vector3 disposePos) positionLimits
-    {
-        get
-        {
-            Vector3 generatePos = Utils.GetTopViewportPosition(0f);
-            Vector3 disposePos = Utils.GetBottomViewportPosition(5f);
-            return (generatePos, disposePos);
-            //if (nowViewMode == ViewMode.View3D)
-            //{
-
-            //}
-            //else
-            //{
-            //    Vector3 generatePos = Utils.GetRightViewportPosition(0.1f);
-            //    Vector3 disposePos = Utils.GetLeftViewportPosition(0.1f);
-            //    return (generatePos, disposePos);
-            //}
-        }
-    }
+    //public (Vector3 generatePos, Vector3 disposePos) positionLimits
+    //{
+    //    get
+    //    {
+    //        //if (nowViewMode == ViewMode.View3D)
+    //        //{
+    //        Vector3 generatePos = Utils.GetTopViewportPosition(1f);
+    //        Vector3 disposePos = Utils.GetBottomViewportPosition(7f);
+    //        return (generatePos, disposePos);
+    //        //}
+    //        //else
+    //        //{
+    //        //    Vector3 generatePos = Utils.GetRightViewportPosition(0.1f);
+    //        //    Vector3 disposePos = Utils.GetLeftViewportPosition(0.1f);
+    //        //    return (generatePos, disposePos);
+    //        //}
+    //    }
+    //}
 
     private void Start()
     {
         player ??= FindAnyObjectByType<Player>();
         laneManager ??= FindAnyObjectByType<LaneManager>();
-        (generatePos, disposePos) = positionLimits;
     }
 
 
@@ -57,9 +57,14 @@ public class GameManager : Singleton<GameManager>
 
         CameraManager.Instance.SwitchCamera(viewMode, changeTime);
         nowViewMode = viewMode;
-
-        (generatePos, disposePos) = positionLimits;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(generatePos, 0.5f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(disposePos, 0.5f);
+    }
 
 }

@@ -26,8 +26,8 @@ public class MapManager : MonoBehaviour
 
     private void InitializeTrackFill()
     {
-        Vector3 currentPos = GameManager.Instance.generatePos;
-        float totalDistance = GameManager.Instance.generatePos.z - GameManager.Instance.disposePos.z;
+        Vector3 currentPos = GameManager.Instance.GeneratePos;
+        float totalDistance = GameManager.Instance.GeneratePos.z - GameManager.Instance.DisposePos.z;
         float filledDistance = 0f;
 
         // disposePos부터 generatePos까지 타일로 채우기
@@ -46,9 +46,9 @@ public class MapManager : MonoBehaviour
     {
         while (true)
         {
-            var lastTile = GenerateTile(nowTrack, GameManager.Instance.generatePos, Quaternion.identity);
+            var lastTile = GenerateTile(nowTrack, GameManager.Instance.GeneratePos, Quaternion.identity);
             // 다음 타일이 생성될 위치 계산 (현재 타일의 끝 지점)
-            float nextGenerateThreshold = GameManager.Instance.generatePos.z - lastTile.TrackSize.z;
+            float nextGenerateThreshold = GameManager.Instance.GeneratePos.z - lastTile.TrackSize.z;
             // 타일의 뒷부분이 생성 위치를 지나갈 때까지 대기
             yield return new WaitUntil(() => lastTile.transform.position.z <= nextGenerateThreshold);
         }
