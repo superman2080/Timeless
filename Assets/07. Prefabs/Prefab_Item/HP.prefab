@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3766569182174070343}
   - component: {fileID: 1432985094913064523}
   m_Layer: 0
-  m_Name: Item_Electric
+  m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
