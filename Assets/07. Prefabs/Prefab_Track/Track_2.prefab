@@ -261,7 +261,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7564091452216739037}
-  - component: {fileID: 504745052695426442}
   m_Layer: 0
   m_Name: Track_2_Wall_L
   m_TagString: Untagged
@@ -286,27 +285,6 @@ Transform:
   - {fileID: 7344564273161220625}
   m_Father: {fileID: 3936386094084171477}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &504745052695426442
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2237216030373705431}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 6.9, z: 12.85}
-  m_Center: {x: 0.85, y: 2.23, z: 0}
 --- !u!1 &2358392343402585585
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +598,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5993554391289494792}
-  - component: {fileID: 2625992285739874558}
   m_Layer: 0
   m_Name: Track_2_Wall_R
   m_TagString: Untagged
@@ -645,27 +622,6 @@ Transform:
   - {fileID: 3879276707568577294}
   m_Father: {fileID: 3936386094084171477}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2625992285739874558
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4893927232738015683}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 6.9, z: 12.85}
-  m_Center: {x: 0.85, y: 2.23, z: 0}
 --- !u!1 &5733946136535636156
 GameObject:
   m_ObjectHideFlags: 0
