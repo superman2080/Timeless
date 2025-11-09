@@ -108,7 +108,7 @@ public class Player : InteractionObject
         stat.onHPChanged += (player, hp) => CheckChangeView();
         stat.onDied += (player) => CameraManager.Instance.FadeGlitch(0.01f, 1f, 1.25f);
         stat.onDied += (player) => onPlayerDied.RaiseEvent();
-        stat.onDied += (player) => this.enabled = false;
+        stat.onDied += (player) => enabled = false;
         #endregion
 
         #region Component Initialization
@@ -195,9 +195,17 @@ public class Player : InteractionObject
         float hpRatio = Mathf.InverseLerp(0, stat.MaxHP, stat.HP);
 
         if (hpRatio <= GameManager.Instance.threshold2DView && GameManager.Instance.currentViewMode == ViewMode.View3D)
+        {
             GameManager.Instance.ChangeViewMode(ViewMode.View2D, 1.5f);
+            GameManager.Instance.audioPlayer.trigger = true;
+            GameManager.Instance.laneManager.RemoveAllLaneObjects();
+        }
         else if (hpRatio >= GameManager.Instance.threshold3DView && GameManager.Instance.currentViewMode == ViewMode.View2D)
+        {
             GameManager.Instance.ChangeViewMode(ViewMode.View3D, 1.5f);
+            GameManager.Instance.audioPlayer.trigger = true;
+            GameManager.Instance.laneManager.RemoveAllLaneObjects();
+        }
     }
 
     private void HPDecrement()

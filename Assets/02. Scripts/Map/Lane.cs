@@ -17,6 +17,19 @@ public class Lane : MonoBehaviour
             return;
 
         var obj = (Pool<InteractionObject>.Instance as InteractionObjectPool).Get(type, transform.position, Quaternion.identity);
+        obj.currentLane = LaneIndex;
+        spawnedObjects.Add(obj);
+    }
+
+    public void RemoveAllObjects()
+    {
+        foreach (var obj in spawnedObjects)
+        {
+            if (obj != null)
+            {
+                Pool<InteractionObject>.Instance.Return(obj);
+            }
+        }
     }
 
 
