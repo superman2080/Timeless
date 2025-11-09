@@ -139,7 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d338aba91db3e3748a1bb66056dff77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrumRotate
-  rotationSpeed: 100
+  rotationSpeed: 10
+  X_Rotate: 0
+  Y_Rotate: 1
+  Z_Rotate: 0
 --- !u!4 &914867883754722508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: caf5c7c1b48bdac4fb4b55bdce19aebf, type: 3}
