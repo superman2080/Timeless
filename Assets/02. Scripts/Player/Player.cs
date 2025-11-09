@@ -81,6 +81,8 @@ public class Player : InteractionObject
     [SerializeField] private float hpDecrement;
     public bool IsJump { get; private set; }
 
+    public float threshold2DView = 0.5f;
+
     private Coroutine jumpCoroutine;
     #endregion
 
@@ -106,6 +108,7 @@ public class Player : InteractionObject
         #region Stat Initialization 
         stat = new Stat<Player>(this, maxHP);
         stat.onHPChanged += (player, hp) => onPlayerStatChanged.RaiseEvent();
+        stat.onHPChanged += (player, hp) => CheckChangeView();
         stat.onDied += (player) => onPlayerDied.RaiseEvent();
         #endregion
 
@@ -148,7 +151,7 @@ public class Player : InteractionObject
     }
     public void ChangeLane(int laneIndex)
     {
-        if (GameManager.Instance.nowViewMode == ViewMode.View2D ||
+        if (GameManager.Instance.currentViewMode == ViewMode.View2D ||
             laneIndex < 0 ||
             laneIndex > GameManager.Instance.laneLength - 1 ||
             changeLaneCor != null)
@@ -181,6 +184,17 @@ public class Player : InteractionObject
         yield return new WaitUntil(() => Utils.IsAnimationTerminated(playerAnimator.animator, 0, "Jump"));
         IsJump = false;
         jumpCoroutine = null;
+    }
+
+    private void CheckChangeView()
+    {
+        // 수정: InverseLerp(min, max, value) 순서
+        float hpRatio = Mathf.InverseLerp(0, stat.MaxHP, stat.HP);
+
+        if (hpRatio <= threshold2DView && GameManager.Instance.currentViewMode == ViewMode.View3D)
+            GameManager.Instance.ChangeViewMode(ViewMode.View2D, 1.5f);
+        else if (hpRatio > threshold2DView && GameManager.Instance.currentViewMode == ViewMode.View2D)
+            GameManager.Instance.ChangeViewMode(ViewMode.View3D, 1.5f);
     }
 
     private void HPDecrement()
