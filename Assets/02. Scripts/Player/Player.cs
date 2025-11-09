@@ -131,7 +131,7 @@ public class Player : InteractionObject
 
     void Move()
     {
-        if (handler.MoveInput != 0)
+        if (handler.MoveInput != 0 && GameManager.Instance.currentViewMode == ViewMode.View3D)
         {
             ChangeLane(currentLane + Convert.ToInt32(handler.MoveInput));
         }

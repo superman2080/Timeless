@@ -37,7 +37,15 @@ public class GameManager : Singleton<GameManager>
             return;
 
         if (viewMode == ViewMode.View2D)
+        {
+            CameraManager.Instance.FadeGlitch(1f, 0.002f, changeTime);
+            CameraManager.Instance.SetPixelateIntensity(4);
             player.ChangeLane(laneLength - 1);
+        }
+        else
+        {
+            CameraManager.Instance.SetPixelateIntensity(1);
+        }
 
         CameraManager.Instance.SwitchCamera(viewMode, changeTime);
         currentViewMode = viewMode;

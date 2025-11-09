@@ -74,6 +74,11 @@ public class PixelateRenderPass : ScriptableRenderPass
         }
     }
 
+    public void UpdatePixelScale(int scale)
+    {
+        pixelScale = scale;
+    }
+
     // Deprecated된 Execute는 RenderGraph를 사용하지 않는 경우를 위한 fallback
     public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
     {
