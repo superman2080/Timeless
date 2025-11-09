@@ -137,13 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d3ffc825387a04a84a6cf762db6c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Obstacle
-  currentLane: 0
-  objectData:
-    type: 0
-    prefab: {fileID: 0}
-  rb: {fileID: -8123399288712338712, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
-  damageAmount: 10
-  ignoreJumpedPlayer: 1
+  rb: {fileID: 0}
+  obstacleType: 0
 --- !u!54 &-4508878795575364011
 Rigidbody:
   m_ObjectHideFlags: 0
