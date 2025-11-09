@@ -124,7 +124,7 @@ public class Player : InteractionObject
     [SerializeField] float invincibleDuration = 5f;
     [SerializeField] float invincibleCooldown = 10f;
     [SerializeField] float invincibleSpeed = 10f;
-    [SerializeField] float normalSpeed = 5f;
+    private float originSpeed;
     public Stat<Player> stat { get; private set; }
     [SerializeField] private float hpDecrement;
     public bool IsJump { get; private set; }
@@ -160,8 +160,9 @@ public class Player : InteractionObject
 
         stat.onHealed += (player, healAmount) => Debug.Log($"Healed: {healAmount}, Current HP: {stat.HP}");
 
+        originSpeed = GameManager.Instance.mapSpeed;
         stat.onInvincibleStart += (player) => GameManager.Instance.mapSpeed = invincibleSpeed;
-        stat.onInvincibleEnd += (player) => GameManager.Instance.mapSpeed = normalSpeed;
+        stat.onInvincibleEnd += (player) => GameManager.Instance.mapSpeed = originSpeed;
         #endregion
 
         #region Component Initialization
