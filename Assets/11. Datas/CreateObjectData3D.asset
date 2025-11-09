@@ -24,7 +24,7 @@ MonoBehaviour:
     - laneIndex: 0
       type: 2
     - laneIndex: 1
-      type: 7
+      type: 3
     - laneIndex: 2
       type: 2
   - objectSpawnDatas:
@@ -33,7 +33,7 @@ MonoBehaviour:
     - laneIndex: 1
       type: 3
     - laneIndex: 2
-      type: 6
+      type: 0
   - objectSpawnDatas:
     - laneIndex: 0
       type: 5
@@ -61,7 +61,7 @@ MonoBehaviour:
     - laneIndex: 1
       type: 1
     - laneIndex: 2
-      type: 7
+      type: 0
   - objectSpawnDatas:
     - laneIndex: 0
       type: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
     - laneIndex: 1
       type: 6
     - laneIndex: 2
-      type: 7
+      type: 6
   - objectSpawnDatas:
     - laneIndex: 0
       type: 6
@@ -115,16 +115,16 @@ MonoBehaviour:
     - laneIndex: 0
       type: 5
     - laneIndex: 1
-      type: 2
+      type: 3
     - laneIndex: 2
-      type: 2
+      type: 3
   - objectSpawnDatas:
     - laneIndex: 0
       type: 0
     - laneIndex: 1
-      type: 6
-    - laneIndex: 2
       type: 0
+    - laneIndex: 2
+      type: 6
   - objectSpawnDatas:
     - laneIndex: 0
       type: 3
