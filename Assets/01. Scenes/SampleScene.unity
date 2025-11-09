@@ -268,12 +268,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17f05eeac9f265468ea330357a42ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
-  nowTrack: 0
+  nowTrack: 1
   trackPrefabs:
   - {fileID: 4885948109782844580, guid: d5601df4b93e1994cbea641d94229156, type: 3}
   - {fileID: 1877101129893443433, guid: 92339e93403a6ef48a879762d2459c06, type: 3}
   - {fileID: 3106388154907336648, guid: 1714833670a2fa849b65cada4a63a9a0, type: 3}
-  nowBackground: 0
+  nowBackground: 1
   backgroundPrefabs:
   - {fileID: 6122623620462098721, guid: 1e3413f02d9b8364d81ff4c8006b216e, type: 3}
   - {fileID: 2120809834971843435, guid: 424476d338bc45649976fac757c27f9c, type: 3}
@@ -619,7 +619,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 0.6
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -681,13 +681,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.7105452, y: -0.018629402, z: 0.022675317, w: 0.7030394}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 90.69101, y: -30, z: -26.653015}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -889,7 +889,7 @@ MonoBehaviour:
   - {fileID: 1555383172}
   - {fileID: 1904004964}
   laneInterval: 1
-  createInterval: 2
+  createInterval: 0.99
 --- !u!4 &690753021
 Transform:
   m_ObjectHideFlags: 0
@@ -3072,7 +3072,7 @@ MonoBehaviour:
     type: 0
     prefab: {fileID: 0}
   maxHP: 100
-  hpDecrement: 0.5
+  hpDecrement: 4
   onPlayerStatChanged: {fileID: 11400000, guid: 8a465a84f1cfec441a5144c0d6c9da99, type: 2}
   onPlayerDied: {fileID: 11400000, guid: 85711a2f47affb245ae1718e84ddd92f, type: 2}
 --- !u!54 &1425427195
@@ -3171,8 +3171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   dontDestroyOnLoad: 0
-  mapSpeed: 5
-  generatePos: {x: 0, y: 0, z: 30}
+  mapSpeed: 10
+  generatePos: {x: 0, y: 0, z: 70}
   disposePos: {x: 0, y: 0, z: -50}
 --- !u!1 &1555383171
 GameObject:
