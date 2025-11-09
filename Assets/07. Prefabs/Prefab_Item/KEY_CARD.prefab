@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 08fc70446a00873498a4a7c69aa90025, type: 2}
+  - {fileID: 2100000, guid: 33900f0cee15d4541a03c8ef601269e9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,8 +155,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 62a9ff6705f924a40b8680c334684fc8, type: 2}
-  - {fileID: 2100000, guid: 50348ddbf80a7a14582cbd63d55c60e7, type: 2}
+  - {fileID: 2100000, guid: 8a5b1563ed0c3a34baee3f44fca4c888, type: 2}
+  - {fileID: 2100000, guid: 33900f0cee15d4541a03c8ef601269e9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -302,4 +302,4 @@ MonoBehaviour:
   objectData:
     type: 0
     prefab: {fileID: 0}
-  healAmount: 10
+  healAmount: 5

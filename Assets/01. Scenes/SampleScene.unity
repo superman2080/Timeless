@@ -1150,6 +1150,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3000725614308387710, guid: 70f736d4e3225a74498656e1f8f1f58a, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4208822017680427628, guid: 70f736d4e3225a74498656e1f8f1f58a, type: 3}
       propertyPath: m_Name
       value: BgmChangeSystem
