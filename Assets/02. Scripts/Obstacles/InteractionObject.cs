@@ -26,6 +26,7 @@ public struct ObjectData
 [RequireComponent(typeof(Collider))]
 public abstract class InteractionObject : MonoBehaviour, ICollisionable
 {
+    public int currentLane;
     public ObjectData objectData;
     public Action<ICollisionable> onTargetHitEvent;
     public Action<ICollisionable> onTakeHitEvent;

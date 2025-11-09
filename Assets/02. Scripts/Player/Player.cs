@@ -69,7 +69,6 @@ public class Player : InteractionObject
     private PlayerAnimator playerAnimator;
 
     #region Relate to Lane
-    public int currentLane;
     private Coroutine changeLaneCor;
     #endregion
 

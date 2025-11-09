@@ -23,9 +23,18 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            Vector3 generatePos = Utils.GetTopViewportPosition(0f);
-            Vector3 disposePos = Utils.GetBottomViewportPosition(5f);
-            return (generatePos, disposePos);
+            if(nowViewMode == ViewMode.View3D)
+            {
+                Vector3 generatePos = Utils.GetTopViewportPosition(0f);
+                Vector3 disposePos = Utils.GetBottomViewportPosition(5f);
+                return (generatePos, disposePos);
+            }
+            else
+            {
+                Vector3 generatePos = Utils.GetRightViewportPosition(0.1f);
+                Vector3 disposePos = Utils.GetLeftViewportPosition(0.1f);
+                return (generatePos, disposePos);
+            }
         }
     }
 
