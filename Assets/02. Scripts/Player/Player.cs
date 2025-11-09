@@ -118,6 +118,7 @@ public class Player : InteractionObject
 
         #region Position Initialization 
         currentLane = Mathf.RoundToInt(GameManager.Instance.laneManager.laneLength / 2);
+        ChangeLane(currentLane);
 
         #endregion
     }
@@ -126,6 +127,9 @@ public class Player : InteractionObject
     {
         Move();
         HPDecrement();
+
+        if(currentLane != GameManager.Instance.laneManager.laneLength - 1 && GameManager.Instance.currentViewMode == ViewMode.View2D)
+            ChangeLane(GameManager.Instance.laneManager.laneLength - 1);
     }
 
     void Move()
