@@ -278,14 +278,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3635819649055589199}
+      addedObject: {fileID: 4185786725048824327}
   m_SourcePrefab: {fileID: 100100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
 --- !u!1 &7177578346220438173 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
   m_PrefabInstance: {fileID: 7177578346220405821}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3635819649055589199
+--- !u!114 &4185786725048824327
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -294,10 +294,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7177578346220438173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b3b05c883af044585b37e2dfa7f790, type: 3}
+  m_Script: {fileID: 11500000, guid: d338aba91db3e3748a1bb66056dff77b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FanRotate
-  rotationSpeed: 100
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectRotate
+  rotationSpeed: 1
+  X_Rotate: 1
+  Y_Rotate: 0
+  Z_Rotate: 0
 --- !u!4 &7177578346220805821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
