@@ -42,7 +42,7 @@ public class GameManager : Singleton<GameManager>
         if (viewMode == ViewMode.View2D)
         {
             CameraManager.Instance.FadeGlitch(1f, 0.002f, changeTime);
-            CameraManager.Instance.SetPixelateIntensity(4);
+            CameraManager.Instance.SetPixelateIntensity(7);
             player.ChangeLane(laneLength - 1);
         }
         else

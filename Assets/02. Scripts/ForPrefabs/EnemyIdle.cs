@@ -23,7 +23,7 @@ public class EnemyIdle : MonoBehaviour
             // 좌우로 움직임
             float sinValue = Mathf.Sin(Time.time * speed) * amplitude;
             
-            transform.position = new Vector3(transform.position.x , transform.position.y + sinValue, transform.position.z);
+            transform.position = new Vector3(transform.position.x + sinValue, transform.position.y, transform.position.z);
             yield return new WaitForSeconds(0.02f);
         }
     }
