@@ -12,5 +12,269 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c482855336ffa234cb47707129e0e4d7, type: 3}
   m_Name: CreateObjectData3D
   m_EditorClassIdentifier: Assembly-CSharp::CreateObjectSO
-  objectSpawnDatas: []
+  objectSpawnDatas:
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 1
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 1
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 1
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 1
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 1
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 1
+      - laneIndex: 2
+        type: 6
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 2
+      - laneIndex: 1
+        type: 2
+      - laneIndex: 2
+        type: 2
+    - spawnDatas:
+      - laneIndex: 0
+        type: 2
+      - laneIndex: 1
+        type: 7
+      - laneIndex: 2
+        type: 2
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 1
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 1
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 1
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 1
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 2
+      - laneIndex: 1
+        type: 2
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 0
+        type: 2
+      - laneIndex: 1
+        type: 6
+      - laneIndex: 2
+        type: 2
+    - spawnDatas:
+      - laneIndex: 0
+        type: 6
+      - laneIndex: 1
+        type: 2
+      - laneIndex: 2
+        type: 2
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 6
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 6
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 6
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 6
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 3
+      - laneIndex: 1
+        type: 3
+      - laneIndex: 2
+        type: 3
+    - spawnDatas:
+      - laneIndex: 0
+        type: 6
+      - laneIndex: 1
+        type: 7
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 1
+      - laneIndex: 2
+        type: 0
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 6
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 3
+      - laneIndex: 1
+        type: 1
+      - laneIndex: 2
+        type: 3
+    - spawnDatas:
+      - laneIndex: 0
+        type: 5
+      - laneIndex: 1
+        type: 7
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 6
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 6
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 6
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 6
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 6
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 4
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 2
+      - laneIndex: 1
+        type: 2
+      - laneIndex: 2
+        type: 1
+    - spawnDatas:
+      - laneIndex: 0
+        type: 5
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 3
+      - laneIndex: 1
+        type: 6
+      - laneIndex: 2
+        type: 6
   patternIntervalTime: 0.5
