@@ -12,5 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c482855336ffa234cb47707129e0e4d7, type: 3}
   m_Name: CreateObjectData2D
   m_EditorClassIdentifier: Assembly-CSharp::CreateObjectSO
-  objectSpawnDatas: []
-  patternIntervalTime: 0.5
+  objectSpawnDatas:
+  - rows:
+    - spawnDatas:
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 2
+        type: 6
+  - rows:
+    - spawnDatas:
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 2
+        type: 2
+    - spawnDatas:
+      - laneIndex: 2
+        type: 0
+  - rows:
+    - spawnDatas:
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 2
+        type: 7
+  - rows:
+    - spawnDatas:
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 2
+        type: 2
+  patternIntervalTime: 0.1

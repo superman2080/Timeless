@@ -277,4 +277,158 @@ MonoBehaviour:
         type: 6
       - laneIndex: 2
         type: 6
-  patternIntervalTime: 0.5
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 5
+      - laneIndex: 1
+        type: 3
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 0
+        type: 5
+      - laneIndex: 1
+        type: 6
+      - laneIndex: 2
+        type: 3
+    - spawnDatas:
+      - laneIndex: 0
+        type: 5
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 7
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 3
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 3
+    - spawnDatas:
+      - laneIndex: 0
+        type: 3
+      - laneIndex: 1
+        type: 6
+      - laneIndex: 2
+        type: 3
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 3
+      - laneIndex: 2
+        type: 0
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 6
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 6
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 4
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 1
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 1
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 1
+      - laneIndex: 2
+        type: 0
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 6
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 1
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 6
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 5
+      - laneIndex: 1
+        type: 2
+      - laneIndex: 2
+        type: 6
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 1
+      - laneIndex: 1
+        type: 7
+      - laneIndex: 2
+        type: 1
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 5
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 6
+  - rows:
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 0
+      - laneIndex: 2
+        type: 0
+    - spawnDatas:
+      - laneIndex: 0
+        type: 3
+      - laneIndex: 1
+        type: 1
+      - laneIndex: 2
+        type: 3
+    - spawnDatas:
+      - laneIndex: 0
+        type: 0
+      - laneIndex: 1
+        type: 7
+      - laneIndex: 2
+        type: 0
+  patternIntervalTime: 0.2
