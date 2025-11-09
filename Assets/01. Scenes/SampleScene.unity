@@ -559,6 +559,8 @@ MonoBehaviour:
   vCam3D: {fileID: 1843902957}
   vCam2D: {fileID: 416059764}
   cinemachineBrain: {fileID: 330585548}
+  glitchPassFeature: {fileID: -2311109924684909148, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
+  pixelateRendererFeature: {fileID: 366104882107767903, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
 --- !u!1 &384966965
 GameObject:
   m_ObjectHideFlags: 0
