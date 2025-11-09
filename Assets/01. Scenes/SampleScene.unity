@@ -787,7 +787,7 @@ Transform:
   m_GameObject: {fileID: 416059763}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 5, y: 1, z: -5}
+  m_LocalPosition: {x: 5.64, y: 0.6, z: -6.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -889,7 +889,7 @@ MonoBehaviour:
   - {fileID: 1555383172}
   - {fileID: 1904004964}
   laneInterval: 1
-  createInterval: 0.99
+  createInterval: 1.5
 --- !u!4 &690753021
 Transform:
   m_ObjectHideFlags: 0
@@ -1360,7 +1360,7 @@ Transform:
   m_GameObject: {fileID: 1416051000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -9}
+  m_LocalPosition: {x: 1, y: 0, z: -9}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3073,6 +3073,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
   maxHP: 100
   hpDecrement: 4
+  threshold2DView: 0.5
   onPlayerStatChanged: {fileID: 11400000, guid: 8a465a84f1cfec441a5144c0d6c9da99, type: 2}
   onPlayerDied: {fileID: 11400000, guid: 85711a2f47affb245ae1718e84ddd92f, type: 2}
 --- !u!54 &1425427195
@@ -3171,7 +3172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   dontDestroyOnLoad: 0
-  mapSpeed: 10
+  mapSpeed: 5.5
   generatePos: {x: 0, y: 0, z: 70}
   disposePos: {x: 0, y: 0, z: -50}
 --- !u!1 &1555383171
