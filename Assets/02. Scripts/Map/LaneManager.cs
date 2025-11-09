@@ -8,9 +8,7 @@ public class LaneManager : MonoBehaviour
     public Lane[] lanes;
     public int laneLength => lanes.Length;
     public float laneInterval = 1f;
-
     public float createInterval = 2f;
-
     private Coroutine generateCoroutine;
 
     void Start()
@@ -27,22 +25,17 @@ public class LaneManager : MonoBehaviour
     void InitLanes()
     {
         lanes = gameObject.GetComponentsInChildren<Lane>();
-
         if (lanes.Length == 0)
         {
             Debug.LogWarning("No lanes found!");
             return;
         }
 
-        // 중앙 인덱스 계산 (짝수/홀수 모두 처리)
         float centerOffset = (laneLength - 1) * 0.5f;
-
         for (int i = 0; i < laneLength; i++)
         {
             float xOffset = (i - centerOffset) * laneInterval;
-
             Vector3 basePosition = Utils.GetTopViewportPosition(0.05f);
-
             lanes[i].transform.position = new Vector3(xOffset, basePosition.y, basePosition.z);
         }
     }
@@ -51,16 +44,36 @@ public class LaneManager : MonoBehaviour
     {
         while (true)
         {
-            GeneratePattern(GameManager.Instance.currentViewMode == ViewMode.View2D ? objectDataSet2D : objectDataSet3D);
+            CreateObjectSO currentDataSet = GameManager.Instance.currentViewMode == ViewMode.View2D
+                ? objectDataSet2D
+                : objectDataSet3D;
+
+            yield return StartCoroutine(GeneratePatternCoroutine(currentDataSet));
             yield return new WaitForSeconds(createInterval);
         }
     }
 
-    void GeneratePattern(CreateObjectSO dataSet)
+    private IEnumerator GeneratePatternCoroutine(CreateObjectSO dataSet)
     {
         int patternIndex = Random.Range(0, dataSet.objectSpawnDatas.Length);
         var pattern = dataSet.objectSpawnDatas[patternIndex];
-        foreach (var spawnData in pattern.objectSpawnDatas)
+
+        // 2차원 배열의 각 행(줄)을 순회
+        for (int row = 0; row < pattern.objectSpawnDatas.Length; row++)
+        {
+            GenerateRow(pattern.objectSpawnDatas[row]);
+
+            // 마지막 줄이 아니면 대기
+            if (row < pattern.objectSpawnDatas.Length - 1)
+            {
+                yield return new WaitForSeconds(dataSet.patternIntervalTime);
+            }
+        }
+    }
+
+    void GenerateRow(ObjectSpawnData[] rowData)
+    {
+        foreach (var spawnData in rowData)
         {
             if (spawnData.laneIndex >= 0 && spawnData.laneIndex < laneLength)
             {
