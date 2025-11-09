@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: prop_battleBus_appendages_mat
   m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
-  m_Parent: {fileID: 2100000, guid: 0e5d844237ac0f24b8993eec3a848007, type: 2}
+  m_Parent: {fileID: 2100000, guid: 098ec8978ce51144a84dc75bebca516e, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _GLOSSINESS_FROM_BASE_ALPHA
