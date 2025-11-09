@@ -2,29 +2,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ObstacleType
-{
-    LASER,      // 레이저
-    BARREL,     // 배럴
-    BLOCKADE,   // 블록
-    FAN,        // 팬
-    ROBOT_ARM,  // 로봇팔
-}
 
-[Serializable]
-public struct ObstacleData
-{
-    public ObstacleType type;
-    public GameObject prefab;
-}
 
-public class ObstaclePool : Pool<Obstacle>
+
+public class InteractionObjectPool : Pool<InteractionObject>
 {
-    [SerializeField] private ObstacleData[] obstacleDatas;
-    [SerializeField] private ObstacleType defaultParticleType = ObstacleType.LASER;
+    [SerializeField] private ObjectData[] obstacleDatas;
+    [SerializeField] private ObjectType defaultParticleType = ObjectType.NONE;
     public override GameObject Prefab => GetPrefabByType(defaultParticleType);
 
-    private Dictionary<ObstacleType, GameObject> prefabDictionary;
+    private Dictionary<ObjectType, GameObject> prefabDictionary;
 
     protected override void Awake()
     {
@@ -34,7 +21,7 @@ public class ObstaclePool : Pool<Obstacle>
 
     private void InitializeObstacleDict()
     {
-        prefabDictionary = new Dictionary<ObstacleType, GameObject>();
+        prefabDictionary = new Dictionary<ObjectType, GameObject>();
         foreach (var data in obstacleDatas)
         {
             if (data.prefab != null && !prefabDictionary.ContainsKey(data.type))
@@ -44,7 +31,7 @@ public class ObstaclePool : Pool<Obstacle>
         }
     }
 
-    public GameObject GetPrefabByType(ObstacleType obstacleType)
+    public GameObject GetPrefabByType(ObjectType obstacleType)
     {
         if (prefabDictionary != null && prefabDictionary.ContainsKey(obstacleType))
         {
@@ -63,18 +50,18 @@ public class ObstaclePool : Pool<Obstacle>
         return null;
     }
 
-    public Obstacle Get(ObstacleType obstacleType)
+    public InteractionObject Get(ObjectType objectType)
     {
-        if (!prefabDictionary.ContainsKey(obstacleType))
+        if (!prefabDictionary.ContainsKey(objectType))
         {
-            Debug.LogWarning($"ParticleType {obstacleType}에 대한 prefab이 설정되지 않았습니다.");
+            Debug.LogWarning($"ParticleType {objectType}에 대한 prefab이 설정되지 않았습니다.");
             return null;
         }
 
         // 해당 타입의 비활성화된 파티클 찾기
         foreach (var child in GetChildList(true))
         {
-            if (!child.gameObject.activeSelf && child.obstacleType == obstacleType)
+            if (!child.gameObject.activeSelf && child.objectData.type == objectType)
             {
                 child.gameObject.SetActive(true);
                 return child;
@@ -82,19 +69,19 @@ public class ObstaclePool : Pool<Obstacle>
         }
 
         // 없으면 새로 생성
-        var prefab = prefabDictionary[obstacleType];
+        var prefab = prefabDictionary[objectType];
         var newParticle = Instantiate(prefab, Vector3.zero, Quaternion.identity, pool).GetComponent<Obstacle>();
-        newParticle.obstacleType = obstacleType;
+        newParticle.objectData.type = objectType;
 
         return newParticle;
     }
 
-    public Obstacle Get(ObstacleType obstacleType, Vector3 position)
+    public InteractionObject Get(ObjectType obstacleType, Vector3 position)
     {
         return Get(obstacleType, position, Quaternion.identity);
     }
 
-    public Obstacle Get(ObstacleType obstacleType, Vector3 position, Quaternion rotation)
+    public InteractionObject Get(ObjectType obstacleType, Vector3 position, Quaternion rotation)
     {
         var obstacle = Get(obstacleType);
         if (obstacle != null)

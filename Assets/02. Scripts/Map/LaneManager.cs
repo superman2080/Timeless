@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class LaneManager : MonoBehaviour
 {
+    public CreateObjectSO objectDataSet;
     public Lane[] lanes;
     public int laneLength => lanes.Length;
     public float laneInterval = 1f;
-    
+
+    public float createInterval = 2f;
+
     void Start()
     {
         InitLanes();
