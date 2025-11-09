@@ -136,9 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e211d7996ba2ae14c858a4f99ef8216a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyIdle
-  IdlePower: 0.005
-  speed: 1
-  amplitude: 1
+  IdlePower: 2
 --- !u!1001 &125175397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1015,7 +1013,7 @@ PrefabInstance:
       objectReference: {fileID: 1504643735}
     - target: {fileID: 7831301881242566878, guid: 424476d338bc45649976fac757c27f9c, type: 3}
       propertyPath: m_VersionIndex
-      value: 5100
+      value: 5055
       objectReference: {fileID: 0}
     - target: {fileID: 8186351999597354316, guid: 424476d338bc45649976fac757c27f9c, type: 3}
       propertyPath: m_Mesh
@@ -1031,7 +1029,7 @@ PrefabInstance:
       objectReference: {fileID: 181042468}
     - target: {fileID: 9098727659530304907, guid: 424476d338bc45649976fac757c27f9c, type: 3}
       propertyPath: m_VersionIndex
-      value: 5100
+      value: 5055
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
