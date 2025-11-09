@@ -93,9 +93,11 @@ public class Player : InteractionObject
 
     protected override void OnEnable()
     {
+        return;
     }
     protected override void OnDisable()
     {
+        return;
     }
 
     protected override void Start()

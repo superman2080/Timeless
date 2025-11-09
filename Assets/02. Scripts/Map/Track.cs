@@ -16,7 +16,7 @@ public class Track : MonoBehaviour
 
     private void OnEnable()
     {
-        if(GameManager.Instance.generatePos == null)
+        if(GameManager.Instance.GeneratePos == null)
         {
             Debug.LogError("Error: Unexpect dispose position");
             Destroy(gameObject);
@@ -26,7 +26,7 @@ public class Track : MonoBehaviour
     private void Update()
     {
         transform.Translate(Vector3.back * GameManager.Instance.mapSpeed * Time.deltaTime);
-        if(transform.position.z <= GameManager.Instance.disposePos.z)
+        if(transform.position.z <= GameManager.Instance.DisposePos.z)
             gameObject.SetActive(false);
     }
 }

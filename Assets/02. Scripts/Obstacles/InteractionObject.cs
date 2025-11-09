@@ -37,7 +37,6 @@ public abstract class InteractionObject : MonoBehaviour, ICollisionable
     public Collider Col { get; private set; }
     public Rigidbody Rb { get; private set; }
 
-    private Vector3 disposePos;
     private Coroutine disposeCor;
 
     protected virtual void Reset()
@@ -50,7 +49,6 @@ public abstract class InteractionObject : MonoBehaviour, ICollisionable
     {
         Col = gameObject.GetComponent<Collider>();
         Rb = gameObject.GetComponent<Rigidbody>();
-        disposePos = GameManager.Instance.positionLimits.disposePos;
     }
 
     protected virtual void OnEnable()
@@ -71,7 +69,7 @@ public abstract class InteractionObject : MonoBehaviour, ICollisionable
     {
         while (true)
         {
-            if (transform.position.z < disposePos.z)
+            if (transform.position.z < GameManager.Instance.DisposePos.z)
             {
                 gameObject.SetActive(false);
                 yield break;
