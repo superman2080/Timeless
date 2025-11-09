@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
@@ -18,21 +20,45 @@ public class CameraManager : Singleton<CameraManager>
     private Coroutine cameraShakeCor;
     private CinemachineCamera cam => cinemachineBrain.ActiveVirtualCamera as CinemachineCamera;
 
-    private bool isSwitching = false;
+    private Queue<IEnumerator> cameraAction = new();
 
     void Start()
     {
         cinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
+        StartCoroutine(CameraActionCoroutine());
+        SwitchCamera(ViewMode.View2D);
+        SwitchCamera(ViewMode.View3D);
+        SwitchCamera(ViewMode.View2D);
+    }
+
+    private IEnumerator CameraActionCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitUntil(() => cameraAction.Count > 0);
+            yield return StartCoroutine(cameraAction.Dequeue());
+            yield return null;
+        }
     }
 
     public void SwitchCamera(ViewMode mode, float switchTime = 1.5f)
     {
-        if (vCam2D == null || vCam3D == null || isSwitching)
+        cameraAction.Enqueue(SwitchCameraCoroutine(mode, switchTime));
+    }
+
+    private IEnumerator SwitchCameraCoroutine(ViewMode mode, float switchTime)
+    {
+        if (vCam2D == null || vCam3D == null)
         {
             Debug.LogError("Cinemachine Cameras are not assigned.");
-            return;
+            yield break;
         }
-        isSwitching = true;
+
+        if(mode == GameManager.Instance.nowViewMode)
+        {
+            Debug.LogWarning("Already in the requested view mode.");
+            yield break;
+        }
 
         cinemachineBrain.DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.EaseOut, switchTime);
 
@@ -47,7 +73,7 @@ public class CameraManager : Singleton<CameraManager>
                 vCam2D.Priority = 10;
                 break;
         }
-        isSwitching = false;
+        yield return new WaitForSeconds(switchTime);
     }
 
     public void CameraShake(float amplitude, float frequency, float duration, CameraShakeMode mode)

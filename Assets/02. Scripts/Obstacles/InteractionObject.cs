@@ -1,83 +1,19 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System;
 using UnityEngine;
 
-public enum ObjectType
-{
-    NONE,
-
-    LASER,      // ∑π¿Ã¿˙
-    BARREL,     // πË∑≤
-    BLOCKADE,   // ∫Ì∑œ
-    FAN,        // ∆“
-    ROBOT_ARM,  // ∑Œ∫ø∆»
-
-    HP,
-    KEY_CARD,
-}
-
-[Serializable]
-public struct ObjectData
-{
-    public ObjectType type;
-    public GameObject prefab;
-}
-
-[RequireComponent(typeof(Collider), typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 public abstract class InteractionObject : MonoBehaviour, ICollisionable
 {
-    [HideInInspector] public int currentLane;
-    public ObjectData objectData;
     public Action<ICollisionable> onTargetHitEvent;
     public Action<ICollisionable> onTakeHitEvent;
 
     private List<ICollisionable> collisionables = new();
     public Collider Col { get; private set; }
-    public Rigidbody Rb { get; private set; }
 
-    private Vector3 disposePos;
-    private Coroutine disposeCor;
-
-    protected virtual void Reset()
+    private void Start()
     {
-        Col = gameObject.GetComponent<Collider>();
-        Rb = gameObject.GetComponent<Rigidbody>();
-    }   
-
-    protected virtual void Start()
-    {
-        Col = gameObject.GetComponent<Collider>();
-        Rb = gameObject.GetComponent<Rigidbody>();
-        disposePos = GameManager.Instance.positionLimits.disposePos;
-    }
-
-    protected virtual void OnEnable()
-    {
-        disposeCor = StartCoroutine(DisposeCoroutine());
-    }
-
-    protected virtual void OnDisable()
-    {
-        if (disposeCor != null)
-        {
-            collisionables.Clear();
-            StopCoroutine(disposeCor);
-            disposeCor = null;
-        }
-    }
-    private IEnumerator DisposeCoroutine()
-    {
-        while (true)
-        {
-            if (transform.position.z < disposePos.z)
-            {
-                gameObject.SetActive(false);
-                yield break;
-            }
-            yield return null;
-        }
+        Col = GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider other)

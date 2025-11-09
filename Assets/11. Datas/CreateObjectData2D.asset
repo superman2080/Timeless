@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83405bbb5f1a7b245a561443f3b1a12e, type: 3}
-  m_Name: OnDiedChannel
-  m_EditorClassIdentifier: Assembly-CSharp::EventChannelSO
+  m_Script: {fileID: 11500000, guid: c482855336ffa234cb47707129e0e4d7, type: 3}
+  m_Name: CreateObjectData2D
+  m_EditorClassIdentifier: Assembly-CSharp::CreateObjectSO
+  objectSpawnDatas: []

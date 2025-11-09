@@ -72,8 +72,8 @@ MonoBehaviour:
   objectData:
     type: 0
     prefab: {fileID: 0}
+  rb: {fileID: 5403452300855011591}
   damageAmount: 10
-  ignoreJumpedPlayer: 0
 --- !u!54 &5403452300855011591
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d338aba91db3e3748a1bb66056dff77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrumRotate
-  rotationSpeed: 2
+  rotationSpeed: 100
   X_Rotate: 0
   Y_Rotate: 0
   Z_Rotate: 0
