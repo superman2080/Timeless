@@ -7169,7 +7169,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1646227679815497318}
+      addedObject: {fileID: 222778415511681487}
   m_SourcePrefab: {fileID: 100100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
 --- !u!4 &3303276355895999176 stripped
 Transform:
@@ -7181,7 +7181,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
   m_PrefabInstance: {fileID: 3303276355896385608}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1646227679815497318
+--- !u!114 &222778415511681487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7190,10 +7190,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3303276355896420072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b3b05c883af044585b37e2dfa7f790, type: 3}
+  m_Script: {fileID: 11500000, guid: d338aba91db3e3748a1bb66056dff77b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FanRotate
-  rotationSpeed: 100
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectRotate
+  rotationSpeed: 1
+  X_Rotate: 1
+  Y_Rotate: 0
+  Z_Rotate: 0
 --- !u!1001 &5625428709886029258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7358,14 +7361,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8170291113871291905}
+      addedObject: {fileID: 9196726865336054190}
   m_SourcePrefab: {fileID: 100100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
 --- !u!1 &7041779725413410777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
   m_PrefabInstance: {fileID: 7041779725413507449}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8170291113871291905
+--- !u!114 &9196726865336054190
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7374,10 +7377,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7041779725413410777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b3b05c883af044585b37e2dfa7f790, type: 3}
+  m_Script: {fileID: 11500000, guid: d338aba91db3e3748a1bb66056dff77b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FanRotate
-  rotationSpeed: 100
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectRotate
+  rotationSpeed: 1
+  X_Rotate: 1
+  Y_Rotate: 0
+  Z_Rotate: 0
 --- !u!4 &7041779725413907449 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a91467bc2f995b649bab090f4e25d82b, type: 3}
