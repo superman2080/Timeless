@@ -22,10 +22,10 @@ MonoBehaviour:
   - type: 3
     prefab: {fileID: 6182261464962284201, guid: 28ded0861077dc84682ad579c0732d6f, type: 3}
   - type: 4
-    prefab: {fileID: 6646477587490579054, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
+    prefab: {fileID: 2804893757738039067, guid: 24453a6cb8f31cc43965e50bf163db89, type: 3}
   - type: 5
     prefab: {fileID: 6684161305456805488, guid: d682bc3ca2fa1414d8013f0219e89603, type: 3}
   - type: 6
-    prefab: {fileID: 0}
+    prefab: {fileID: 3457020723149949087, guid: 98178bc66560b3243b3e4027f6696d35, type: 3}
   - type: 7
-    prefab: {fileID: 0}
+    prefab: {fileID: 3090004366065973286, guid: 6fe40edc31d7da249b4127012e4b4a98, type: 3}
