@@ -191,9 +191,9 @@ public class Player : InteractionObject
         // 수정: InverseLerp(min, max, value) 순서
         float hpRatio = Mathf.InverseLerp(0, stat.MaxHP, stat.HP);
 
-        if (hpRatio <= threshold2DView && GameManager.Instance.currentViewMode == ViewMode.View3D)
+        if (hpRatio <= GameManager.Instance.threshold2DView && GameManager.Instance.currentViewMode == ViewMode.View3D)
             GameManager.Instance.ChangeViewMode(ViewMode.View2D, 1.5f);
-        else if (hpRatio > threshold2DView && GameManager.Instance.currentViewMode == ViewMode.View2D)
+        else if (hpRatio >= GameManager.Instance.threshold3DView && GameManager.Instance.currentViewMode == ViewMode.View2D)
             GameManager.Instance.ChangeViewMode(ViewMode.View3D, 1.5f);
     }
 

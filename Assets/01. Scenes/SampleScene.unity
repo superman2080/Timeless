@@ -885,7 +885,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e952ff689f71948b55620c0c941e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LaneManager
-  objectDataSet: {fileID: 11400000, guid: 59ec27de38916af4c88b756164fa7fd0, type: 2}
+  objectDataSet3D: {fileID: 11400000, guid: 59ec27de38916af4c88b756164fa7fd0, type: 2}
+  objectDataSet2D: {fileID: 11400000, guid: 4ddf50340f37c714596fc1baa99a46cf, type: 2}
   lanes:
   - {fileID: 422546294}
   - {fileID: 1555383172}
@@ -3075,6 +3076,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
   maxHP: 100
   hpDecrement: 4
+  threshold2DView: 0.5
   onPlayerStatChanged: {fileID: 11400000, guid: 8a465a84f1cfec441a5144c0d6c9da99, type: 2}
   onPlayerDied: {fileID: 11400000, guid: 85711a2f47affb245ae1718e84ddd92f, type: 2}
 --- !u!54 &1425427195
@@ -3176,6 +3178,8 @@ MonoBehaviour:
   mapSpeed: 10
   generatePos: {x: 0, y: 0, z: 70}
   disposePos: {x: 0, y: 0, z: -50}
+  threshold2DView: 0.5
+  threshold3DView: 0.7
 --- !u!1 &1555383171
 GameObject:
   m_ObjectHideFlags: 0
