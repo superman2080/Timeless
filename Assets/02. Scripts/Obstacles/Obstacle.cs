@@ -33,6 +33,7 @@ public class Obstacle : InteractionObject
         {
             if (!ignoreJumpedPlayer && player.IsJump)
                 return;
+            CameraManager.Instance.FadeGlitch(0.5f, 0.01f, 0.2f);
             CameraManager.Instance.CameraShake(0.3f, 5f, 0.2f, CameraShakeMode.DECREMENT);
             player.stat.TakeDamage(DamageAmount);
         }
