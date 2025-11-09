@@ -19,6 +19,9 @@ public class GameManager : Singleton<GameManager>
 
     public float mapSpeed = 5f;
 
+    public Vector3 generatePos { get; private set; }
+    public Vector3 disposePos { get; private set; }
+
     public (Vector3 generatePos, Vector3 disposePos) positionLimits
     {
         get
@@ -26,6 +29,16 @@ public class GameManager : Singleton<GameManager>
             Vector3 generatePos = Utils.GetTopViewportPosition(0f);
             Vector3 disposePos = Utils.GetBottomViewportPosition(5f);
             return (generatePos, disposePos);
+            //if (nowViewMode == ViewMode.View3D)
+            //{
+
+            //}
+            //else
+            //{
+            //    Vector3 generatePos = Utils.GetRightViewportPosition(0.1f);
+            //    Vector3 disposePos = Utils.GetLeftViewportPosition(0.1f);
+            //    return (generatePos, disposePos);
+            //}
         }
     }
 
@@ -33,6 +46,7 @@ public class GameManager : Singleton<GameManager>
     {
         player ??= FindAnyObjectByType<Player>();
         laneManager ??= FindAnyObjectByType<LaneManager>();
+        (generatePos, disposePos) = positionLimits;
     }
 
 
@@ -43,6 +57,8 @@ public class GameManager : Singleton<GameManager>
 
         CameraManager.Instance.SwitchCamera(viewMode, changeTime);
         nowViewMode = viewMode;
+
+        (generatePos, disposePos) = positionLimits;
     }
 
 

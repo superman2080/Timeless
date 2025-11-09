@@ -12,6 +12,8 @@ public enum CameraShakeMode
     DECREMENT,
     INCREMENT,
 }
+
+//
 public class CameraManager : Singleton<CameraManager>
 {
     [SerializeField] private CinemachineCamera vCam3D;
@@ -26,9 +28,7 @@ public class CameraManager : Singleton<CameraManager>
     {
         cinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
         StartCoroutine(CameraActionCoroutine());
-        SwitchCamera(ViewMode.View2D);
-        SwitchCamera(ViewMode.View3D);
-        SwitchCamera(ViewMode.View2D);
+        //SwitchCamera(ViewMode.View2D);
     }
 
     private IEnumerator CameraActionCoroutine()
@@ -65,10 +65,12 @@ public class CameraManager : Singleton<CameraManager>
         switch (mode)
         {
             case ViewMode.View3D:
+                Camera.main.cullingMask = ~0;
                 vCam3D.Priority = 10;
                 vCam2D.Priority = 5;
                 break;
             case ViewMode.View2D:
+                Camera.main.cullingMask &= ~LayerMask.GetMask("Right");
                 vCam3D.Priority = 5;
                 vCam2D.Priority = 10;
                 break;

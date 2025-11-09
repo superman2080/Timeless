@@ -19,6 +19,8 @@ public class Stat<T> where T : MonoBehaviour
     public float MaxHP { get; private set; }
 
     public Action<T, float> onHPChanged;
+    public Action<T, float> onTakeDamaged;
+    public Action<T, float> onHealed;
     public Action<T> onDied;
 
     public Stat(T owner, float maxHP)
@@ -33,6 +35,7 @@ public class Stat<T> where T : MonoBehaviour
         if(damage < 0)
             throw new ArgumentOutOfRangeException("Damage cannot be negative.");
 
+        onTakeDamaged?.Invoke(owner, damage);
         HP -= Mathf.Abs(damage);
 
         if (HP <= 0)
@@ -46,6 +49,7 @@ public class Stat<T> where T : MonoBehaviour
         if(healAmount < 0)
             throw new ArgumentOutOfRangeException("Heal amount cannot be negative.");
 
+        onHealed?.Invoke(owner, healAmount);
         HP += Mathf.Abs(healAmount);
     }
 
