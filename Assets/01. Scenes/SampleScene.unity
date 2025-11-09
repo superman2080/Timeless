@@ -255,8 +255,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
-  m_LocalPosition: {x: 5, y: 1, z: -5}
+  m_LocalRotation: {x: 0.3214394, y: 0, z: 0, w: 0.94693017}
+  m_LocalPosition: {x: 0, y: 5.4, z: -12.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -313,7 +313,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
@@ -2801,10 +2801,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5457bf3781fda3043b92b3eb4accc6dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  currentLane: 0
   objectData:
     type: 0
     prefab: {fileID: 0}
-  currentLane: 0
   maxHP: 100
   hpDecrement: 0
   onPlayerStatChanged: {fileID: 0}
