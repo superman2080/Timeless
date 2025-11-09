@@ -303,3 +303,4 @@ MonoBehaviour:
     type: 0
     prefab: {fileID: 0}
   healAmount: 5
+  healSFX: {fileID: 8300000, guid: a710a0cfdfda58249902f804d6c9ffb9, type: 3}

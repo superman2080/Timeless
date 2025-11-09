@@ -32,7 +32,7 @@ public class Obstacle : InteractionObject
     {
         if(collision is Player player)
         {
-            if (!ignoreJumpedPlayer && player.IsJump)
+            if (!ignoreJumpedPlayer && player.IsJump || player.stat.isInvincible)
                 return;
             CameraManager.Instance.FadeGlitch(0.5f, 0.01f, 0.2f);
             CameraManager.Instance.CameraShake(0.3f, 5f, 0.2f, CameraShakeMode.DECREMENT);
