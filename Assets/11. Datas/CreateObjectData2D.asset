@@ -33,13 +33,6 @@ MonoBehaviour:
     - laneIndex: 1
       type: 0
     - laneIndex: 2
-      type: 3
-  - objectSpawnDatas:
-    - laneIndex: 0
-      type: 0
-    - laneIndex: 1
-      type: 0
-    - laneIndex: 2
       type: 7
   - objectSpawnDatas:
     - laneIndex: 0
@@ -47,4 +40,4 @@ MonoBehaviour:
     - laneIndex: 1
       type: 0
     - laneIndex: 2
-      type: 0
+      type: 6

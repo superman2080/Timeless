@@ -51,7 +51,7 @@ MonoBehaviour:
   objectData:
     type: 0
     prefab: {fileID: 0}
-  damageAmount: 10
+  damageAmount: 20
   ignoreJumpedPlayer: 1
 --- !u!54 &-8123399288712338712
 Rigidbody:
