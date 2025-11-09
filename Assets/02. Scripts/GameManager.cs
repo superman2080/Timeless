@@ -49,5 +49,10 @@ public class GameManager : Singleton<GameManager>
     {
         if (viewMode == nowViewMode)
             return;
+
+        CameraManager.Instance.SwitchCamera(viewMode, changeTime);
+        nowViewMode = viewMode;
     }
+
+
 }
