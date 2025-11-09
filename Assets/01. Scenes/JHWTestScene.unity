@@ -416,7 +416,11 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: 14a7c18297045e5468395e6efc9d5d90, type: 3}
   - {fileID: 8300000, guid: 583cc856362205f40898f7f617be0846, type: 3}
-  test: 0
+  - {fileID: 8300000, guid: a1783e6dca623c640b316c2cec701263, type: 3}
+  fadeOut: 1
+  fadeIn: 1
+  trigger: 0
+  clipNumber: 1
 --- !u!82 &618394453
 AudioSource:
   m_ObjectHideFlags: 0
