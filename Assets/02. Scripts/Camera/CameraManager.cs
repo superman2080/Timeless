@@ -73,7 +73,6 @@ public class CameraManager : Singleton<CameraManager>
                 vCam2D.Priority = 10;
                 break;
         }
-        GameManager.Instance.nowViewMode = mode;
         yield return new WaitForSeconds(switchTime);
     }
 
