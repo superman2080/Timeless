@@ -1,9 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.Cinemachine;
+using UnityEditor;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Splines;
 
 public enum CameraShakeMode
@@ -22,13 +26,71 @@ public class CameraManager : Singleton<CameraManager>
     private Coroutine cameraShakeCor;
     private CinemachineCamera cam => cinemachineBrain.ActiveVirtualCamera as CinemachineCamera;
 
+    #region PostProcessing Feature
     private Queue<IEnumerator> cameraAction = new();
+    public FullScreenPassRendererFeature glitchPassFeature;
+    public PixelateRendererFeature pixelateRendererFeature;
+    private Coroutine glitchFadeCor;
+    #endregion
 
     void Start()
     {
         cinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
+
         StartCoroutine(CameraActionCoroutine());
+
+        FadeGlitch(0.3f, 0.002f, 2f);
     }
+
+    #region PostProcessing Feature
+
+    public void SetGlitch(float value)
+    {
+        glitchPassFeature.passMaterial.SetFloat("_Alpha", Mathf.Clamp01(value));
+    }
+
+    public void SetPixelateIntensity(int intensity)
+    {
+        var settings = pixelateRendererFeature.settings;
+        settings.pixelScale = Mathf.Clamp(intensity, 1, 16);
+        pixelateRendererFeature.settings = settings;
+
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(pixelateRendererFeature);
+#endif
+
+        // 또는 URP 렌더러 데이터 갱신
+        var renderPipelineAsset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+        if (renderPipelineAsset != null)
+        {
+            // 렌더러 파이프라인 재초기화
+            QualitySettings.renderPipeline = renderPipelineAsset;
+        }
+    }
+
+    public void FadeGlitch(float startValue, float targetValue, float duration)
+    {
+        if(glitchFadeCor != null)
+            StopCoroutine(glitchFadeCor);
+
+        glitchFadeCor = StartCoroutine(FadeGlitchCoroutine(startValue, targetValue, duration));
+    }
+
+    private IEnumerator FadeGlitchCoroutine(float startValue, float targetValue, float duration)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            float currentValue = Mathf.Clamp01(Mathf.Lerp(startValue, targetValue, elapsedTime / duration));
+            SetGlitch(currentValue);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        SetGlitch(targetValue);
+        glitchFadeCor = null;
+    }
+
+    #endregion
 
     private IEnumerator CameraActionCoroutine()
     {
@@ -126,4 +188,9 @@ public class CameraManager : Singleton<CameraManager>
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        SetGlitch(0.002f);
+        SetPixelateIntensity(1);
+    }
 }
