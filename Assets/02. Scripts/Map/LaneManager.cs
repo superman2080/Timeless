@@ -73,6 +73,14 @@ public class LaneManager : MonoBehaviour
         }
     }
 
+    public void RemoveAllLaneObjects()
+    {
+        foreach (var lane in lanes)
+        {
+            lane.RemoveAllObjects();
+        }
+    }
+
     void GenerateRow(List<ObjectSpawnData> rowData)
     {
         foreach (var spawnData in rowData)
