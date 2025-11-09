@@ -24,8 +24,14 @@ public struct ObjectSpawnData
     public ObjectType type;
 }
 
+[Serializable]
+public class ObjectSpawnDataSet
+{
+    public ObjectSpawnData[] objectSpawnDatas = new ObjectSpawnData[3];
+}
+
 [CreateAssetMenu(fileName = "CreateObjectSO", menuName = "Scriptable Objects/CreateObjectSO")]
 public class CreateObjectSO : ScriptableObject
 {
-    public ObjectSpawnData[] objectSpawnDatas;
+    public ObjectSpawnDataSet[] objectSpawnDatas;
 }
