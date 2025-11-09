@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LaneManager : MonoBehaviour
@@ -53,25 +54,26 @@ public class LaneManager : MonoBehaviour
         }
     }
 
+    // LaneManager.cs 수정
     private IEnumerator GeneratePatternCoroutine(CreateObjectSO dataSet)
     {
-        int patternIndex = Random.Range(0, dataSet.objectSpawnDatas.Length);
+        int patternIndex = Random.Range(0, dataSet.objectSpawnDatas.Count);
         var pattern = dataSet.objectSpawnDatas[patternIndex];
 
-        // 2차원 배열의 각 행(줄)을 순회
-        for (int row = 0; row < pattern.objectSpawnDatas.Length; row++)
+        // 각 행(줄)을 순회
+        for (int row = 0; row < pattern.rows.Count; row++)
         {
-            GenerateRow(pattern.objectSpawnDatas[row]);
+            GenerateRow(pattern.rows[row].spawnDatas);
 
             // 마지막 줄이 아니면 대기
-            if (row < pattern.objectSpawnDatas.Length - 1)
+            if (row < pattern.rows.Count - 1)
             {
                 yield return new WaitForSeconds(dataSet.patternIntervalTime);
             }
         }
     }
 
-    void GenerateRow(ObjectSpawnData[] rowData)
+    void GenerateRow(List<ObjectSpawnData> rowData)
     {
         foreach (var spawnData in rowData)
         {
