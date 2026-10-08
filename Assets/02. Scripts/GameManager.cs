@@ -26,6 +26,7 @@ public class GameManager : Singleton<GameManager>
 
     [Range(0, 1)] public float threshold2DView = 0.5f;
     [Range(0, 1)] public float threshold3DView = 0.7f;
+    [Range(1, 16)] public int pixelateIntensity2D = 7;
 
     public AudioPlayer audioPlayer;
 
@@ -44,7 +45,7 @@ public class GameManager : Singleton<GameManager>
         if (viewMode == ViewMode.View2D)
         {
             CameraManager.Instance.FadeGlitch(1f, 0.002f, changeTime);
-            CameraManager.Instance.SetPixelateIntensity(7);
+            CameraManager.Instance.SetPixelateIntensity(pixelateIntensity2D);
             player.ChangeLane(laneLength - 1);
         }
         else
