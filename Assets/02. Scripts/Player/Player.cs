@@ -11,42 +11,29 @@ public class Stat<T> where T : MonoBehaviour
         get => hp;
         private set
         {
-            onHPChanged?.Invoke(owner, HP);
             hp = Mathf.Clamp(value, 0, MaxHP);
+            onHPChanged?.Invoke(owner, hp);
         }
     }
 
-    public bool isInvincible { get; private set; } = false;
-    private bool isInvincibleCooldown = false;
-    private Coroutine invincibleCoroutine;
-
     public float MaxHP { get; private set; }
-    public float invincibleDuration = 5f;
-    public float invincibleCooldown = 10f;
 
     public Action<T, float> onHPChanged;
     public Action<T, float> onTakeDamaged;
     public Action<T, float> onHealed;
     public Action<T> onDied;
-    public Action<T> onInvincibleStart;
-    public Action<T> onInvincibleEnd;
 
-    public Stat(T owner, float maxHP, float invincibleDuration = 5f, float invincibleCooldown = 10f)
+    public Stat(T owner, float maxHP)
     {
         this.owner = owner;
         MaxHP = maxHP;
         hp = MaxHP;
-        this.invincibleDuration = invincibleDuration;
-        this.invincibleCooldown = invincibleCooldown;
     }
 
     public void TakeDamage(float damage)
     {
         if (damage < 0)
             throw new ArgumentOutOfRangeException("Damage cannot be negative.");
-
-        if (isInvincible)
-            return;
 
         onTakeDamaged?.Invoke(owner, damage);
         HP -= Mathf.Abs(damage);
@@ -63,49 +50,19 @@ public class Stat<T> where T : MonoBehaviour
         if (healAmount < 0)
             throw new ArgumentOutOfRangeException("Heal amount cannot be negative.");
 
-        float previousHP = HP;
         onHealed?.Invoke(owner, healAmount);
         HP += Mathf.Abs(healAmount);
-
-        // 초과 회복 체크: HP가 MaxHP를 초과했고, 무적/쿨다운 상태가 아닐 때
-        if (previousHP < MaxHP && HP >= MaxHP && !isInvincible && !isInvincibleCooldown)
-        {
-            if (invincibleCoroutine != null)
-                owner.StopCoroutine(invincibleCoroutine);
-            invincibleCoroutine = owner.StartCoroutine(InvincibleCoroutine());
-        }
     }
 
+    // 늘어나면 늘어난 만큼 HP도 회복, 줄어들면 최대치로 자름
     public void SetMaxHP(float newMaxHP)
     {
         if (newMaxHP <= 0)
             throw new ArgumentOutOfRangeException(nameof(newMaxHP), "Max HP must be greater than 0.");
 
+        float increase = Mathf.Max(0f, newMaxHP - MaxHP);
         MaxHP = newMaxHP;
-        HP = Mathf.Min(hp, MaxHP);
-    }
-
-    private IEnumerator InvincibleCoroutine()
-    {
-        // 무적 시작
-        isInvincible = true;
-        onInvincibleStart?.Invoke(owner);
-
-        // 무적 지속
-        yield return new WaitForSeconds(invincibleDuration);
-
-        // 무적 종료
-        isInvincible = false;
-        onInvincibleEnd?.Invoke(owner);
-
-        // 쿨다운 시작
-        isInvincibleCooldown = true;
-
-        yield return new WaitForSeconds(invincibleCooldown);
-
-        // 쿨다운 종료
-        isInvincibleCooldown = false;
-        invincibleCoroutine = null;
+        HP = hp + increase;
     }
 }
 
@@ -120,14 +77,18 @@ public class Player : InteractionObject
 
     #region Player Variable
 
-    [SerializeField] float maxHP = 100f;
-    [SerializeField] float invincibleDuration = 5f;
-    [SerializeField] float invincibleCooldown = 10f;
-    [SerializeField] float invincibleSpeed = 10f;
-    private float originSpeed;
     public Stat<Player> stat { get; private set; }
     [SerializeField] private float hpDecrement;
     public bool IsJump { get; private set; }
+    #endregion
+
+    #region State
+    [Header("State")]
+    [Tooltip("시작 형태. 크기/최대 HP 등 기본 스탯")]
+    [SerializeField] PlayerFormSO defaultForm;
+    public PlayerStateMachine StateMachine { get; private set; }
+    public bool IsInvincible => StateMachine.Stats.invincible;
+    private float baseMapSpeed;
     #endregion
 
     #region Jump
@@ -163,7 +124,7 @@ public class Player : InteractionObject
     {
         base.Start();
         #region Stat Initialization 
-        stat = new Stat<Player>(this, maxHP, invincibleDuration, invincibleCooldown);
+        stat = new Stat<Player>(this, defaultForm != null ? defaultForm.stats.maxHP : PlayerStats.Default.maxHP);
         stat.onHPChanged += (player, hp) => onPlayerStatChanged.RaiseEvent();
         stat.onHPChanged += (player, hp) => CheckChangeView();
 
@@ -175,9 +136,13 @@ public class Player : InteractionObject
         stat.onDied += (player) => onPlayerDied.RaiseEvent();
         stat.onDied += (player) => enabled = false;
 
-        originSpeed = GameManager.Instance.mapSpeed;
-        stat.onInvincibleStart += (player) => GameManager.Instance.mapSpeed = invincibleSpeed;
-        stat.onInvincibleEnd += (player) => GameManager.Instance.mapSpeed = originSpeed;
+        #endregion
+
+        #region State Initialization
+        baseMapSpeed = GameManager.Instance.mapSpeed;
+        StateMachine = new PlayerStateMachine(this);
+        StateMachine.onStatsChanged += ApplyStats;
+        StateMachine.ChangeForm(defaultForm);
         #endregion
 
         #region Component Initialization
@@ -198,9 +163,10 @@ public class Player : InteractionObject
     private void Update()
     {
         Move();
+        StateMachine.Tick(Time.deltaTime);
 
         // 무적 상태가 아닐 때만 HP 감소
-        if (!stat.isInvincible)
+        if (!IsInvincible)
         {
             HPDecrement();
         }
@@ -232,8 +198,9 @@ public class Player : InteractionObject
         if (IsJump == true)
             return;
 
-        StartCoroutine(JumpCoroutine());
-        playerAnimator.Jump(airTime);
+        float duration = airTime * StateMachine.Stats.airTimeMultiplier;
+        StartCoroutine(JumpCoroutine(duration));
+        playerAnimator.Jump(duration);
     }
 
     public void ChangeLane(int laneIndex)
@@ -264,12 +231,12 @@ public class Player : InteractionObject
         changeLaneCor = null;
     }
 
-    private IEnumerator JumpCoroutine()
+    private IEnumerator JumpCoroutine(float duration)
     {
         IsJump = true;
-        for (float elapsedTime = 0f; elapsedTime < airTime; elapsedTime += Time.fixedDeltaTime)
+        for (float elapsedTime = 0f; elapsedTime < duration; elapsedTime += Time.fixedDeltaTime)
         {
-            jumpOffsetY = jumpCurve.Evaluate(elapsedTime / airTime);
+            jumpOffsetY = jumpCurve.Evaluate(elapsedTime / duration) * StateMachine.Stats.jumpHeightMultiplier;
             yield return new WaitForFixedUpdate();
         }
         jumpOffsetY = 0f;
@@ -296,7 +263,25 @@ public class Player : InteractionObject
 
     private void HPDecrement()
     {
-        stat.TakeDamage(hpDecrement * Time.deltaTime);
+        stat.TakeDamage(hpDecrement * StateMachine.Stats.hpDecrementMultiplier * Time.deltaTime);
+    }
+
+    // 장애물 피격. 무적이면 무시, 형태/효과의 OnHit을 거친 남은 데미지만 적용
+    public void TakeHit(float damage)
+    {
+        if (IsInvincible)
+            return;
+
+        damage = StateMachine.ProcessHit(damage);
+        if (damage > 0f)
+            stat.TakeDamage(damage);
+    }
+
+    private void ApplyStats(PlayerStats stats)
+    {
+        transform.localScale = Vector3.one * stats.scale;
+        stat.SetMaxHP(stats.maxHP);
+        GameManager.Instance.mapSpeed = baseMapSpeed * stats.mapSpeedMultiplier;
     }
 
     private void Restart()
