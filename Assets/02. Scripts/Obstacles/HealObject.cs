@@ -28,7 +28,7 @@ public class HealObject : InteractionObject
     {
         if (collision is Player player)
         {
-            if (player.IsJump)
+            if (player.IsJump != isUpper)
                 return;
 
             AudioSource.PlayClipAtPoint(healSFX, player.transform.position, 0.5f);

@@ -32,7 +32,9 @@ public class Obstacle : InteractionObject
     {
         if(collision is Player player)
         {
-            if (!ignoreJumpedPlayer && player.IsJump || player.stat.isInvincible)
+            // 상단 오브젝트는 점프 중에만, 하단은 지상(또는 ignoreJumpedPlayer)일 때만 판정
+            bool hit = isUpper ? player.IsJump : (ignoreJumpedPlayer || !player.IsJump);
+            if (!hit || player.stat.isInvincible)
                 return;
             CameraManager.Instance.FadeGlitch(0.5f, 0.01f, 0.2f);
             CameraManager.Instance.CameraShake(0.3f, 5f, 0.2f, CameraShakeMode.DECREMENT);

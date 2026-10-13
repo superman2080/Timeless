@@ -7,7 +7,9 @@ public class LaneManager : MonoBehaviour
     public CreateObjectSO objectDataSet3D;
     public CreateObjectSO objectDataSet2D;
     public Lane[] lanes;
+    public Lane[] upperLanes;
     public int laneLength => lanes.Length;
+    public float upperLaneHeight = 2.5f;
     public float laneInterval = 1f;
     public float createInterval = 2f;
     private Coroutine generateCoroutine;
@@ -23,21 +25,46 @@ public class LaneManager : MonoBehaviour
         InitLanes();
     }
 
+#if UNITY_EDITOR
+    // 에디터에서도 런타임과 같은 위치로 배치 → 씬 뷰 Gizmo가 실제 레인 위치와 일치
+    // (OnValidate 안에서 Transform을 바로 바꾸면 경고가 나므로 delayCall로 미룸)
+    void OnValidate()
+    {
+        UnityEditor.EditorApplication.delayCall -= InitLanesInEditor;
+        UnityEditor.EditorApplication.delayCall += InitLanesInEditor;
+    }
+
+    void InitLanesInEditor()
+    {
+        if (this != null && !Application.isPlaying)
+            InitLanes();
+    }
+#endif
+
     void InitLanes()
     {
-        lanes = gameObject.GetComponentsInChildren<Lane>();
+        var allLanes = gameObject.GetComponentsInChildren<Lane>();
+        lanes = System.Array.FindAll(allLanes, lane => !lane.IsUpper);
+        upperLanes = System.Array.FindAll(allLanes, lane => lane.IsUpper);
         if (lanes.Length == 0)
         {
             Debug.LogWarning("No lanes found!");
             return;
         }
 
-        float centerOffset = (laneLength - 1) * 0.5f;
-        for (int i = 0; i < laneLength; i++)
+        Vector3 basePosition = Utils.GetTopViewportPosition(0.05f);
+        PlaceLanes(lanes, basePosition);
+        PlaceLanes(upperLanes, basePosition + Vector3.up * upperLaneHeight);
+    }
+
+    void PlaceLanes(Lane[] targets, Vector3 basePosition)
+    {
+        float centerOffset = (targets.Length - 1) * 0.5f;
+        for (int i = 0; i < targets.Length; i++)
         {
             float xOffset = (i - centerOffset) * laneInterval;
-            Vector3 basePosition = Utils.GetTopViewportPosition(0.05f);
-            lanes[i].transform.position = new Vector3(xOffset, basePosition.y, basePosition.z);
+            targets[i].transform.position = new Vector3(xOffset, basePosition.y, basePosition.z);
+            targets[i].LaneIndex = i;
         }
     }
 
@@ -79,6 +106,10 @@ public class LaneManager : MonoBehaviour
         {
             lane.RemoveAllObjects();
         }
+        foreach (var lane in upperLanes)
+        {
+            lane.RemoveAllObjects();
+        }
     }
 
     void GenerateRow(List<ObjectSpawnData> rowData)
@@ -88,9 +119,10 @@ public class LaneManager : MonoBehaviour
             if (spawnData.type == ObjectType.NONE)
                 continue;
 
-            if (spawnData.laneIndex >= 0 && spawnData.laneIndex < laneLength)
+            var targets = spawnData.upper ? upperLanes : lanes;
+            if (spawnData.laneIndex >= 0 && spawnData.laneIndex < targets.Length)
             {
-                lanes[spawnData.laneIndex].GenerateObstacle(spawnData.type);
+                targets[spawnData.laneIndex].GenerateObstacle(spawnData.type);
             }
         }
     }

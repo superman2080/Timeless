@@ -130,6 +130,19 @@ public class Player : InteractionObject
     public bool IsJump { get; private set; }
     #endregion
 
+    #region Jump
+    [Header("Jump")]
+    [Tooltip("체공 시간(초)")]
+    [SerializeField] float airTime = 0.5f;
+    [Tooltip("체공 그래프. x: 0~1 정규화 시간, y: 높이(월드 유닛)")]
+    [SerializeField] AnimationCurve jumpCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1.5f), new Keyframe(1, 0));
+    [Tooltip("점프 중 레인 변경 허용")]
+    [SerializeField] bool allowLaneChangeWhileJumping = true;
+    private float groundY;
+    private float jumpOffsetY;
+    private float laneX;
+    #endregion
+
     #region EventChannels
 
     public EventChannelSO onPlayerStatChanged;
@@ -173,6 +186,8 @@ public class Player : InteractionObject
         #endregion
 
         #region Position Initialization 
+        groundY = Rb.position.y;
+        laneX = Rb.position.x;
         currentLane = Mathf.RoundToInt(GameManager.Instance.laneManager.laneLength / 2);
         ChangeLane(currentLane);
         #endregion
@@ -194,6 +209,12 @@ public class Player : InteractionObject
             ChangeLane(GameManager.Instance.laneManager.laneLength - 1);
     }
 
+    private void FixedUpdate()
+    {
+        // 레인 이동(X)과 점프(Y)를 한 번의 MovePosition으로 합성
+        Rb.MovePosition(new Vector3(laneX, groundY + jumpOffsetY, Rb.position.z));
+    }
+
     void Move()
     {
         if (handler.MoveInput != 0 && GameManager.Instance.currentViewMode == ViewMode.View3D)
@@ -212,7 +233,7 @@ public class Player : InteractionObject
             return;
 
         StartCoroutine(JumpCoroutine());
-        playerAnimator.Jump();
+        playerAnimator.Jump(airTime);
     }
 
     public void ChangeLane(int laneIndex)
@@ -220,7 +241,8 @@ public class Player : InteractionObject
         if (GameManager.Instance.currentViewMode == ViewMode.View2D ||
             laneIndex < 0 ||
             laneIndex > GameManager.Instance.laneLength - 1 ||
-            changeLaneCor != null)
+            changeLaneCor != null ||
+            (!allowLaneChangeWhileJumping && IsJump))
             return;
 
         changeLaneCor = StartCoroutine(ChangeLaneCoroutine(laneIndex, 0.1f));
@@ -228,18 +250,16 @@ public class Player : InteractionObject
 
     private IEnumerator ChangeLaneCoroutine(int laneIndex, float changeTime = 0.2f)
     {
-        var origin = Rb.position;
-        var target = new Vector3(GameManager.Instance.laneManager.lanes[laneIndex].LaneX, Rb.position.y, Rb.position.z);
+        float originX = laneX;
+        float targetX = GameManager.Instance.laneManager.lanes[laneIndex].LaneX;
 
         for (float elapsedTime = 0f; elapsedTime < changeTime; elapsedTime += Time.fixedDeltaTime)
         {
-            float t = elapsedTime / changeTime;
-            var step = Vector3.Lerp(origin, target, t);
-            Rb.MovePosition(step);
+            laneX = Mathf.Lerp(originX, targetX, elapsedTime / changeTime);
             yield return new WaitForFixedUpdate();
         }
 
-        Rb.position = target;
+        laneX = targetX;
         currentLane = laneIndex;
         changeLaneCor = null;
     }
@@ -247,7 +267,12 @@ public class Player : InteractionObject
     private IEnumerator JumpCoroutine()
     {
         IsJump = true;
-        yield return new WaitUntil(() => Utils.IsAnimationTerminated(playerAnimator.animator, 0, "Jump"));
+        for (float elapsedTime = 0f; elapsedTime < airTime; elapsedTime += Time.fixedDeltaTime)
+        {
+            jumpOffsetY = jumpCurve.Evaluate(elapsedTime / airTime);
+            yield return new WaitForFixedUpdate();
+        }
+        jumpOffsetY = 0f;
         IsJump = false;
     }
 

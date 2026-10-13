@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class Lane : MonoBehaviour
 {
-    public int LaneIndex { get; private set; }
+    [SerializeField] private bool isUpper;
+    public bool IsUpper => isUpper;
+
+    public int LaneIndex { get; set; }
 
     public float LaneX => transform.position.x;
 
@@ -18,6 +21,7 @@ public class Lane : MonoBehaviour
 
         var obj = (Pool<InteractionObject>.Instance as InteractionObjectPool).Get(type, transform.position, Quaternion.identity);
         obj.currentLane = LaneIndex;
+        obj.isUpper = isUpper;
         spawnedObjects.Add(obj);
     }
 
@@ -35,7 +39,8 @@ public class Lane : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = isUpper ? Color.blue : Color.red;
         Gizmos.DrawRay(transform.position, Vector3.back * 1000);
+        Gizmos.DrawWireSphere(transform.position, 0.2f);
     }
 }

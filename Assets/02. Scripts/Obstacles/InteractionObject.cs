@@ -29,6 +29,7 @@ public struct ObjectData
 public abstract class InteractionObject : MonoBehaviour, ICollisionable
 {
     [HideInInspector] public int currentLane;
+    [HideInInspector] public bool isUpper;
     public ObjectData objectData;
     public Action<ICollisionable> onTargetHitEvent;
     public Action<ICollisionable> onTakeHitEvent;
