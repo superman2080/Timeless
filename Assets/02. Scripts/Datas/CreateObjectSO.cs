@@ -8,11 +8,14 @@ public struct ObjectSpawnData
     [Tooltip("스폰 위치의 라인 인덱스 (0: 왼쪽, 1: 중앙, 2: 오른쪽...)")]
     public int laneIndex;
     public ObjectType type;
+    [Tooltip("상단 레인에 생성 (점프 중에만 판정)")]
+    public bool upper;
 
-    public ObjectSpawnData(int laneIndex = 0, ObjectType type = ObjectType.NONE)
+    public ObjectSpawnData(int laneIndex = 0, ObjectType type = ObjectType.NONE, bool upper = false)
     {
         this.laneIndex = laneIndex;
         this.type = type;
+        this.upper = upper;
     }
 }
 
