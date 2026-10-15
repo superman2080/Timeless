@@ -12,69 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c482855336ffa234cb47707129e0e4d7, type: 3}
   m_Name: CreateObjectData2D
   m_EditorClassIdentifier: Assembly-CSharp::CreateObjectSO
-  objectSpawnDatas:
-  - rows:
-    - spawnDatas:
-      - laneIndex: 2
-        type: 6
-        upper: 0
-    - spawnDatas:
-      - laneIndex: 2
-        type: 6
-        upper: 0
-    - spawnDatas:
-      - laneIndex: 2
-        type: 6
-        upper: 0
-  - rows:
-    - spawnDatas:
-      - laneIndex: 2
-        type: 0
-        upper: 0
-    - spawnDatas:
-      - laneIndex: 2
-        type: 2
-        upper: 0
-    - spawnDatas:
-      - laneIndex: 2
-        type: 0
-        upper: 0
-  - rows:
-    - spawnDatas:
-      - laneIndex: 2
-        type: 6
-        upper: 0
-    - spawnDatas:
-      - laneIndex: 2
-        type: 6
-        upper: 0
-    - spawnDatas:
-      - laneIndex: 2
-        type: 7
-        upper: 0
-  - rows:
-    - spawnDatas:
-      - laneIndex: 2
-        type: 0
-        upper: 0
-    - spawnDatas:
-      - laneIndex: 2
-        type: 0
-        upper: 0
-    - spawnDatas:
-      - laneIndex: 2
-        type: 2
-        upper: 0
-  - rows:
-    - spawnDatas:
-      - laneIndex: 2
-        type: 3
-        upper: 0
-      - laneIndex: 2
-        type: 6
-        upper: 1
-    - spawnDatas:
-      - laneIndex: 2
-        type: 3
-        upper: 1
-  patternIntervalTime: 0.1
+  patterns:
+  - pattern: {fileID: 11400000, guid: 1d14e8f64354a944e93ccff085ac0e85, type: 2}
+    percent: 20
+  - pattern: {fileID: 11400000, guid: 77835a827b45a3f43a403b8cac8f012c, type: 2}
+    percent: 20
+  - pattern: {fileID: 11400000, guid: 829f07b86cfd1b7428b4154a0ad94a9e, type: 2}
+    percent: 20
+  - pattern: {fileID: 11400000, guid: a2a04c5432b873f4f85ca872da3ad4ff, type: 2}
+    percent: 20
+  - pattern: {fileID: 11400000, guid: 63816089b408bdc43a24fef7191cee03, type: 2}
+    percent: 20
+  rowDistance: 0.9

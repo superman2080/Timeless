@@ -11,7 +11,9 @@ public class LaneManager : MonoBehaviour
     public int laneLength => lanes.Length;
     public float upperLaneHeight = 2.5f;
     public float laneInterval = 1f;
-    public float createInterval = 2f;
+    [Tooltip("패턴 사이 거리 (유닛)")]
+    public float patternDistance = 9f;
+    private float distanceRemain; // 남은 대기 거리. 음수 = 직전 대기에서 초과 이동한 거리(이월)
     private Coroutine generateCoroutine;
 
     void Start()
@@ -77,26 +79,38 @@ public class LaneManager : MonoBehaviour
                 : objectDataSet3D;
 
             yield return StartCoroutine(GeneratePatternCoroutine(currentDataSet));
-            yield return new WaitForSeconds(createInterval);
+            yield return WaitDistance(patternDistance);
         }
     }
 
     // LaneManager.cs 수정
     private IEnumerator GeneratePatternCoroutine(CreateObjectSO dataSet)
     {
-        int patternIndex = Random.Range(0, dataSet.objectSpawnDatas.Count);
-        var pattern = dataSet.objectSpawnDatas[patternIndex];
+        var pattern = dataSet.PickRandom();
+        if (pattern == null)
+            yield break;
 
         // 각 행(줄)을 순회
         for (int row = 0; row < pattern.rows.Count; row++)
         {
-            GenerateRow(pattern.rows[row].spawnDatas);
+            GenerateRow(pattern.rows[row]);
 
             // 마지막 줄이 아니면 대기
             if (row < pattern.rows.Count - 1)
             {
-                yield return new WaitForSeconds(dataSet.patternIntervalTime);
+                yield return WaitDistance(dataSet.rowDistance);
             }
+        }
+    }
+
+    // 오브젝트가 FixedUpdate로 이동하므로 같은 단위로 누적해야 실제 간격과 일치
+    private IEnumerator WaitDistance(float distance)
+    {
+        distanceRemain += distance;
+        while (distanceRemain > 0f)
+        {
+            yield return new WaitForFixedUpdate();
+            distanceRemain -= GameManager.Instance.mapSpeed * Time.fixedDeltaTime;
         }
     }
 
@@ -112,18 +126,20 @@ public class LaneManager : MonoBehaviour
         }
     }
 
-    void GenerateRow(List<ObjectSpawnData> rowData)
+    void GenerateRow(PatternRow row)
     {
-        foreach (var spawnData in rowData)
-        {
-            if (spawnData.type == ObjectType.NONE)
-                continue;
+        GenerateRow(row.lower, lanes);
+        GenerateRow(row.upper, upperLanes);
+    }
 
-            var targets = spawnData.upper ? upperLanes : lanes;
-            if (spawnData.laneIndex >= 0 && spawnData.laneIndex < targets.Length)
-            {
-                targets[spawnData.laneIndex].GenerateObstacle(spawnData.type);
-            }
+    void GenerateRow(ObjectType[] types, Lane[] targets)
+    {
+        for (int i = 0; i < types.Length && i < targets.Length; i++)
+        {
+            // ZombieBee는 동시 1마리, 3D에서만 생성
+            if (types[i] == ObjectType.ZOMBIE_BEE && (ZombieBee.ActiveCount > 0 || GameManager.Instance.currentViewMode == ViewMode.View2D))
+                continue;
+            targets[i].GenerateObstacle(types[i]);
         }
     }
 }

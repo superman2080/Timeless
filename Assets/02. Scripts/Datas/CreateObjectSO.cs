@@ -3,41 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct ObjectSpawnData
+public class PatternEntry
 {
-    [Tooltip("½ºÆù À§Ä¡ÀÇ ¶óÀÎ ÀÎµ¦½º (0: ¿ŞÂÊ, 1: Áß¾Ó, 2: ¿À¸¥ÂÊ...)")]
-    public int laneIndex;
-    public ObjectType type;
-    [Tooltip("»ó´Ü ·¹ÀÎ¿¡ »ı¼º (Á¡ÇÁ Áß¿¡¸¸ ÆÇÁ¤)")]
-    public bool upper;
-
-    public ObjectSpawnData(int laneIndex = 0, ObjectType type = ObjectType.NONE, bool upper = false)
-    {
-        this.laneIndex = laneIndex;
-        this.type = type;
-        this.upper = upper;
-    }
-}
-
-[Serializable]
-public class ObjectSpawnRow
-{
-    [Tooltip("ÀÌ ÁÙ¿¡¼­ µ¿½Ã¿¡ »ı¼ºµÉ ¿ÀºêÁ§Æ®µé (°¢ ·¹ÀÎº°)")]
-    public List<ObjectSpawnData> spawnDatas = new List<ObjectSpawnData>();
-}
-
-[Serializable]
-public class ObjectSpawnDataSet
-{
-    [Tooltip("°¢ ÇàÀº patternIntervalTime °£°İÀ¸·Î »ı¼ºµÊ")]
-    public List<ObjectSpawnRow> rows = new List<ObjectSpawnRow>();
+    public PatternDataSO pattern;
+    [Range(0, 100)] public float percent;
 }
 
 [CreateAssetMenu(fileName = "CreateObjectSO", menuName = "Scriptable Objects/CreateObjectSO")]
 public class CreateObjectSO : ScriptableObject
 {
-    public List<ObjectSpawnDataSet> objectSpawnDatas = new List<ObjectSpawnDataSet>();
+    [Tooltip("íŒ¨í„´ë³„ ë“±ì¥ í™•ë¥ (%). í•©ì´ 100ì´ì–´ì•¼ í•¨")]
+    public List<PatternEntry> patterns = new List<PatternEntry>();
 
-    [Tooltip("ÆĞÅÏ ³» °¢ ÁÙ »çÀÌÀÇ »ı¼º °£°İ (ÃÊ)")]
-    public float patternIntervalTime = 0.5f;
+    [Tooltip("íŒ¨í„´ ë‚´ ê° ì¤„ ì‚¬ì´ ê±°ë¦¬ (ìœ ë‹›)")]
+    public float rowDistance = 1.8f;
+
+    // ëˆ„ì  % ê¸°ì¤€ ì„ íƒ. í•©ì´ 100ì´ ì•„ë‹ˆì–´ë„ í•©ê³„ ë¹„ìœ¨ë¡œ ë™ì‘
+    public PatternDataSO PickRandom()
+    {
+        float total = 0f;
+        foreach (var e in patterns)
+            if (e.pattern != null) total += e.percent;
+        if (total <= 0f)
+            return null;
+
+        float r = UnityEngine.Random.value * total;
+        PatternDataSO last = null;
+        foreach (var e in patterns)
+        {
+            if (e.pattern == null || e.percent <= 0f)
+                continue;
+            last = e.pattern;
+            r -= e.percent;
+            if (r < 0f)
+                return e.pattern;
+        }
+        return last;
+    }
 }

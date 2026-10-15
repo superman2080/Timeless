@@ -32,7 +32,7 @@ Timeless — Unity 6 (`6000.6.2f1`), URP 기반 3레인 러너 게임. 플레이
 
 - 씬: `Assets/01. Scenes/Title.unity` → `SampleScene.unity` (빌드 순서). `BackGroundTestScene`, `JHWTestScene`은 개인 테스트용.
 - 주요 패키지: URP 17 (Render Graph), Cinemachine 3 (`Unity.Cinemachine` 네임스페이스), Input System, ProBuilder.
-- 모든 게임 코드는 `Assets/02. Scripts/` 아래 단일 `Assembly-CSharp`에 있음 (asmdef 없음, 네임스페이스 없음).
+- 모든 게임 코드는 `Assets/02. Scripts/` 아래 단일 `Assembly-CSharp`에 있음 (asmdef 없음, 네임스페이스 없음). 에디터 전용 코드는 `Assets/02. Scripts/Editor/`.
 - 테스트 코드 없음. 빌드/실행은 Unity 에디터에서.
 
 ## 명령
@@ -64,12 +64,14 @@ unity command eval_file --project-path . --file <윈도우 절대경로.cs>  # C
 - `Track` / `BackgroundManager`: `Update`에서 `Translate`, `DisposePos.z`를 지나면 `SetActive(false)`.
 - `MapManager`: 시작 시 `GeneratePos`~`DisposePos` 구간을 트랙/배경으로 채우고, 코루틴으로 마지막 타일이 자기 길이만큼 이동하면 다음 타일 생성. 자식 중 비활성 오브젝트를 재사용하는 자체 풀링.
 - `InteractionObject` 계열: `FixedUpdate`에서 `Rb.MovePosition`으로 이동, `DisposePos` 지나면 비활성화.
-- 무적 상태에서는 `Player`가 `mapSpeed` 자체를 바꿈(`invincibleSpeed` ↔ 원래 속도).
+- `mapSpeed`는 `Player.ApplyStats`가 플레이어 상태(형태/효과)의 월드 속도 배율로 바꿈.
 
 ### 레인 & 스폰
 - `LaneManager`가 자식 `Lane`들을 `laneInterval` 간격으로 카메라 상단 뷰포트(y=0 평면 교차점, `Utils.GetTopViewportPosition`) 위치에 배치.
-- 스폰 패턴은 `CreateObjectSO` 에셋(`Assets/11. Datas/CreateObjectData3D.asset`, `CreateObjectData2D.asset`): 패턴 목록 → 각 패턴은 행(row) 목록 → 각 행은 `(laneIndex, ObjectType)` 목록. 현재 뷰 모드에 따라 2D/3D 데이터셋 선택, 랜덤 패턴을 `patternIntervalTime` 간격으로 행 단위 생성.
-- `ObjectType` → 프리팹 매핑은 `ObjectDataSO`(`ObjectData.asset`). 새 장애물 추가 시: `ObjectType` enum(`InteractionObject.cs`)에 값 추가 → 프리팹에 `Obstacle`/`HealObject` 등 부착 → `ObjectData.asset`에 등록 → 패턴 에셋에 배치.
+- 스폰 데이터: `CreateObjectSO` 에셋(`Assets/11. Datas/CreateObjectData3D.asset`, `CreateObjectData2D.asset`)이 `PatternDataSO` 목록 + 패턴별 등장 확률(%, 합 100)을 관리. 현재 뷰 모드에 따라 2D/3D 데이터셋 선택, `PickRandom()`으로 패턴을 골라 행 단위로 생성.
+- 패턴 하나 = `PatternDataSO` 에셋(`Assets/11. Datas/Patterns/3D|2D/`). 행마다 3레인 고정 `lower[3]`/`upper[3]` 격자(`rows[0]`이 먼저 생성). 편집은 `Tools/Timeless/Pattern Editor` 창(에셋 더블클릭으로도 열림). `viewMode`가 2D면 레인 2만 사용.
+- 생성 간격은 **거리 기준**: 패턴 사이 `LaneManager.patternDistance`, 행 사이 `CreateObjectSO.rowDistance`(유닛). `mapSpeed`가 바뀌어도 간격 유지.
+- `ObjectType` → 프리팹 매핑은 `ObjectDataSO`(`ObjectData.asset`). 새 장애물 추가 시: `ObjectType` enum(`InteractionObject.cs`)에 값 추가 → 프리팹에 `Obstacle`/`HealObject` 등 부착 → `ObjectData.asset`에 등록 → Pattern Editor에서 패턴에 배치(색은 `PatternEditorWindow.GetColor`).
 
 ### 풀링
 - `Pool<T>`는 `Singleton<Pool<T>>`을 상속 → `Pool<InteractionObject>.Instance`로 접근하고 `InteractionObjectPool`로 캐스팅해서 타입별 `Get(ObjectType, pos, rot)` 사용.
@@ -81,8 +83,13 @@ unity command eval_file --project-path . --file <윈도우 절대경로.cs>  # C
 - `HealObject`: 점프 중이 아니면 회복 후 비활성화.
 
 ### 플레이어 스탯 & 2D/3D 전환
-- `Stat<T>` (`Player.cs` 안에 정의): HP, 무적(최대 HP 도달 시 발동 → 지속시간 → 쿨다운), 각종 `Action` 이벤트.
-- HP는 시간에 따라 계속 감소(`hpDecrement`). HP 변경 시 `Player.CheckChangeView()`가 `threshold2DView`/`threshold3DView`로 `GameManager.ChangeViewMode` 호출 + `AudioPlayer.trigger`로 BGM 크로스페이드 + 레인 오브젝트 전부 회수.
+- `Stat<T>` (`Player.cs` 안에 정의): HP/MaxHP와 `Action` 이벤트만 담당. `SetMaxHP`는 늘어나면 증가분만큼 HP 회복, 줄어들면 최대치로 자름.
+- **상태머신** (`Assets/02. Scripts/Player/State/`): `Player.StateMachine`이 **형태**(`PlayerFormSO`, 한 번에 1개, 절대 스탯) + **효과**(`PlayerEffectSO`, 여러 개 중첩, `duration` 후 자동 제거, 0이면 무기한, 배율/무적 플래그)를 관리. 공통 베이스 `PlayerStateSO`의 훅 `OnEnter/OnExit/OnUpdate/OnHit/ModifyStats`.
+  - 합성된 `PlayerStats`(크기, 최대 HP, 월드 속도 배율, 점프 높이/체공 배율, HP 감소 배율, 무적)가 바뀌면 `Player.ApplyStats`가 `localScale`, `stat.SetMaxHP`, `GameManager.mapSpeed = 시작 속도 × 배율`에 반영. **mapSpeed를 다른 곳에서 직접 바꾸지 말 것.**
+  - 피격: `Obstacle` → `Player.TakeHit` → 무적이면 무시 → 효과/형태의 `OnHit`을 거친 남은 데미지만 `stat.TakeDamage`. 무적은 무적 플래그가 켜진 상태에서만.
+  - 기본 형태: `Assets/11. Datas/PlayerState/Form_Normal.asset`(Player의 `defaultForm`).
+  - 새 아이템: 형태/효과 에셋 생성(고유 규칙이 있으면 `PlayerFormSO`/`PlayerEffectSO` 상속 후 훅 오버라이드, SO는 공유되므로 런타임 값은 SO 필드에 두지 말 것) → 프리팹에 `PowerUpItem` 부착 후 에셋 연결 → `ObjectType` 추가 → `ObjectData.asset` 등록 → Pattern Editor 배치.
+- HP는 시간에 따라 계속 감소(`hpDecrement × 배율`, 무적이면 정지). HP 변경 시 `Player.CheckChangeView()`가 `threshold2DView`/`threshold3DView`로 `GameManager.ChangeViewMode` 호출 + `AudioPlayer.trigger`로 BGM 크로스페이드 + 레인 오브젝트 전부 회수.
 - `ChangeViewMode` → `CameraManager.SwitchCamera`(Cinemachine vCam 우선순위 교체, 2D에서는 `"Right"` 레이어 컬링) + 픽셀화 강도 변경. 2D 모드에서는 플레이어가 마지막 레인에 고정되고 좌우 이동 불가.
 - 사망 시 `SampleScene` 재로드.
 

@@ -857,6 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 0
+  goombaOnlyUntil: 0
 --- !u!1 &618540549
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,6 +888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 1
+  goombaOnlyUntil: 0
 --- !u!4 &618540551
 Transform:
   m_ObjectHideFlags: 0
@@ -943,7 +945,7 @@ MonoBehaviour:
   - {fileID: 1101484518}
   upperLaneHeight: 1.5
   laneInterval: 1
-  createInterval: 1
+  patternDistance: 9
 --- !u!4 &690753021
 Transform:
   m_ObjectHideFlags: 0
@@ -2213,6 +2215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 1
+  goombaOnlyUntil: 0
 --- !u!4 &1101484519
 Transform:
   m_ObjectHideFlags: 0
@@ -4204,11 +4207,8 @@ MonoBehaviour:
   objectData:
     type: 0
     prefab: {fileID: 0}
-  maxHP: 100
-  invincibleDuration: 5
-  invincibleCooldown: 10
-  invincibleSpeed: 10
   hpDecrement: 3
+  defaultForm: {fileID: 11400000, guid: dbf797d02c6eadb47a4b1923c46c8427, type: 2}
   airTime: 0.5
   jumpCurve:
     serializedVersion: 2
@@ -4398,6 +4398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 0
+  goombaOnlyUntil: 0
 --- !u!4 &1555383173
 Transform:
   m_ObjectHideFlags: 0
@@ -4443,6 +4444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 1
+  goombaOnlyUntil: 0
 --- !u!4 &1564369434
 Transform:
   m_ObjectHideFlags: 0
@@ -4639,6 +4641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 0
+  goombaOnlyUntil: 0
 --- !u!4 &1904004965
 Transform:
   m_ObjectHideFlags: 0
