@@ -6,6 +6,10 @@ public class SpikeBall : Obstacle
     [SerializeField] private float flightTime = 0.7f;
     [Tooltip("시작점과 착지점을 잇는 직선 위로 더해지는 정점 높이")]
     [SerializeField] private float arcHeight = 1.5f;
+    [Tooltip("굴러가는 연출을 줄 모델 (피벗이 공 중심)")]
+    [SerializeField] private Transform model;
+    [Tooltip("굴림 반지름. 월드 속도 / 반지름 = 회전 속도")]
+    [SerializeField] private float rollRadius = 0.24f;
 
     private Vector3 from, to;
     private float elapsed;
@@ -18,6 +22,13 @@ public class SpikeBall : Obstacle
         elapsed = 0f;
         landed = false;
         transform.position = start;
+    }
+
+    // 비행 중에도 계속 플레이어 쪽(-Z)으로 굴러오는 것처럼 회전 (+X축 음의 방향 = 윗면이 -Z로 감)
+    private void Update()
+    {
+        float deg = GameManager.Instance.mapSpeed / rollRadius * Mathf.Rad2Deg * Time.deltaTime;
+        model.Rotate(Vector3.right, -deg, Space.World);
     }
 
     protected override void OnDisable()

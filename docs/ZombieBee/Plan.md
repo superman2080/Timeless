@@ -179,7 +179,25 @@
 - 사인 유영과 기울기를 넣는다. 유영 범위·속도는 기본안(진폭 1, 주기 2s)으로 한다.
 - 시간 배분(유영 약 1.0s / 레인 이동 0.3s / 공격 0.7s)은 현재 설계대로 두고, 어색하면 나중에 조정한다.
 
+## Phase 9 — 피드백 5차: 스파이크 볼 굴림 연출
+- [x] `SpikeBall.cs`
+  - `model`(Transform)과 `rollRadius`(0.24) 필드를 추가했다.
+  - `Update`에서 `mapSpeed / rollRadius`(rad/s)만큼 월드 +X축 음의 방향으로 회전한다. 이 방향은 윗면이 -Z, 즉 플레이어 쪽으로 가는 방향이다.
+  - 비행 중에도 계속 회전한다.
+- [x] `Gm_Obstacle_SpikeBall` 프리팹: `model`에 `Model` 자식을 연결했다.
+- [x] MCP 검증
+  - 컴파일 OK, 신규 에러 0.
+  - 플레이 중 모델 회전이 프레임마다 바뀌는 것을 확인했다.
+  - `AngleAxis(-θ, X) * up = (0, 0.985, -0.174)`로, 윗면이 -Z로 이동하는 것을 확인했다.
+  - 메모: mapSpeed 9 기준 약 2150°/s(초당 약 6바퀴)로 실제 굴림 속도와 같다. 너무 빠르게 보이면 `rollRadius`를 키워 늦춘다.
+
 ## 알려진 한계 / 후속 후보
 - 공이 착지(z ≈ -7)한 뒤 플레이어(z -9)에 닿기까지 약 0.2s밖에 없다. 실제 반응 시간은 공이 손을 떠나는 순간부터 약 0.9s다. 체감상 어려우면 `landingOffsetZ`를 양수로 바꾸거나 `flightTime`을 늘려 조절한다.
-- 공은 임시 구다. Blender 모델이 나오면 프리팹의 `Model` 자식만 교체하면 된다.
+- (2026-10-16 해결) 임시 구를 Blender 모델로 교체했다.
+  - 레퍼런스: NSMBW Spiny Egg 공식 아트.
+  - Blender 원본: `Blender/SpikeBall/SpikeBall.blend`.
+  - Unity 모델: `Assets/03. Models/Static/SpikeBall.fbx`.
+  - 외형: 진회색 몸통(반지름 0.16)에 아이보리 가시 14개를 붙였고, 가시 끝까지 포함한 반지름은 약 0.24다.
+  - 머티리얼: `M_SpikeBall_Body`, `M_SpikeBall_Spike`.
+  - 프리팹 조정: `Model` 자식과 SphereCollider 중심을 y 0.24로 맞췄다. 임시 머티리얼 `M_SpikeBall_Temp`는 다른 곳에서 쓰지 않는 것을 확인하고 삭제했다.
 - `Lane.spawnedObjects`가 비워지지 않는 문제는 이번 작업 전부터 있던 것이다(Research 5절).
