@@ -136,6 +136,9 @@ public class LaneManager : MonoBehaviour
     {
         for (int i = 0; i < types.Length && i < targets.Length; i++)
         {
+            // ZombieBee는 동시 1마리, 3D에서만 생성
+            if (types[i] == ObjectType.ZOMBIE_BEE && (ZombieBee.ActiveCount > 0 || GameManager.Instance.currentViewMode == ViewMode.View2D))
+                continue;
             targets[i].GenerateObstacle(types[i]);
         }
     }
