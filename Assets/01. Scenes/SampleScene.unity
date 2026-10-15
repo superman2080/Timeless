@@ -857,6 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 0
+  goombaOnlyUntil: 0
 --- !u!1 &618540549
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,6 +888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 1
+  goombaOnlyUntil: 0
 --- !u!4 &618540551
 Transform:
   m_ObjectHideFlags: 0
@@ -2213,6 +2215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 1
+  goombaOnlyUntil: 0
 --- !u!4 &1101484519
 Transform:
   m_ObjectHideFlags: 0
@@ -4395,6 +4398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 0
+  goombaOnlyUntil: 0
 --- !u!4 &1555383173
 Transform:
   m_ObjectHideFlags: 0
@@ -4440,6 +4444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 1
+  goombaOnlyUntil: 0
 --- !u!4 &1564369434
 Transform:
   m_ObjectHideFlags: 0
@@ -4636,6 +4641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 0
+  goombaOnlyUntil: 0
 --- !u!4 &1904004965
 Transform:
   m_ObjectHideFlags: 0
