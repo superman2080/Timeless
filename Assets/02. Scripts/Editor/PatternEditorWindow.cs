@@ -252,8 +252,10 @@ public class PatternEditorWindow : EditorWindow
         ObjectType.ROBOT_ARM => new Color(0.6f, 0.15f, 0.15f),
         ObjectType.HP => new Color(0.2f, 0.65f, 0.3f),
         ObjectType.KEY_CARD => new Color(0.8f, 0.7f, 0.1f),
-        ObjectType.ZOMBIE_BEE => new Color(0.75f, 0.75f, 0.2f),
+        ObjectType.LAKITU => new Color(0.75f, 0.75f, 0.2f),
         ObjectType.SPIKE_BALL => new Color(0.9f, 0.3f, 0.5f),
+        ObjectType.WHOMP => new Color(0.45f, 0.45f, 0.5f),
+        ObjectType.STONE_FRAGMENT => new Color(0.35f, 0.33f, 0.3f),
         _ => new Color(0.35f, 0.45f, 0.6f),
     };
 }

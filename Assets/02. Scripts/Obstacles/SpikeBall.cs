@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// ZombieBee가 던지는 공. 포물선으로 떨어진 뒤 일반 하단 장애물처럼 흘러옴
+// Lakitu가 던지는 공. 포물선으로 떨어진 뒤 일반 하단 장애물처럼 흘러옴
 public class SpikeBall : Obstacle
 {
     [SerializeField] private float flightTime = 0.7f;
@@ -10,6 +10,8 @@ public class SpikeBall : Obstacle
     [SerializeField] private Transform model;
     [Tooltip("굴림 반지름. 월드 속도 / 반지름 = 회전 속도")]
     [SerializeField] private float rollRadius = 0.24f;
+
+    public float FlightTime => flightTime;
 
     private Vector3 from, to;
     private float elapsed;

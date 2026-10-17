@@ -16,8 +16,10 @@ public enum ObjectType
 
     HP,
     KEY_CARD,
-    ZOMBIE_BEE,
+    LAKITU,
     SPIKE_BALL,
+    WHOMP,
+    STONE_FRAGMENT,
 }
 
 [Serializable]
