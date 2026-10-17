@@ -52,28 +52,7 @@ public class InteractionObjectPool : Pool<InteractionObject>
 
     public InteractionObject Get(ObjectType objectType)
     {
-        if (!prefabDictionary.ContainsKey(objectType))
-        {
-            Debug.LogWarning($"ParticleType {objectType}에 대한 prefab이 설정되지 않았습니다.");
-            return null;
-        }
-
-        // 해당 타입의 비활성화된 파티클 찾기
-        foreach (var child in GetChildList(true))
-        {
-            if (!child.gameObject.activeSelf && child.objectData.type == objectType)
-            {
-                child.gameObject.SetActive(true);
-                return child;
-            }
-        }
-
-        // 없으면 새로 생성
-        var prefab = prefabDictionary[objectType];
-        var newPrefab = Instantiate(prefab, Vector3.zero, Quaternion.identity, pool).GetComponent<InteractionObject>();
-        newPrefab.objectData.type = objectType;
-
-        return newPrefab;
+        return Get(objectType, Vector3.zero, Quaternion.identity);
     }
 
     public InteractionObject Get(ObjectType obstacleType, Vector3 position)
@@ -83,12 +62,36 @@ public class InteractionObjectPool : Pool<InteractionObject>
 
     public InteractionObject Get(ObjectType obstacleType, Vector3 position, Quaternion rotation)
     {
-        var obstacle = Get(obstacleType);
-        if (obstacle != null)
-        {
-            obstacle.transform.position = position;
-            obstacle.transform.rotation = rotation;
-        }
+        var obstacle = Take(obstacleType);
+        if (obstacle == null)
+            return null;
+
+        obstacle.transform.SetPositionAndRotation(position, rotation);
+        obstacle.gameObject.SetActive(true);
         return obstacle;
+    }
+
+    // 비활성 상태로 꺼내 온다. 활성화는 호출자가 위치를 세팅한 뒤에 해야 함
+    // (활성화가 먼저면 OnEnable의 폐기 체크가 재사용 전 옛 위치에서 돌아 즉시 다시 비활성화됨)
+    private InteractionObject Take(ObjectType objectType)
+    {
+        if (!prefabDictionary.ContainsKey(objectType))
+        {
+            Debug.LogWarning($"ParticleType {objectType}에 대한 prefab이 설정되지 않았습니다.");
+            return null;
+        }
+
+        // 해당 타입의 비활성화된 오브젝트 찾기
+        foreach (var child in GetChildList(true))
+        {
+            if (!child.gameObject.activeSelf && child.objectData.type == objectType)
+                return child;
+        }
+
+        // 없으면 새로 생성 (프리팹이 활성이므로 곧바로 비활성으로 되돌린다)
+        var instance = Instantiate(prefabDictionary[objectType], Vector3.zero, Quaternion.identity, pool).GetComponent<InteractionObject>();
+        instance.objectData.type = objectType;
+        instance.gameObject.SetActive(false);
+        return instance;
     }
 }

@@ -857,7 +857,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 0
-  goombaOnlyUntil: 0
 --- !u!1 &618540549
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,7 +887,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 1
-  goombaOnlyUntil: 0
 --- !u!4 &618540551
 Transform:
   m_ObjectHideFlags: 0
@@ -933,8 +931,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e952ff689f71948b55620c0c941e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LaneManager
-  objectDataSet3D: {fileID: 11400000, guid: 59ec27de38916af4c88b756164fa7fd0, type: 2}
-  objectDataSet2D: {fileID: 11400000, guid: 4ddf50340f37c714596fc1baa99a46cf, type: 2}
+  objectDataSet3D: {fileID: 11400000, guid: 5a9b56626d5cc3d46975f1da3f34f99e, type: 2}
+  objectDataSet2D: {fileID: 11400000, guid: f463cefc48a83d14294c1afa7d256ede, type: 2}
   lanes:
   - {fileID: 422546294}
   - {fileID: 1555383172}
@@ -2088,6 +2086,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &839280319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 839280321}
+  - component: {fileID: 839280320}
+  m_Layer: 0
+  m_Name: EffectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &839280320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839280319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a8502bef084a64f824060a88ad8447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffectPool
+  dontDestroyOnLoad: 0
+  datas: {fileID: 11400000, guid: 68d32d41cdeccec4788664ebbeb273c2, type: 2}
+  defaultEffectType: 1
+--- !u!4 &839280321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839280319}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &891064485
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,7 +2260,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 1
-  goombaOnlyUntil: 0
 --- !u!4 &1101484519
 Transform:
   m_ObjectHideFlags: 0
@@ -4398,7 +4442,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 0
-  goombaOnlyUntil: 0
 --- !u!4 &1555383173
 Transform:
   m_ObjectHideFlags: 0
@@ -4444,7 +4487,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 1
-  goombaOnlyUntil: 0
 --- !u!4 &1564369434
 Transform:
   m_ObjectHideFlags: 0
@@ -4641,7 +4683,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lane
   isUpper: 0
-  goombaOnlyUntil: 0
 --- !u!4 &1904004965
 Transform:
   m_ObjectHideFlags: 0
@@ -4886,3 +4927,4 @@ SceneRoots:
   - {fileID: 2053199321}
   - {fileID: 175740744}
   - {fileID: 1004715638}
+  - {fileID: 839280321}
