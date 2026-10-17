@@ -8,11 +8,11 @@ public enum ObjectType
 {
     NONE,
 
-    LASER,      // ·¹ÀÌÀú
-    BARREL,     // ¹è·²
-    BLOCKADE,   // ºí·Ï
-    FAN,        // ÆÒ
-    ROBOT_ARM,  // ·Îº¿ÆÈ
+    LASER,      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    BARREL,     // ï¿½è·²
+    BLOCKADE,   // ï¿½ï¿½ï¿½ï¿½
+    FAN,        // ï¿½ï¿½
+    ROBOT_ARM,  // ï¿½Îºï¿½ï¿½ï¿½
 
     HP,
     KEY_CARD,
@@ -20,6 +20,7 @@ public enum ObjectType
     SPIKE_BALL,
     WHOMP,
     STONE_FRAGMENT,
+    BOO,
 }
 
 [Serializable]
