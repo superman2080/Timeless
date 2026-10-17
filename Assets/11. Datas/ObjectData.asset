@@ -33,3 +33,7 @@ MonoBehaviour:
     prefab: {fileID: 8006839501659170332, guid: 3f46a93546fd4e2478c03b904526498f, type: 3}
   - type: 9
     prefab: {fileID: 8715602274375143362, guid: f9e5aa824cc78724297f6f9accfff92f, type: 3}
+  - type: 10
+    prefab: {fileID: 5522029582903918629, guid: b907f63588caa6f428130051bf2bb648, type: 3}
+  - type: 11
+    prefab: {fileID: 8930634225907684875, guid: 32b8da652616aaa4196c34c74aa7e2c1, type: 3}
