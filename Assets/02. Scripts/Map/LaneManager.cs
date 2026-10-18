@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class LaneManager : MonoBehaviour
 {
-    public CreateObjectSO objectDataSet3D;
-    public CreateObjectSO objectDataSet2D;
+    public PatternSetSO patternSet;
     public Lane[] lanes;
     public Lane[] upperLanes;
     public int laneLength => lanes.Length;
@@ -74,9 +73,8 @@ public class LaneManager : MonoBehaviour
     {
         while (true)
         {
-            CreateObjectSO currentDataSet = GameManager.Instance.currentViewMode == ViewMode.View2D
-                ? objectDataSet2D
-                : objectDataSet3D;
+            var stat = GameManager.Instance.player.stat;
+            CreateObjectSO currentDataSet = patternSet.Select(GameManager.Instance.currentViewMode, stat != null ? stat.HP / stat.MaxHP : 1f); // stat은 Player.Start에서 생성됨
 
             yield return StartCoroutine(GeneratePatternCoroutine(currentDataSet));
             yield return WaitDistance(patternDistance);
@@ -86,7 +84,7 @@ public class LaneManager : MonoBehaviour
     // LaneManager.cs 수정
     private IEnumerator GeneratePatternCoroutine(CreateObjectSO dataSet)
     {
-        var pattern = dataSet.PickRandom();
+        var pattern = dataSet != null ? dataSet.PickRandom() : null;
         if (pattern == null)
             yield break;
 
