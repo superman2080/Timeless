@@ -13,13 +13,13 @@ public class StartButton : MonoBehaviour
     IEnumerator LoadSceneAsyncCoroutine(string sceneName)
     {
         // 1. 비동기 로드 작업 시작
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        var asyncLoad = UnityEngine.AddressableAssets.Addressables.LoadSceneAsync(sceneName);
 
         // 2. 로딩이 완료될 때까지 반복
-        while (!asyncLoad.isDone)
+        while (!asyncLoad.IsDone)
         {
             // 3. 로딩 진행률 (0.0 ~ 0.9)
-            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            float progress = asyncLoad.PercentComplete;
 
             // 이곳에서 로딩 바 UI를 업데이트합니다.
             Debug.Log("로딩 진행률: " + (progress * 100) + "%");

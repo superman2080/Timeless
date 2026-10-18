@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Prefabs_Obstacle
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Prefabs_Obstacle
+  m_GUID: 316b7241884fbe444b01fad39a835649
+  m_SerializeEntries:
+  - m_GUID: 01a7b76fda70c364d9c4b29c5bd5398d
+    m_Address: Octoomba
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0549e2b9d1c498b4c83118cf5e69c218
+    m_Address: Gm_Obstacle_Pipe
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24453a6cb8f31cc43965e50bf163db89
+    m_Address: Gm_Obstacle_Fan
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 28ded0861077dc84682ad579c0732d6f
+    m_Address: Gm_Obstacle_Blockade
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ad4ca1df96512a4d9313a5444cce287
+    m_Address: Gm_Obstacle_Boo
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32c0cf8027ce85d4e8a0aa48127da114
+    m_Address: Boo
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d3bdc5ea25a5a3409b8971fc532bb70
+    m_Address: Goomba
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f46a93546fd4e2478c03b904526498f
+    m_Address: Gm_Obstacle_Lakitu
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4006bda88b399244d9e289696b1df874
+    m_Address: Gm_Obstacle_Goomba
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e97b231222973b4aba549854f24b7a5
+    m_Address: Whomp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 656584cb6293b5b429eab82b5ca4a4cc
+    m_Address: Gm_Obstacle_Octoomba
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6fe1bc50d8fcbf44a99a04cf432497d8
+    m_Address: Lakitu
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6fe40edc31d7da249b4127012e4b4a98
+    m_Address: KEY_CARD
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98178bc66560b3243b3e4027f6696d35
+    m_Address: HP
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b4be959f829b96e47a8df44d7766d008
+    m_Address: Gm_Obstacle_SpikeRock
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b907f63588caa6f428130051bf2bb648
+    m_Address: Gm_Obstacle_Whomp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d682bc3ca2fa1414d8013f0219e89603
+    m_Address: Gm_Obstacle_Robot_Arm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f9e5aa824cc78724297f6f9accfff92f
+    m_Address: Gm_Obstacle_SpikeBall
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 54ba80f77e872764e9faaff8ca501243, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1fada5f7c4d0deb4698493a4a316399b, type: 2}
+    - {fileID: 11400000, guid: e8d8b3bfd8544dd44b9c4c0b3280283c, type: 2}
+    m_SchemaDisplayOrder:
+    - Prefabs_Obstacle_BundledAssetGroupSchema
+    - Prefabs_Obstacle_ContentUpdateGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1

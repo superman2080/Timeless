@@ -171,8 +171,8 @@ public class Player : InteractionObject
             HPDecrement();
         }
 
-        if (currentLane != GameManager.Instance.laneManager.laneLength - 1 && GameManager.Instance.currentViewMode == ViewMode.View2D)
-            ChangeLane(GameManager.Instance.laneManager.laneLength - 1);
+        if (currentLane != GameManager.Instance.laneManager.laneLength - 1 && GameManager.Instance.currentViewMode == ViewMode.View2D && changeLaneCor == null)
+            ChangeLane(GameManager.Instance.laneManager.laneLength - 1, true);
     }
 
     private void FixedUpdate()
@@ -203,11 +203,18 @@ public class Player : InteractionObject
         playerAnimator.Jump(duration);
     }
 
-    public void ChangeLane(int laneIndex)
+    // force: for 2D switch. cancels in-flight move, ignores view/jump guards
+    public void ChangeLane(int laneIndex, bool force = false)
     {
-        if (GameManager.Instance.currentViewMode == ViewMode.View2D ||
-            laneIndex < 0 ||
-            laneIndex > GameManager.Instance.laneLength - 1 ||
+        if (laneIndex < 0 || laneIndex > GameManager.Instance.laneLength - 1)
+            return;
+
+        if (force)
+        {
+            if (changeLaneCor != null)
+                StopCoroutine(changeLaneCor);
+        }
+        else if (GameManager.Instance.currentViewMode == ViewMode.View2D ||
             changeLaneCor != null ||
             (!allowLaneChangeWhileJumping && IsJump))
             return;
@@ -288,6 +295,6 @@ public class Player : InteractionObject
     {
         CameraManager.Instance.SetGlitch(0.02f);
         CameraManager.Instance.SetPixelateIntensity(1);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+        UnityEngine.AddressableAssets.Addressables.LoadSceneAsync("SampleScene");
     }
 }

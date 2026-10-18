@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Prefabs_Map
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Prefabs_Map
+  m_GUID: 56cb80416236abf4dbc2136f4b4fc8a2
+  m_SerializeEntries:
+  - m_GUID: 1714833670a2fa849b65cada4a63a9a0
+    m_Address: Track_3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - map
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e3413f02d9b8364d81ff4c8006b216e
+    m_Address: Background_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - map
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 424476d338bc45649976fac757c27f9c
+    m_Address: Background_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - map
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6aa1c3575cdcb1344b33b5637e04c6ea
+    m_Address: Background_3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - map
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a4e0da4322a0f04c885e9b25c9384f2
+    m_Address: BrickFloor
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - map
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5601df4b93e1994cbea641d94229156
+    m_Address: Track_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - map
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 54ba80f77e872764e9faaff8ca501243, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0a6a3b0dea7dfbe4b9cd4237b23091a4, type: 2}
+    - {fileID: 11400000, guid: 97506b54e5b2f384bb93bc0b943ba946, type: 2}
+    m_SchemaDisplayOrder:
+    - Prefabs_Map_BundledAssetGroupSchema
+    - Prefabs_Map_ContentUpdateGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1

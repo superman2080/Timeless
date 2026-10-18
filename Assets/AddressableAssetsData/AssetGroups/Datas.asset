@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Datas
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Datas
+  m_GUID: 329e6da9ea256b74583901c215640b32
+  m_SerializeEntries:
+  - m_GUID: 1d14e8f64354a944e93ccff085ac0e85
+    m_Address: Pattern2D_00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a9b56626d5cc3d46975f1da3f34f99e
+    m_Address: DebugCreateObject3D
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68d32d41cdeccec4788664ebbeb273c2
+    m_Address: EffectData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9eca2193aca39a8478824a24d9745499
+    m_Address: Pattern3D_09
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b52a7b4e5c1b607468bb119f8f27048c
+    m_Address: Pattern3D_23
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbf797d02c6eadb47a4b1923c46c8427
+    m_Address: Form_Normal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec2b6e33fa3ec994d9c774e07600d0bd
+    m_Address: ObjectData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f463cefc48a83d14294c1afa7d256ede
+    m_Address: DebugCreateObject2D
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - data
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 54ba80f77e872764e9faaff8ca501243, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d4555b0ddc463dc4ea8e7babd6d7715e, type: 2}
+    - {fileID: 11400000, guid: c73e5bad130cb4c458391f926aecc53d, type: 2}
+    m_SchemaDisplayOrder:
+    - Datas_BundledAssetGroupSchema
+    - Datas_ContentUpdateGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1
