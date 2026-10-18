@@ -21,6 +21,7 @@ public enum ObjectType
     WHOMP,
     STONE_FRAGMENT,
     BOO,
+    OCTOOMBA,
 }
 
 [Serializable]

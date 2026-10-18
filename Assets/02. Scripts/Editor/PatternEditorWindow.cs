@@ -257,6 +257,7 @@ public class PatternEditorWindow : EditorWindow
         ObjectType.WHOMP => new Color(0.45f, 0.45f, 0.5f),
         ObjectType.STONE_FRAGMENT => new Color(0.35f, 0.33f, 0.3f),
         ObjectType.BOO => new Color(0.7f, 0.72f, 0.85f),
+        ObjectType.OCTOOMBA => new Color(0.5f, 0.2f, 0.6f),
         _ => new Color(0.35f, 0.45f, 0.6f),
     };
 }

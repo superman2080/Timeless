@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DebugCreateObject3D
   m_EditorClassIdentifier: Assembly-CSharp::CreateObjectSO
   patterns:
-  - pattern: {fileID: 11400000, guid: e89e78aa0b94be54d830ec9b7e85c6b5, type: 2}
+  - pattern: {fileID: 11400000, guid: 9eca2193aca39a8478824a24d9745499, type: 2}
     percent: 50
-  - pattern: {fileID: 11400000, guid: 03158666b5e3b9441a6577ced53fde95, type: 2}
+  - pattern: {fileID: 11400000, guid: b52a7b4e5c1b607468bb119f8f27048c, type: 2}
     percent: 50
   rowDistance: 1.8
