@@ -295,6 +295,6 @@ public class Player : InteractionObject
     {
         CameraManager.Instance.SetGlitch(0.02f);
         CameraManager.Instance.SetPixelateIntensity(1);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+        UnityEngine.AddressableAssets.Addressables.LoadSceneAsync("SampleScene");
     }
 }

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Audio
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Audio
+  m_GUID: 013a64ada435dee42afb8db876b49f73
+  m_SerializeEntries:
+  - m_GUID: 39f6bf2d39a752c4f87795c6eb9a8325
+    m_Address: Fix-2d 1 (only)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ee561a6e2895bb4cabcafba22eb85e8
+    m_Address: Fix-3d 2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c6b445515cf3054d8e24109321c8753
+    m_Address: Fix-3d 3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a710a0cfdfda58249902f804d6c9ffb9
+    m_Address: keycard_pickUp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcd650d25c31cb44e9a808fe59b25651
+    m_Address: Fix-3d 1 add factory sound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c83d290580d9743409e4185fd2e1c647
+    m_Address: laser_hum
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d46ced8ba38d1df47a6fb33779812c03
+    m_Address: Attack_Sound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 54ba80f77e872764e9faaff8ca501243, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 47d5fcb4faefa1f45996cb9c3e4350aa, type: 2}
+    - {fileID: 11400000, guid: d98f8f700547e924e8c4ceb4a353d29b, type: 2}
+    m_SchemaDisplayOrder:
+    - Audio_BundledAssetGroupSchema
+    - Audio_ContentUpdateGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1
