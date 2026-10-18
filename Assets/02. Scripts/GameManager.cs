@@ -46,7 +46,7 @@ public class GameManager : Singleton<GameManager>
         {
             CameraManager.Instance.FadeGlitch(1f, 0.002f, changeTime);
             CameraManager.Instance.SetPixelateIntensity(pixelateIntensity2D);
-            player.ChangeLane(laneLength - 1);
+            player.ChangeLane(laneLength - 1, true);
         }
         else
         {
