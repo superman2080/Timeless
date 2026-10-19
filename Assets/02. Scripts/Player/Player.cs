@@ -88,6 +88,7 @@ public class Player : InteractionObject
     [SerializeField] PlayerFormSO defaultForm;
     public PlayerStateMachine StateMachine { get; private set; }
     public bool IsInvincible => StateMachine.Stats.invincible;
+    public PlayerFormSO DefaultForm => defaultForm;
     private float baseMapSpeed;
     #endregion
 
@@ -102,6 +103,15 @@ public class Player : InteractionObject
     private float groundY;
     private float jumpOffsetY;
     private float laneX;
+    #endregion
+
+    #region Resize
+    [Header("Resize")]
+    [Tooltip("크기 변경 연출에서 한 단계 표시 시간(초, 실제 시간)")]
+    [SerializeField] float resizeStepTime = 0.07f;
+    // 이전 크기(0)와 새 크기(1)를 번갈아 표시. 마지막은 새 크기
+    static readonly float[] resizeSteps = { 1f, 0f, 1f, 0f, 1f, 0f, 1f, 0f, 1f, 0f, 1f };
+    private Coroutine resizeCor;
     #endregion
 
     #region EventChannels
@@ -162,7 +172,9 @@ public class Player : InteractionObject
 
     private void Update()
     {
-        Move();
+        // 연출 중엔 입력 무시 (멈춘 동안 레인 이동/점프 코루틴이 쌓이지 않게)
+        if (resizeCor == null)
+            Move();
         StateMachine.Tick(Time.deltaTime);
 
         // 무적 상태가 아닐 때만 HP 감소
@@ -286,9 +298,26 @@ public class Player : InteractionObject
 
     private void ApplyStats(PlayerStats stats)
     {
-        transform.localScale = Vector3.one * stats.scale;
+        // 연출 중이면 끝날 때 최신 스탯 크기로 맞춰지므로 다시 시작하지 않음
+        if (resizeCor == null && !Mathf.Approximately(stats.scale, transform.localScale.x))
+            resizeCor = StartCoroutine(ResizeCoroutine(transform.localScale.x, stats.scale));
         stat.SetMaxHP(stats.maxHP);
         GameManager.Instance.mapSpeed = baseMapSpeed * stats.mapSpeedMultiplier;
+    }
+
+    // 시간을 멈추고 이전/새 크기를 번갈아 보여준 뒤 새 크기로 끝냄
+    private IEnumerator ResizeCoroutine(float from, float to)
+    {
+        float prevTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
+        foreach (float t in resizeSteps)
+        {
+            transform.localScale = Vector3.one * Mathf.Lerp(from, to, t);
+            yield return new WaitForSecondsRealtime(resizeStepTime);
+        }
+        transform.localScale = Vector3.one * StateMachine.Stats.scale; // 연출 중 바뀐 스탯 반영
+        Time.timeScale = prevTimeScale;
+        resizeCor = null;
     }
 
     private void Restart()

@@ -10,6 +10,8 @@ public class LaneManager : MonoBehaviour
     public int laneLength => lanes.Length;
     public float upperLaneHeight = 2.5f;
     public float laneInterval = 1f;
+    [Tooltip("Lane/object spawn Z position")]
+    public float spawnZ = 20f;
     [Tooltip("패턴 사이 거리 (유닛)")]
     public float patternDistance = 9f;
     private float distanceRemain; // 남은 대기 거리. 음수 = 직전 대기에서 초과 이동한 거리(이월)
@@ -53,7 +55,7 @@ public class LaneManager : MonoBehaviour
             return;
         }
 
-        Vector3 basePosition = Utils.GetTopViewportPosition(0.05f);
+        Vector3 basePosition = new Vector3(0f, 0f, spawnZ);
         PlaceLanes(lanes, basePosition);
         PlaceLanes(upperLanes, basePosition + Vector3.up * upperLaneHeight);
     }
