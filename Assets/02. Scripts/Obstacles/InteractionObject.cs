@@ -23,6 +23,7 @@ public enum ObjectType
     BOO,
     OCTOOMBA,
     SUPER_MUSHROOM,
+    MINI_MUSHROOM,
 }
 
 [Serializable]

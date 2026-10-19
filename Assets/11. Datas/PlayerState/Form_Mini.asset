@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8025dc037600744295af04959fc4a10, type: 3}
+  m_Name: Form_Mini
+  m_EditorClassIdentifier: Assembly-CSharp::MiniFormSO
+  stats:
+    scale: 0.3
+    maxHP: 100
+    mapSpeedMultiplier: 1
+    jumpHeightMultiplier: 1
+    airTimeMultiplier: 1
+    hpDecrementMultiplier: 1
+    invincible: 0
+  hpRatioInView: 0.5
+  mapSpeedReduction: 0.2
