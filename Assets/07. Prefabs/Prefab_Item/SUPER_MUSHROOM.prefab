@@ -103,6 +103,8 @@ MonoBehaviour:
   form: {fileID: 11400000, guid: 252f05480a1419140b8486aa4037ef97, type: 2}
   effect: {fileID: 0}
   fullHeal: 1
+  scoreInsteadForm: {fileID: 11400000, guid: 0c152d5a1850eb847a07379767a35203, type: 2}
+  scoreInstead: 1000
   pickupSFX: {fileID: 8300000, guid: a710a0cfdfda58249902f804d6c9ffb9, type: 3}
 --- !u!1001 &4332064136469546839
 PrefabInstance:

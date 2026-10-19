@@ -21,6 +21,13 @@ public class ScoreUI : MonoBehaviour
 
     public int Score => (int)score;
 
+    // 아이템 등으로 얻는 점수. 마일스톤과 상관없이 강조
+    public void AddScore(int amount)
+    {
+        score += amount;
+        punchTimer = punchDuration;
+    }
+
     private void Update()
     {
         int prevMilestone = Score / milestoneInterval;

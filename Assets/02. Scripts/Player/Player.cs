@@ -54,6 +54,8 @@ public class Stat<T> where T : MonoBehaviour
         HP += Mathf.Abs(healAmount);
     }
 
+    public void SetHP(float newHP) => HP = newHP;
+
     // 늘어나면 늘어난 만큼 HP도 회복, 줄어들면 최대치로 자름
     public void SetMaxHP(float newMaxHP)
     {
