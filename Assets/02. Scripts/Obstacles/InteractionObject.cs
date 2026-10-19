@@ -22,6 +22,7 @@ public enum ObjectType
     STONE_FRAGMENT,
     BOO,
     OCTOOMBA,
+    SUPER_MUSHROOM,
 }
 
 [Serializable]
