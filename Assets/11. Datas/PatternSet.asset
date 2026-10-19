@@ -18,5 +18,7 @@ MonoBehaviour:
   - maxRatio: 1
     dataSet: {fileID: 11400000, guid: 59ec27de38916af4c88b756164fa7fd0, type: 2}
   tiers2D:
+  - maxRatio: 0.5
+    dataSet: {fileID: 11400000, guid: f463cefc48a83d14294c1afa7d256ede, type: 2}
   - maxRatio: 1
     dataSet: {fileID: 11400000, guid: 4ddf50340f37c714596fc1baa99a46cf, type: 2}
