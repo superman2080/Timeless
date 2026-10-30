@@ -128,8 +128,20 @@ public class LaneManager : MonoBehaviour
 
     void GenerateRow(PatternRow row)
     {
-        GenerateRow(row.lower, lanes);
-        GenerateRow(row.upper, upperLanes);
+        // 상단 먼저: 같은 행에서 킬러가 생성되면 그 행의 하단도 막힌다
+        GenerateUpperRow(row.upper);
+        // 킬러가 살아 있는 동안(경고 포함)은 하단을 새로 생성하지 않는다
+        if (BulletBill.ActiveCount == 0)
+            GenerateRow(row.lower, lanes);
+    }
+
+    void GenerateUpperRow(ObjectType[] types)
+    {
+        // 킬러는 상단 전체를 덮는 1개 → 셀이 여러 개여도 가운데 상단 레인에 한 번만. 동시 1개, 3D에서만
+        if (System.Array.IndexOf(types, ObjectType.BULLET_BILL) >= 0 && upperLanes.Length > 0
+            && BulletBill.ActiveCount == 0 && GameManager.Instance.currentViewMode == ViewMode.View3D)
+            upperLanes[upperLanes.Length / 2].GenerateObstacle(ObjectType.BULLET_BILL);
+        GenerateRow(types, upperLanes);
     }
 
     void GenerateRow(ObjectType[] types, Lane[] targets)
@@ -141,6 +153,12 @@ public class LaneManager : MonoBehaviour
                 continue;
             // Whomp도 동시 1마리, 3D에서만 생성
             if (types[i] == ObjectType.WHOMP && (Whomp.ActiveCount > 0 || GameManager.Instance.currentViewMode == ViewMode.View2D))
+                continue;
+            // 멍멍이는 2D에서 피할 수 없으므로 3D에서만 생성
+            if (types[i] == ObjectType.CHAIN_CHOMP && GameManager.Instance.currentViewMode == ViewMode.View2D)
+                continue;
+            // 킬러는 GenerateUpperRow에서 따로 생성
+            if (types[i] == ObjectType.BULLET_BILL)
                 continue;
             targets[i].GenerateObstacle(types[i]);
         }

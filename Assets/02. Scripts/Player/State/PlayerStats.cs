@@ -19,6 +19,8 @@ public struct PlayerStats
     public float hpDecrementMultiplier;
     [Tooltip("무적: 피격과 시간당 HP 감소 무시")]
     public bool invincible;
+    [Tooltip("HP 임계값에 의한 3D/2D 전환 막음")]
+    public bool lockView;
 
     public static PlayerStats Default => new PlayerStats
     {
@@ -29,5 +31,6 @@ public struct PlayerStats
         airTimeMultiplier = 1f,
         hpDecrementMultiplier = 1f,
         invincible = false,
+        lockView = false,
     };
 }

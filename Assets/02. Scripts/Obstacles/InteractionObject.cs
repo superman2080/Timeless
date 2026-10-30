@@ -24,6 +24,9 @@ public enum ObjectType
     OCTOOMBA,
     SUPER_MUSHROOM,
     MINI_MUSHROOM,
+    BULLET_BILL,
+    CHAIN_CHOMP,
+    P_SWITCH,
 }
 
 [Serializable]
