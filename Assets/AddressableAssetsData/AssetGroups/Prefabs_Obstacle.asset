@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - obstacle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12d2ffc9c49808544981b5281e1c2dce
+    m_Address: Gm_Obstacle_ChainChomp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 24453a6cb8f31cc43965e50bf163db89
     m_Address: Gm_Obstacle_Fan
     m_ReadOnly: 0
@@ -99,6 +105,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - obstacle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a62b6ca085454b0439db90d7a91b271c
+    m_Address: BulletBill
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b4be959f829b96e47a8df44d7766d008
     m_Address: Gm_Obstacle_SpikeRock
     m_ReadOnly: 0
@@ -111,8 +123,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - obstacle
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bac09676efd13734e9c8b3905d87bd12
+    m_Address: ChainChomp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d682bc3ca2fa1414d8013f0219e89603
     m_Address: Gm_Obstacle_Robot_Arm
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - obstacle
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e593c90a3cbdc8043ad826e0462be0a2
+    m_Address: Gm_Obstacle_BulletBill
     m_ReadOnly: 0
     m_SerializedLabels:
     - obstacle

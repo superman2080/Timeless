@@ -15,6 +15,8 @@ public class PlayerEffectSO : PlayerStateSO
     public float airTimeMultiplier = 1f;
     public float hpDecrementMultiplier = 1f;
     public bool invincible;
+    [Tooltip("켜져 있는 동안 HP 임계값에 의한 3D/2D 전환 막음")]
+    public bool lockView;
 
     public override void ModifyStats(ref PlayerStats stats)
     {
@@ -25,5 +27,6 @@ public class PlayerEffectSO : PlayerStateSO
         stats.airTimeMultiplier *= airTimeMultiplier;
         stats.hpDecrementMultiplier *= hpDecrementMultiplier;
         stats.invincible |= invincible;
+        stats.lockView |= lockView;
     }
 }
