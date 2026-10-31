@@ -18,7 +18,9 @@
   - `fallAxis` 기본값을 `Vector3.right` → `Vector3.left`로 바꿨다(+90°가 카메라 쪽으로 넘어지도록).
   - `EffectPool`의 `dontDestroyOnLoad`를 **false**로 맞췄다. 기본값(true)이면 사망 후 씬 재로드 시 `InteractionObjectPool`(씬 수명)과 달리 이펙트가 DDOL로 남아 누적된다.
   - 래퍼 프리팹 Rigidbody `constraints`는 `None`(Lakitu/Goomba와 동일). `FreezeAll`이면 `MovePosition`/`MoveRotation`이 막힌다.
-  - 파편 프리팹은 `Gm_Obstacle_Pipe`를 **언팩 복제**해 `Obstacle` → `StoneFragment`로 교체했다(프리팹 변형으로는 컴포넌트 타입 교체 불가). damage 20·hitSFX는 Pipe와 동일, `ignoreJumpedPlayer = true`.
+  - 파편 프리팹은 처음에 `Gm_Obstacle_Pipe`를 **언팩 복제**해 `Obstacle` → `StoneFragment`로 교체했다(프리팹 변형으로는 컴포넌트 타입 교체 불가). damage 20·hitSFX는 Pipe와 동일, `ignoreJumpedPlayer = true`.
+  - (추가 요청) 임시 파이프 대신 씬의 `ShockwaveSpikeRock`으로 **`Assets/07. Prefabs/Obstacle3D/Gm_Obstacle_SpikeRock.prefab`** 을 만들어 `ObjectData.asset`의 `STONE_FRAGMENT`를 이 프리팹으로 교체했다. 모델 크기 (0.8, 3.08, 0.8)에 맞춰 trigger BoxCollider를 잡고 `riseDepth`를 3.1로 올려(기존 1.2) 솟아오르기 전에 완전히 바닥 아래 숨도록 했다. damage 20·hitSFX·`ignoreJumpedPlayer`는 그대로.
+    - 임시 프리팹 `Gm_Obstacle_StoneFragment.prefab`(파이프 기반)은 더 이상 참조되지 않는다(참조 검색 0건). 지울지는 사용자 판단.
   - 패턴 배치는 Pattern Editor 대신 스크립트로 `Pattern3D_21`을 새로 만들어 등록했다(row0 = 가운데 레인 Whomp, row1 = 양쪽 굼바).
   - (추가 요청) 발동 거리는 **`[Range(2, 20)] triggerDistance` 슬라이더 하나**로 합쳤다(`triggerRangeZ`/`triggerMinZ` 2개 필드 제거). 하한은 슬라이더가 담당하고, 코드에서는 플레이어보다 앞일 때(`deltaZ > 0`)만 발동하도록 유지한다. 씬 뷰 기즈모(`drawTriggerGizmo`)로 발동 구간을 보여준다. 프리팹 값은 20/2 그대로 복구했고, `triggerDistance`를 5로 낮추면 플레이어 z(-9) + 5 = z ≈ -4에서 발동하는 것을 실측했다.
 - **주의**: `SampleScene`의 `LaneManager`는 현재 `objectDataSet3D`로 **`DebugCreateObject3D.asset`**(패턴 2개)을 쓰고 있다. 새 패턴은 `CreateObjectData3D.asset`(합계 100%)에 등록했으므로, 실제 플레이에서 보려면 `LaneManager`의 데이터셋을 프로덕션 에셋으로 되돌려야 한다. 검증은 런타임에 데이터셋을 바꿔 진행했다.

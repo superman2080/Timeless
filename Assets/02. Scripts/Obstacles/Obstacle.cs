@@ -40,7 +40,11 @@ public class Obstacle : InteractionObject
             CameraManager.Instance.CameraShake(0.3f, 5f, 0.2f, CameraShakeMode.DECREMENT);
             AudioSource.PlayClipAtPoint(hitSFX, player.transform.position, 0.5f);
             player.TakeHit(DamageAmount);
+            OnHitPlayer(player);
         }
     }
+
+    // 판정을 통과해 실제로 플레이어를 때렸을 때 (서브클래스 고유 연출용)
+    protected virtual void OnHitPlayer(Player player) { }
 
 }

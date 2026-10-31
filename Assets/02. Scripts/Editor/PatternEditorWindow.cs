@@ -256,6 +256,10 @@ public class PatternEditorWindow : EditorWindow
         ObjectType.SPIKE_BALL => new Color(0.9f, 0.3f, 0.5f),
         ObjectType.WHOMP => new Color(0.45f, 0.45f, 0.5f),
         ObjectType.STONE_FRAGMENT => new Color(0.35f, 0.33f, 0.3f),
+        ObjectType.BOO => new Color(0.7f, 0.72f, 0.85f),
+        ObjectType.OCTOOMBA => new Color(0.5f, 0.2f, 0.6f),
+        ObjectType.SUPER_MUSHROOM => new Color(0.9f, 0.25f, 0.1f),
+        ObjectType.MINI_MUSHROOM => new Color(0.2f, 0.45f, 0.95f),
         _ => new Color(0.35f, 0.45f, 0.6f),
     };
 }

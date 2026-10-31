@@ -54,6 +54,8 @@ public class Stat<T> where T : MonoBehaviour
         HP += Mathf.Abs(healAmount);
     }
 
+    public void SetHP(float newHP) => HP = newHP;
+
     // 늘어나면 늘어난 만큼 HP도 회복, 줄어들면 최대치로 자름
     public void SetMaxHP(float newMaxHP)
     {
@@ -88,6 +90,7 @@ public class Player : InteractionObject
     [SerializeField] PlayerFormSO defaultForm;
     public PlayerStateMachine StateMachine { get; private set; }
     public bool IsInvincible => StateMachine.Stats.invincible;
+    public PlayerFormSO DefaultForm => defaultForm;
     private float baseMapSpeed;
     #endregion
 
@@ -102,6 +105,15 @@ public class Player : InteractionObject
     private float groundY;
     private float jumpOffsetY;
     private float laneX;
+    #endregion
+
+    #region Resize
+    [Header("Resize")]
+    [Tooltip("크기 변경 연출에서 한 단계 표시 시간(초, 실제 시간)")]
+    [SerializeField] float resizeStepTime = 0.07f;
+    // 이전 크기(0)와 새 크기(1)를 번갈아 표시. 마지막은 새 크기
+    static readonly float[] resizeSteps = { 1f, 0f, 1f, 0f, 1f, 0f, 1f, 0f, 1f, 0f, 1f };
+    private Coroutine resizeCor;
     #endregion
 
     #region EventChannels
@@ -162,7 +174,9 @@ public class Player : InteractionObject
 
     private void Update()
     {
-        Move();
+        // 연출 중엔 입력 무시 (멈춘 동안 레인 이동/점프 코루틴이 쌓이지 않게)
+        if (resizeCor == null)
+            Move();
         StateMachine.Tick(Time.deltaTime);
 
         // 무적 상태가 아닐 때만 HP 감소
@@ -171,8 +185,8 @@ public class Player : InteractionObject
             HPDecrement();
         }
 
-        if (currentLane != GameManager.Instance.laneManager.laneLength - 1 && GameManager.Instance.currentViewMode == ViewMode.View2D)
-            ChangeLane(GameManager.Instance.laneManager.laneLength - 1);
+        if (currentLane != GameManager.Instance.laneManager.laneLength - 1 && GameManager.Instance.currentViewMode == ViewMode.View2D && changeLaneCor == null)
+            ChangeLane(GameManager.Instance.laneManager.laneLength - 1, true);
     }
 
     private void FixedUpdate()
@@ -203,11 +217,18 @@ public class Player : InteractionObject
         playerAnimator.Jump(duration);
     }
 
-    public void ChangeLane(int laneIndex)
+    // force: for 2D switch. cancels in-flight move, ignores view/jump guards
+    public void ChangeLane(int laneIndex, bool force = false)
     {
-        if (GameManager.Instance.currentViewMode == ViewMode.View2D ||
-            laneIndex < 0 ||
-            laneIndex > GameManager.Instance.laneLength - 1 ||
+        if (laneIndex < 0 || laneIndex > GameManager.Instance.laneLength - 1)
+            return;
+
+        if (force)
+        {
+            if (changeLaneCor != null)
+                StopCoroutine(changeLaneCor);
+        }
+        else if (GameManager.Instance.currentViewMode == ViewMode.View2D ||
             changeLaneCor != null ||
             (!allowLaneChangeWhileJumping && IsJump))
             return;
@@ -279,15 +300,32 @@ public class Player : InteractionObject
 
     private void ApplyStats(PlayerStats stats)
     {
-        transform.localScale = Vector3.one * stats.scale;
+        // 연출 중이면 끝날 때 최신 스탯 크기로 맞춰지므로 다시 시작하지 않음
+        if (resizeCor == null && !Mathf.Approximately(stats.scale, transform.localScale.x))
+            resizeCor = StartCoroutine(ResizeCoroutine(transform.localScale.x, stats.scale));
         stat.SetMaxHP(stats.maxHP);
         GameManager.Instance.mapSpeed = baseMapSpeed * stats.mapSpeedMultiplier;
+    }
+
+    // 시간을 멈추고 이전/새 크기를 번갈아 보여준 뒤 새 크기로 끝냄
+    private IEnumerator ResizeCoroutine(float from, float to)
+    {
+        float prevTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
+        foreach (float t in resizeSteps)
+        {
+            transform.localScale = Vector3.one * Mathf.Lerp(from, to, t);
+            yield return new WaitForSecondsRealtime(resizeStepTime);
+        }
+        transform.localScale = Vector3.one * StateMachine.Stats.scale; // 연출 중 바뀐 스탯 반영
+        Time.timeScale = prevTimeScale;
+        resizeCor = null;
     }
 
     private void Restart()
     {
         CameraManager.Instance.SetGlitch(0.02f);
         CameraManager.Instance.SetPixelateIntensity(1);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+        UnityEngine.AddressableAssets.Addressables.LoadSceneAsync("SampleScene");
     }
 }

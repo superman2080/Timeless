@@ -24,8 +24,9 @@ public class GameManager : Singleton<GameManager>
     public Vector3 GeneratePos => generatePos;
     public Vector3 DisposePos => disposePos;
 
-    [Range(0, 1)] public float threshold2DView = 0.5f;
-    [Range(0, 1)] public float threshold3DView = 0.7f;
+    // 전환 임계값은 LaneManager의 PatternSetSO에서 관리
+    public float threshold2DView => laneManager.patternSet.threshold2DView;
+    public float threshold3DView => laneManager.patternSet.threshold3DView;
     [Range(1, 16)] public int pixelateIntensity2D = 7;
 
     public AudioPlayer audioPlayer;
@@ -46,7 +47,7 @@ public class GameManager : Singleton<GameManager>
         {
             CameraManager.Instance.FadeGlitch(1f, 0.002f, changeTime);
             CameraManager.Instance.SetPixelateIntensity(pixelateIntensity2D);
-            player.ChangeLane(laneLength - 1);
+            player.ChangeLane(laneLength - 1, true);
         }
         else
         {

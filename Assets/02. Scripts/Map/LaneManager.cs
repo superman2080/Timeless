@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class LaneManager : MonoBehaviour
 {
-    public CreateObjectSO objectDataSet3D;
-    public CreateObjectSO objectDataSet2D;
+    public PatternSetSO patternSet;
     public Lane[] lanes;
     public Lane[] upperLanes;
     public int laneLength => lanes.Length;
     public float upperLaneHeight = 2.5f;
     public float laneInterval = 1f;
+    [Tooltip("Lane/object spawn Z position")]
+    public float spawnZ = 20f;
     [Tooltip("패턴 사이 거리 (유닛)")]
     public float patternDistance = 9f;
     private float distanceRemain; // 남은 대기 거리. 음수 = 직전 대기에서 초과 이동한 거리(이월)
@@ -54,7 +55,7 @@ public class LaneManager : MonoBehaviour
             return;
         }
 
-        Vector3 basePosition = Utils.GetTopViewportPosition(0.05f);
+        Vector3 basePosition = new Vector3(0f, 0f, spawnZ);
         PlaceLanes(lanes, basePosition);
         PlaceLanes(upperLanes, basePosition + Vector3.up * upperLaneHeight);
     }
@@ -74,9 +75,8 @@ public class LaneManager : MonoBehaviour
     {
         while (true)
         {
-            CreateObjectSO currentDataSet = GameManager.Instance.currentViewMode == ViewMode.View2D
-                ? objectDataSet2D
-                : objectDataSet3D;
+            var stat = GameManager.Instance.player.stat;
+            CreateObjectSO currentDataSet = patternSet.Select(GameManager.Instance.currentViewMode, stat != null ? stat.HP / stat.MaxHP : 1f); // stat은 Player.Start에서 생성됨
 
             yield return StartCoroutine(GeneratePatternCoroutine(currentDataSet));
             yield return WaitDistance(patternDistance);
@@ -86,7 +86,7 @@ public class LaneManager : MonoBehaviour
     // LaneManager.cs 수정
     private IEnumerator GeneratePatternCoroutine(CreateObjectSO dataSet)
     {
-        var pattern = dataSet.PickRandom();
+        var pattern = dataSet != null ? dataSet.PickRandom() : null;
         if (pattern == null)
             yield break;
 

@@ -67,7 +67,7 @@ unity command eval_file --project-path . --file <윈도우 절대경로.cs>  # C
 - `mapSpeed`는 `Player.ApplyStats`가 플레이어 상태(형태/효과)의 월드 속도 배율로 바꿈.
 
 ### 레인 & 스폰
-- `LaneManager`가 자식 `Lane`들을 `laneInterval` 간격으로 카메라 상단 뷰포트(y=0 평면 교차점, `Utils.GetTopViewportPosition`) 위치에 배치.
+- `LaneManager`가 자식 `Lane`들을 `laneInterval` 간격으로 `LaneManager.spawnZ`(고정 Z, 카메라와 무관) 위치에 배치.
 - 스폰 데이터: `CreateObjectSO` 에셋(`Assets/11. Datas/CreateObjectData3D.asset`, `CreateObjectData2D.asset`)이 `PatternDataSO` 목록 + 패턴별 등장 확률(%, 합 100)을 관리. 현재 뷰 모드에 따라 2D/3D 데이터셋 선택, `PickRandom()`으로 패턴을 골라 행 단위로 생성.
 - 패턴 하나 = `PatternDataSO` 에셋(`Assets/11. Datas/Patterns/3D|2D/`). 행마다 3레인 고정 `lower[3]`/`upper[3]` 격자(`rows[0]`이 먼저 생성). 편집은 `Tools/Timeless/Pattern Editor` 창(에셋 더블클릭으로도 열림). `viewMode`가 2D면 레인 2만 사용.
 - 생성 간격은 **거리 기준**: 패턴 사이 `LaneManager.patternDistance`, 행 사이 `CreateObjectSO.rowDistance`(유닛). `mapSpeed`가 바뀌어도 간격 유지.

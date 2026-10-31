@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Prefabs_FX
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Prefabs_FX
+  m_GUID: 3777f13b6e1474b4eb26d8b740d5c500
+  m_SerializeEntries:
+  - m_GUID: 0377aa8bc7b28c840b0681868a0a6ea3
+    m_Address: FX_TinyExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - fx
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 277b2830ac95aba49af74659d194081e
+    m_Address: FX_DustExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - fx
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70f736d4e3225a74498656e1f8f1f58a
+    m_Address: BgmChangeSystem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - fx
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 54ba80f77e872764e9faaff8ca501243, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e9c097221ee8b8d46a2fcf0ed97da257, type: 2}
+    - {fileID: 11400000, guid: 19fa915a4635bcc4f9aa0be774995c6c, type: 2}
+    m_SchemaDisplayOrder:
+    - Prefabs_FX_BundledAssetGroupSchema
+    - Prefabs_FX_ContentUpdateGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1
