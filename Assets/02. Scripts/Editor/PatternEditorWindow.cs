@@ -260,6 +260,9 @@ public class PatternEditorWindow : EditorWindow
         ObjectType.OCTOOMBA => new Color(0.5f, 0.2f, 0.6f),
         ObjectType.SUPER_MUSHROOM => new Color(0.9f, 0.25f, 0.1f),
         ObjectType.MINI_MUSHROOM => new Color(0.2f, 0.45f, 0.95f),
+        ObjectType.BULLET_BILL => new Color(0.2f, 0.2f, 0.25f),
+        ObjectType.CHAIN_CHOMP => new Color(0.15f, 0.15f, 0.18f),
+        ObjectType.P_SWITCH => new Color(0.15f, 0.35f, 0.8f),
         _ => new Color(0.35f, 0.45f, 0.6f),
     };
 }

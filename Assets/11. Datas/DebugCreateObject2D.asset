@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CreateObjectSO
   patterns:
   - pattern: {fileID: 11400000, guid: 1d14e8f64354a944e93ccff085ac0e85, type: 2}
-    percent: 100
+    percent: 50
+  - pattern: {fileID: 11400000, guid: f48f6f9fe4185a4428ba6384af7fd87c, type: 2}
+    percent: 50
   rowDistance: 1.8

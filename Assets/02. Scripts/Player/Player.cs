@@ -92,6 +92,7 @@ public class Player : InteractionObject
     public bool IsInvincible => StateMachine.Stats.invincible;
     public PlayerFormSO DefaultForm => defaultForm;
     private float baseMapSpeed;
+    private bool viewLocked;
     #endregion
 
     #region Jump
@@ -266,20 +267,27 @@ public class Player : InteractionObject
 
     private void CheckChangeView()
     {
+        // 전환 잠금 효과(P스위치) 중엔 HP 임계값 무시
+        if (StateMachine.Stats.lockView)
+            return;
+
         float hpRatio = Mathf.InverseLerp(0, stat.MaxHP, stat.HP);
 
         if (hpRatio <= GameManager.Instance.threshold2DView && GameManager.Instance.currentViewMode == ViewMode.View3D)
-        {
-            GameManager.Instance.ChangeViewMode(ViewMode.View2D, 1.5f);
-            GameManager.Instance.audioPlayer.trigger = true;
-            GameManager.Instance.laneManager.RemoveAllLaneObjects();
-        }
+            SwitchView(ViewMode.View2D);
         else if (hpRatio >= GameManager.Instance.threshold3DView && GameManager.Instance.currentViewMode == ViewMode.View2D)
-        {
-            GameManager.Instance.ChangeViewMode(ViewMode.View3D, 1.5f);
-            GameManager.Instance.audioPlayer.trigger = true;
-            GameManager.Instance.laneManager.RemoveAllLaneObjects();
-        }
+            SwitchView(ViewMode.View3D);
+    }
+
+    // 뷰 전환 + BGM 트리거 + 레인 오브젝트 회수
+    public void SwitchView(ViewMode mode)
+    {
+        if (mode == GameManager.Instance.currentViewMode)
+            return;
+
+        GameManager.Instance.ChangeViewMode(mode, 1.5f);
+        GameManager.Instance.audioPlayer.trigger = true;
+        GameManager.Instance.laneManager.RemoveAllLaneObjects();
     }
 
     private void HPDecrement()
@@ -305,6 +313,12 @@ public class Player : InteractionObject
             resizeCor = StartCoroutine(ResizeCoroutine(transform.localScale.x, stats.scale));
         stat.SetMaxHP(stats.maxHP);
         GameManager.Instance.mapSpeed = baseMapSpeed * stats.mapSpeedMultiplier;
+
+        // 잠금이 풀리는 순간 HP 기준으로 재검사 (효과 OnExit 시점엔 아직 잠긴 스탯이라 여기서 처리)
+        bool unlocked = viewLocked && !stats.lockView;
+        viewLocked = stats.lockView;
+        if (unlocked)
+            CheckChangeView();
     }
 
     // 시간을 멈추고 이전/새 크기를 번갈아 보여준 뒤 새 크기로 끝냄
