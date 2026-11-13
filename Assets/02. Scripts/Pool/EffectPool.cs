@@ -8,12 +8,63 @@ public class EffectPool : Pool<PooledEffect>
     [SerializeField] private EffectType defaultEffectType = EffectType.NONE;
     public override GameObject Prefab => GetPrefabByType(defaultEffectType);
 
+    [System.Serializable]
+    public struct PrewarmData
+    {
+        public EffectType type;
+        [Min(0)] public int count;
+    }
+
+    private const int DefaultPrewarmCount = 3;
+    [Tooltip("타입별 미리 생성 개수. 목록에 없는 타입은 3개")]
+    [SerializeField] private List<PrewarmData> prewarm = new();
+
     private Dictionary<EffectType, GameObject> prefabDictionary;
+    // 타입별 인스턴스 목록. Take가 해당 타입만 순회하도록 (풀 전체 스캔/할당 방지)
+    private readonly Dictionary<EffectType, List<PooledEffect>> instancesByType = new();
 
     protected override void Awake()
     {
         base.Awake();
         InitializeEffectDict();
+        foreach (var item in Items)
+            GetInstanceList(item.effectType).Add(item);
+    }
+
+    private void Start()
+    {
+        foreach (var type in prefabDictionary.Keys)
+        {
+            int count = DefaultPrewarmCount;
+            foreach (var data in prewarm)
+            {
+                if (data.type == type)
+                    count = data.count;
+            }
+
+            var list = GetInstanceList(type);
+            for (int i = list.Count; i < count; i++)
+                CreateInactive(type, prefabDictionary[type]);
+        }
+    }
+
+    private List<PooledEffect> GetInstanceList(EffectType type)
+    {
+        if (!instancesByType.TryGetValue(type, out var list))
+        {
+            list = new List<PooledEffect>();
+            instancesByType.Add(type, list);
+        }
+        return list;
+    }
+
+    private PooledEffect CreateInactive(EffectType type, GameObject prefab)
+    {
+        var instance = Create(prefab);
+        instance.effectType = type;
+        instance.gameObject.SetActive(false);
+        GetInstanceList(type).Add(instance);
+        return instance;
     }
 
     private void InitializeEffectDict()
@@ -78,15 +129,12 @@ public class EffectPool : Pool<PooledEffect>
             return null;
         }
 
-        foreach (var child in GetChildList(true))
+        foreach (var child in GetInstanceList(effectType))
         {
-            if (!child.gameObject.activeSelf && child.effectType == effectType)
+            if (child != null && !child.gameObject.activeSelf)
                 return child;
         }
 
-        var instance = Instantiate(prefab, Vector3.zero, Quaternion.identity, pool).GetComponent<PooledEffect>();
-        instance.effectType = effectType;
-        instance.gameObject.SetActive(false);
-        return instance;
+        return CreateInactive(effectType, prefab);
     }
 }

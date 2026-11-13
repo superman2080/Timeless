@@ -11,12 +11,64 @@ public class InteractionObjectPool : Pool<InteractionObject>
     [SerializeField] private ObjectType defaultParticleType = ObjectType.NONE;
     public override GameObject Prefab => GetPrefabByType(defaultParticleType);
 
+    [Serializable]
+    public struct PrewarmData
+    {
+        public ObjectType type;
+        [Min(0)] public int count;
+    }
+
+    private const int DefaultPrewarmCount = 3;
+    [Tooltip("타입별 미리 생성 개수. 목록에 없는 타입은 3개")]
+    [SerializeField] private List<PrewarmData> prewarm = new();
+
     private Dictionary<ObjectType, GameObject> prefabDictionary;
+    // 타입별 인스턴스 목록. Take가 해당 타입만 순회하도록 (풀 전체 스캔/할당 방지)
+    private readonly Dictionary<ObjectType, List<InteractionObject>> instancesByType = new();
 
     protected override void Awake()
     {
         base.Awake();
         InitializeObstacleDict();
+        foreach (var item in Items)
+            GetInstanceList(item.objectData.type).Add(item);
+    }
+
+    // GameManager(-100) 등 다른 매니저 초기화 뒤에 생성해야 OnEnable 쪽 참조가 안전하다
+    private void Start()
+    {
+        foreach (var type in prefabDictionary.Keys)
+        {
+            int count = DefaultPrewarmCount;
+            foreach (var data in prewarm)
+            {
+                if (data.type == type)
+                    count = data.count;
+            }
+
+            var list = GetInstanceList(type);
+            for (int i = list.Count; i < count; i++)
+                CreateInactive(type);
+        }
+    }
+
+    private List<InteractionObject> GetInstanceList(ObjectType type)
+    {
+        if (!instancesByType.TryGetValue(type, out var list))
+        {
+            list = new List<InteractionObject>();
+            instancesByType.Add(type, list);
+        }
+        return list;
+    }
+
+    private InteractionObject CreateInactive(ObjectType type)
+    {
+        var instance = Create(prefabDictionary[type]);
+        instance.objectData.type = type;
+        instance.gameObject.SetActive(false);
+        GetInstanceList(type).Add(instance);
+        return instance;
     }
 
     private void InitializeObstacleDict()
@@ -82,16 +134,13 @@ public class InteractionObjectPool : Pool<InteractionObject>
         }
 
         // 해당 타입의 비활성화된 오브젝트 찾기
-        foreach (var child in GetChildList(true))
+        foreach (var child in GetInstanceList(objectType))
         {
-            if (!child.gameObject.activeSelf && child.objectData.type == objectType)
+            if (child != null && !child.gameObject.activeSelf)
                 return child;
         }
 
         // 없으면 새로 생성 (프리팹이 활성이므로 곧바로 비활성으로 되돌린다)
-        var instance = Instantiate(prefabDictionary[objectType], Vector3.zero, Quaternion.identity, pool).GetComponent<InteractionObject>();
-        instance.objectData.type = objectType;
-        instance.gameObject.SetActive(false);
-        return instance;
+        return CreateInactive(objectType);
     }
 }

@@ -17,6 +17,8 @@ public enum BackgroundType
     Background1 = 0,
     Background2,
     Background3,
+    LavaCorridor,
+    DungeonCorridor,
 }
 
 
@@ -30,14 +32,40 @@ public class MapManager : MonoBehaviour
     public BackgroundType nowBackground;
     [SerializeField] private GameObject[] backgroundPrefabs;
 
+    [Header("트랙 생성 여부 (코리도 배경은 자체 바닥이 있어 끔)")]
+    [SerializeField] private bool generateTrack = true;
+
+    // 배경(맵) 전환 시 발행. MapLighting 등이 구독
+    public event System.Action<BackgroundType> onBackgroundChanged;
+
 
     public Transform Pool => transform;
+
+    /// <summary>
+    /// 배경(맵) 전환. 이미 생성된 타일은 그대로 흘러가고 다음 스폰부터 새 타입이 나온다.
+    /// </summary>
+    public void ChangeBackground(BackgroundType type)
+    {
+        if (nowBackground == type)
+            return;
+        nowBackground = type;
+        onBackgroundChanged?.Invoke(type);
+    }
+
+    [ContextMenu("Test/Change To LavaCorridor")]
+    private void TestChangeToLava() => ChangeBackground(BackgroundType.LavaCorridor);
+
+    [ContextMenu("Test/Change To Background2")]
+    private void TestChangeToBackground2() => ChangeBackground(BackgroundType.Background2);
 
     void Start()
     {
         // --- 트랙 초기화 (기존) ---
-        InitializeTrackFill();
-        StartCoroutine(GenerateMapCoroutine());
+        if (generateTrack)
+        {
+            InitializeTrackFill();
+            StartCoroutine(GenerateMapCoroutine());
+        }
 
         // --- (추가) 배경 초기화 ---
         InitializeBackgroundFill();
@@ -128,9 +156,14 @@ public class MapManager : MonoBehaviour
     // 'GenerateMapCoroutine'을 복사해서 'Background'로 이름 변경
     private IEnumerator GenerateBackgroundCoroutine()
     {
+        BackgroundManager lastBg = null;
         while (true)
         {
-            var lastBg = GenerateBackground(nowBackground, GameManager.Instance.GeneratePos, Quaternion.identity);
+            // 프레임 단위 대기로 생기는 틈을 막기 위해 직전 타일 바로 뒤에 붙여 생성
+            Vector3 pos = GameManager.Instance.GeneratePos;
+            if (lastBg != null)
+                pos.z = lastBg.transform.position.z + lastBg.BackgroundSize.z;
+            lastBg = GenerateBackground(nowBackground, pos, Quaternion.identity);
 
             // .TrackSize -> .BackgroundSize
             float nextGenerateThreshold = GameManager.Instance.GeneratePos.z - lastBg.BackgroundSize.z;

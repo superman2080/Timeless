@@ -140,9 +140,9 @@ public class Whomp : InteractionObject
     // 같은 레인 인덱스의 오브젝트를 상단/하단 구분 없이 전부 회수
     private void ClearLane()
     {
-        foreach (var obj in (Pool<InteractionObject>.Instance as InteractionObjectPool).GetChildList(false))
+        foreach (var obj in Pool<InteractionObject>.Instance.Items)
         {
-            if (obj == this || obj is Player || obj.currentLane != currentLane)
+            if (obj == null || !obj.gameObject.activeSelf || obj == this || obj is Player || obj.currentLane != currentLane)
                 continue;
             obj.gameObject.SetActive(false);
         }

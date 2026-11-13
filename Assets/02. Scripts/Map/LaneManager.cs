@@ -16,6 +16,7 @@ public class LaneManager : MonoBehaviour
     public float patternDistance = 9f;
     private float distanceRemain; // 남은 대기 거리. 음수 = 직전 대기에서 초과 이동한 거리(이월)
     private Coroutine generateCoroutine;
+    private static readonly WaitForFixedUpdate WaitFixed = new(); // 매 FixedUpdate 할당 방지
 
     void Start()
     {
@@ -109,7 +110,7 @@ public class LaneManager : MonoBehaviour
         distanceRemain += distance;
         while (distanceRemain > 0f)
         {
-            yield return new WaitForFixedUpdate();
+            yield return WaitFixed;
             distanceRemain -= GameManager.Instance.mapSpeed * Time.fixedDeltaTime;
         }
     }

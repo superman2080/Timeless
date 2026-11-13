@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PatternDataSO
   viewMode: 0
   rows:
-  - lower: 000000000e00000000000000i
+  - lower: 000000001300000000000000i
     upper: 000000000000000000000000i
