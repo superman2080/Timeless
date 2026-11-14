@@ -400,13 +400,15 @@ MonoBehaviour:
   - {fileID: 4885948109782844580, guid: d5601df4b93e1994cbea641d94229156, type: 3}
   - {fileID: 5554518738788383511, guid: 8a4e0da4322a0f04c885e9b25c9384f2, type: 3}
   - {fileID: 3106388154907336648, guid: 1714833670a2fa849b65cada4a63a9a0, type: 3}
-  nowBackground: 3
+  nowBackground: 4
   backgroundPrefabs:
   - {fileID: 6122623620462098721, guid: 1e3413f02d9b8364d81ff4c8006b216e, type: 3}
   - {fileID: 2120809834971843435, guid: 424476d338bc45649976fac757c27f9c, type: 3}
   - {fileID: 71162151818602414, guid: 6aa1c3575cdcb1344b33b5637e04c6ea, type: 3}
   - {fileID: 5012861330227482020, guid: d0ea109531685934c83c6d665fcf25f6, type: 3}
   - {fileID: 1670007630889907291, guid: a2420d79ef1a57f4b85eb031e00105cd, type: 3}
+  specialBackground: 3
+  specialInterval: 20
   generateTrack: 0
 --- !u!4 &75296388
 Transform:
@@ -1580,7 +1582,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapLighting
   mapManager: {fileID: 75296387}
   litBackgrounds: 03000000i
-  fadeTime: 1
+  blendDistance: 4
+  tileStartOffset: -18
 --- !u!1 &618540549
 GameObject:
   m_ObjectHideFlags: 0
