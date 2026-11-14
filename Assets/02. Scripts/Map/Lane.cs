@@ -22,8 +22,12 @@ public class Lane : MonoBehaviour
             return null;
 
         var obj = (Pool<InteractionObject>.Instance as InteractionObjectPool).Get(type, position, Quaternion.identity);
+        if (obj == null)
+            return null;
         obj.currentLane = LaneIndex;
         obj.isUpper = isUpper;
+        // 풀로 돌아간(비활성) 항목을 정리해 목록이 무한히 커지거나 재사용 오브젝트가 중복으로 쌓이지 않게 한다
+        spawnedObjects.RemoveAll(o => o == null || !o.gameObject.activeSelf);
         spawnedObjects.Add(obj);
         return obj;
     }
@@ -37,6 +41,7 @@ public class Lane : MonoBehaviour
                 Pool<InteractionObject>.Instance.Return(obj);
             }
         }
+        spawnedObjects.Clear();
     }
 
 

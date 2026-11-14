@@ -27,6 +27,7 @@ public enum ObjectType
     BULLET_BILL,
     CHAIN_CHOMP,
     P_SWITCH,
+    SUPER_STAR,
 }
 
 [Serializable]

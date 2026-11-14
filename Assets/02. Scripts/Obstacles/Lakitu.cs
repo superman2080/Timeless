@@ -135,9 +135,9 @@ public class Lakitu : InteractionObject
         float scroll = GameManager.Instance.mapSpeed * ball.FlightTime;
 
         blockerZ.Clear();
-        foreach (var obj in (Pool<InteractionObject>.Instance as InteractionObjectPool).GetChildList(false))
+        foreach (var obj in Pool<InteractionObject>.Instance.Items)
         {
-            if (obj == this || obj == ball || obj.isUpper || obj.currentLane != lane.LaneIndex)
+            if (obj == null || !obj.gameObject.activeSelf || obj == this || obj == ball || obj.isUpper || obj.currentLane != lane.LaneIndex)
                 continue;
             blockerZ.Add(obj.transform.position.z - scroll);
         }

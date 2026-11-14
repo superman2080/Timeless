@@ -117,6 +117,11 @@ public class Player : InteractionObject
     private Coroutine resizeCor;
     #endregion
 
+    #region Glow
+    private static readonly int EmissionColorID = Shader.PropertyToID("_EmissionColor");
+    private Material[] glowMaterials;
+    #endregion
+
     #region EventChannels
 
     public EventChannelSO onPlayerStatChanged;
@@ -334,6 +339,35 @@ public class Player : InteractionObject
         transform.localScale = Vector3.one * StateMachine.Stats.scale; // 연출 중 바뀐 스탯 반영
         Time.timeScale = prevTimeScale;
         resizeCor = null;
+    }
+
+    // 자식 렌더러 발광색 변경 (검정 = 끔). 첫 호출 때 머티리얼을 인스턴스화하고 _EMISSION 키워드를 켬 (에셋은 건드리지 않음)
+    public void SetGlow(Color color)
+    {
+        if (glowMaterials == null)
+        {
+            var list = new System.Collections.Generic.List<Material>();
+            foreach (var r in GetComponentsInChildren<Renderer>(true))
+                foreach (var m in r.materials)
+                    if (m.HasProperty(EmissionColorID))
+                    {
+                        m.EnableKeyword("_EMISSION");
+                        list.Add(m);
+                    }
+            glowMaterials = list.ToArray();
+        }
+
+        foreach (var m in glowMaterials)
+            m.SetColor(EmissionColorID, color);
+    }
+
+    private void OnDestroy()
+    {
+        // 인스턴스화한 머티리얼 정리
+        if (glowMaterials == null)
+            return;
+        foreach (var m in glowMaterials)
+            Destroy(m);
     }
 
     private void Restart()
