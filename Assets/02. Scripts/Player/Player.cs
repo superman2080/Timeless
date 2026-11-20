@@ -291,7 +291,7 @@ public class Player : InteractionObject
             return;
 
         GameManager.Instance.ChangeViewMode(mode, 1.5f);
-        GameManager.Instance.audioPlayer.trigger = true;
+        SoundManager.Instance.NextBgm();
         GameManager.Instance.laneManager.RemoveAllLaneObjects();
     }
 

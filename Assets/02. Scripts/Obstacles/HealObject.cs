@@ -4,7 +4,7 @@ public class HealObject : InteractionObject
 {
     [SerializeField] private float healAmount = 10;
     public float HealAmount => healAmount;
-    public AudioClip healSFX;
+    public SfxType healSfx = SfxType.PICKUP;
 
     protected override void Start()
     {
@@ -31,7 +31,7 @@ public class HealObject : InteractionObject
             if (player.IsJump != isUpper)
                 return;
 
-            AudioSource.PlayClipAtPoint(healSFX, player.transform.position, 0.5f);
+            SoundManager.Instance.PlaySFX(healSfx);
             player.stat.Heal(HealAmount);
             gameObject.SetActive(false);    
         }
