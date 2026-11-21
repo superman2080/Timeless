@@ -20,6 +20,8 @@ public class Boss : MonoBehaviour
     [Tooltip("천장 높이 (지면 기준). 보스 발이 이 높이를 지나는 순간 천장 이펙트를 생성")]
     public float ceilingY = 6.3f;
     public EffectType ceilingEffect = EffectType.CEILING_EXPLOSION;
+    [Tooltip("천장을 깨고 나올 때 재생할 효과음")]
+    public SfxType ceilingSfx = SfxType.BOSS_CEILING_BREAK;
     [Tooltip("낙하 가속도")]
     public float fallGravity = 40f;
     [Tooltip("낙하 전 카메라를 먼저 보여 주는 시간(초)")]

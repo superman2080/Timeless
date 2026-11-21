@@ -10,6 +10,7 @@ public enum SfxType
     PICKUP,
     BGM_TRANSITION,
     BOSS_ROAR,
+    BOSS_CEILING_BREAK,
 }
 
 [Serializable]
