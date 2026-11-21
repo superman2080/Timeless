@@ -31,6 +31,8 @@ public class Boss : MonoBehaviour
     [Tooltip("착지 후 Walk 전환을 기다리는 최대 시간(초). 애니 설정이 꼬여도 컷씬이 끝나도록 하는 안전장치")]
     public float maxLandHold = 6f;
     public EffectType landEffect = EffectType.FIRE_BUFF;
+    [Tooltip("착지할 때 재생할 효과음")]
+    public SfxType landSfx = SfxType.BOSS_LANDING;
     [Tooltip("울부짖을 때(Scream 트리거 시점) 재생할 효과음")]
     public SfxType roarSfx = SfxType.BOSS_ROAR;
     public float landShakeAmplitude = 3f;

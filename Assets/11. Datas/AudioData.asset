@@ -28,6 +28,9 @@ MonoBehaviour:
   - type: 5
     clip: {fileID: 8300000, guid: be8469cfa2ccf4c428f5eb6534fd8fb5, type: 3}
     volume: 1
+  - type: 6
+    clip: {fileID: 8300000, guid: c0958a23c38a3b6469623e387c5c75f1, type: 3}
+    volume: 1
   bgmStart: {fileID: 8300000, guid: bcd650d25c31cb44e9a808fe59b25651, type: 3}
   bgmCycle:
   - {fileID: 8300000, guid: 39f6bf2d39a752c4f87795c6eb9a8325, type: 3}

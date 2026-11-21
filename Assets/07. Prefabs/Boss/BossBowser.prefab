@@ -57,6 +57,7 @@ MonoBehaviour:
   landIdleTime: 0.3
   maxLandHold: 6
   landEffect: 3
+  landSfx: 6
   roarSfx: 4
   landShakeAmplitude: 3
   landShakeFrequency: 2
