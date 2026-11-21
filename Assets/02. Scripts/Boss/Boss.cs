@@ -15,8 +15,11 @@ public class Boss : MonoBehaviour
     [Min(0f)] public float stayDuration = 10f;
 
     [Header("Intro Cutscene (게임당 1회, 게임 정지)")]
-    [Tooltip("낙하 시작 높이 (지면 기준). 복도 아치 천장(약 6.9m) 아래로 둘 것")]
-    public float dropHeight = 6f;
+    [Tooltip("낙하 시작 높이 (지면 기준). 천장(ceilingY)보다 위에 둬야 천장을 뚫고 내려온다")]
+    public float dropHeight = 9f;
+    [Tooltip("천장 높이 (지면 기준). 보스 발이 이 높이를 지나는 순간 천장 이펙트를 생성")]
+    public float ceilingY = 6.3f;
+    public EffectType ceilingEffect = EffectType.CEILING_EXPLOSION;
     [Tooltip("낙하 가속도")]
     public float fallGravity = 40f;
     [Tooltip("낙하 전 카메라를 먼저 보여 주는 시간(초)")]

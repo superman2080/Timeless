@@ -48,11 +48,15 @@ MonoBehaviour:
   model: {fileID: 3242068927302233572}
   appearInterval: 30
   stayDuration: 10
-  dropHeight: 6
+  dropHeight: 9
+  ceilingY: 6.3
+  ceilingEffect: 4
   fallGravity: 40
   introLeadTime: 0.4
-  landHold: 1.5
+  landIdleTime: 0.3
+  maxLandHold: 6
   landEffect: 3
+  roarSfx: 4
   landShakeAmplitude: 3
   landShakeFrequency: 2
   landShakeDuration: 0.6
