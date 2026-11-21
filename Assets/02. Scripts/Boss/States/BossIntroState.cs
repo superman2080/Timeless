@@ -86,6 +86,7 @@ public class BossIntroState : BossState
     private void Land(Vector3 pos)
     {
         (Pool<PooledEffect>.Instance as EffectPool)?.Get(boss.landEffect, pos);
+        SoundManager.Instance.PlaySFX(boss.landSfx);
         CameraManager.Instance.CameraShake(boss.landShakeAmplitude, boss.landShakeFrequency, boss.landShakeDuration, CameraShakeMode.DECREMENT, true);
         step = Step.Hold;
         timer = 0f;

@@ -11,6 +11,7 @@ public enum SfxType
     BGM_TRANSITION,
     BOSS_ROAR,
     BOSS_CEILING_BREAK,
+    BOSS_LANDING,
 }
 
 [Serializable]
