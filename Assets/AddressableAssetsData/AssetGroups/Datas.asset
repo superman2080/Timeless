@@ -33,18 +33,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - data
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9eca2193aca39a8478824a24d9745499
-    m_Address: Pattern3D_09
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - data
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b52a7b4e5c1b607468bb119f8f27048c
-    m_Address: Pattern3D_23
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - data
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dbf797d02c6eadb47a4b1923c46c8427
     m_Address: Form_Normal
     m_ReadOnly: 0

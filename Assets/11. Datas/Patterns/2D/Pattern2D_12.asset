@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ce95f58a6d2c60438ef7adfacdc6131, type: 3}
-  m_Name: Pattern3D_17
+  m_Name: Pattern2D_12
   m_EditorClassIdentifier: Assembly-CSharp::PatternDataSO
-  viewMode: 0
+  viewMode: 1
   rows:
-  - lower: 010000000700000001000000i
+  - lower: 000000000000000009000000i
     upper: 000000000000000000000000i
   - lower: 000000000000000000000000i
     upper: 000000000000000000000000i
-  - lower: 050000000000000006000000i
+  - lower: 00000000000000000c000000i
+    upper: 000000000000000000000000i
+  - lower: 000000000000000000000000i
+    upper: 000000000000000000000000i
+  - lower: 000000000000000012000000i
     upper: 000000000000000000000000i
