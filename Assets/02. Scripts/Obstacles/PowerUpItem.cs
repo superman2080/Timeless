@@ -12,7 +12,7 @@ public class PowerUpItem : InteractionObject
     [Tooltip("플레이어가 이 형태일 때 먹으면 효과 대신 점수")]
     [SerializeField] private PlayerFormSO scoreInsteadForm;
     [SerializeField, Min(0)] private int scoreInstead = 1000;
-    public AudioClip pickupSFX;
+    public SfxType pickupSfx = SfxType.PICKUP;
 
     protected override void Start()
     {
@@ -45,8 +45,7 @@ public class PowerUpItem : InteractionObject
                     player.stat.Heal(player.stat.MaxHP);
             }
 
-            if (pickupSFX != null)
-                AudioSource.PlayClipAtPoint(pickupSFX, player.transform.position, 0.5f);
+            SoundManager.Instance.PlaySFX(pickupSfx);
             gameObject.SetActive(false);
         }
     }

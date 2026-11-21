@@ -29,7 +29,6 @@ public class GameManager : Singleton<GameManager>
     public float threshold3DView => laneManager.patternSet.threshold3DView;
     [Range(1, 16)] public int pixelateIntensity2D = 7;
 
-    public AudioPlayer audioPlayer;
 
     private void Start()
     {

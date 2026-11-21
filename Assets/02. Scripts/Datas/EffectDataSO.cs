@@ -7,6 +7,7 @@ public enum EffectType
 
     DUST_EXPLOSION,
     TINY_EXPLOSION,
+    FIRE_BUFF,
 }
 
 [Serializable]

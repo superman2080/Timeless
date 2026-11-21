@@ -6,6 +6,14 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+// 보스 카메라 상태. Intro: 컷씬 카메라(뷰 무관), Chase: 3D면 보스 추격 카메라 / 2D면 기존 2D 카메라
+public enum BossCamMode
+{
+    None,
+    Intro,
+    Chase,
+}
+
 public enum CameraShakeMode
 {
     CONSTANT = 0,
@@ -19,6 +27,9 @@ public class CameraManager : Singleton<CameraManager>
     [SerializeField] private CinemachineCamera vCam3D;
     [SerializeField] private CinemachineCamera vCam2D;
     [SerializeField] private CinemachineBrain cinemachineBrain;
+    [SerializeField] private CinemachineCamera vCamBoss3D;
+    [SerializeField] private CinemachineCamera vCamBossIntro;
+    private BossCamMode bossCamMode = BossCamMode.None;
     private Coroutine cameraShakeCor;
     private CinemachineCamera cam => cinemachineBrain.ActiveVirtualCamera as CinemachineCamera;
 
@@ -113,30 +124,48 @@ public class CameraManager : Singleton<CameraManager>
 
         cinemachineBrain.DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.EaseOut, switchTime);
 
-        switch (mode)
-        {
-            case ViewMode.View3D:
-                Camera.main.cullingMask = ~0;
-                vCam3D.Priority = 10;
-                vCam2D.Priority = 5;
-                break;
-            case ViewMode.View2D:
-                Camera.main.cullingMask &= ~LayerMask.GetMask("Right");
-                vCam3D.Priority = 5;
-                vCam2D.Priority = 10;
-                break;
-        }
+        if (mode == ViewMode.View3D)
+            Camera.main.cullingMask = ~0;
+        else
+            Camera.main.cullingMask &= ~LayerMask.GetMask("Right");
+        ApplyPriorities(mode);
         yield return new WaitForSeconds(switchTime);
     }
 
-    public void CameraShake(float amplitude, float frequency, float duration, CameraShakeMode mode)
+    // 보스 카메라 전환. 우선순위는 상태(뷰 모드 + 보스 모드)로 계산되므로 큐를 거치지 않고 즉시 적용
+    // (큐의 WaitForSeconds는 컷씬 정지 중 멈추기 때문). blend <= 0이면 컷
+    public void SetBossCamera(BossCamMode mode, float blend)
+    {
+        if (mode == bossCamMode)
+            return;
+
+        bossCamMode = mode;
+        cinemachineBrain.DefaultBlend = blend <= 0f
+            ? new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.Cut, 0f)
+            : new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.EaseInOut, blend);
+        ApplyPriorities(GameManager.Instance.currentViewMode);
+    }
+
+    private void ApplyPriorities(ViewMode mode)
+    {
+        bool is2D = mode == ViewMode.View2D;
+        vCam3D.Priority = is2D ? 5 : 10;
+        vCam2D.Priority = is2D ? 10 : 5;
+        if (vCamBoss3D != null)
+            vCamBoss3D.Priority = bossCamMode == BossCamMode.Chase && !is2D ? 20 : 0;
+        if (vCamBossIntro != null)
+            vCamBossIntro.Priority = bossCamMode == BossCamMode.Intro ? 30 : 0;
+    }
+
+    // unscaled: true면 Time.timeScale 0(컷씬 정지) 중에도 흔들림
+    public void CameraShake(float amplitude, float frequency, float duration, CameraShakeMode mode, bool unscaled = false)
     {
         if (cameraShakeCor != null)
             StopCoroutine(cameraShakeCor);
-        cameraShakeCor = StartCoroutine(LinearCameraShakeCor(amplitude, frequency, duration, mode));
+        cameraShakeCor = StartCoroutine(LinearCameraShakeCor(amplitude, frequency, duration, mode, unscaled));
     }
 
-    private IEnumerator LinearCameraShakeCor(float amplitude, float frequency, float duration, CameraShakeMode mode)
+    private IEnumerator LinearCameraShakeCor(float amplitude, float frequency, float duration, CameraShakeMode mode, bool unscaled)
     {
         if (cam == null)
         {
@@ -155,17 +184,17 @@ public class CameraManager : Singleton<CameraManager>
             switch (mode)
             {
                 case CameraShakeMode.CONSTANT:
-                    yield return new WaitForSeconds(duration);
+                    yield return unscaled ? (object)new WaitForSecondsRealtime(duration) : new WaitForSeconds(duration);
                     break;
                 case CameraShakeMode.DECREMENT:
-                    for (float elapsedTime = 0; elapsedTime < duration; elapsedTime += Time.deltaTime)
+                    for (float elapsedTime = 0; elapsedTime < duration; elapsedTime += unscaled ? Time.unscaledDeltaTime : Time.deltaTime)
                     {
                         noise.AmplitudeGain = Mathf.Lerp(amplitude, 0, elapsedTime / duration);
                         yield return null;
                     }
                     break;
                 case CameraShakeMode.INCREMENT:
-                    for (float elapsedTime = 0; elapsedTime < duration; elapsedTime += Time.deltaTime)
+                    for (float elapsedTime = 0; elapsedTime < duration; elapsedTime += unscaled ? Time.unscaledDeltaTime : Time.deltaTime)
                     {
                         noise.AmplitudeGain = Mathf.Lerp(0, amplitude, elapsedTime / duration);
                         yield return null;
