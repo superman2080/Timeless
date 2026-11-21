@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// 첫 등장 컷씬 (게임당 1회). 게임 정지 → Idle로 낙하 → 착지 이펙트 + 쉐이크 → Idle → Screaming → Walk 블렌드 시작 시 재개 후 추격
+// 첫 등장 컷씬 (게임당 1회). 게임 정지 → Idle로 낙하(천장 통과 시 폭발 이펙트) → 착지 이펙트 + 쉐이크 → Idle → Screaming → Walk 블렌드 시작 시 재개 후 추격
 public class BossIntroState : BossState
 {
     private enum Step { Lead, Fall, Hold }
@@ -48,7 +48,12 @@ public class BossIntroState : BossState
             case Step.Fall:
                 fallSpeed += boss.fallGravity * dt;
                 Vector3 pos = boss.transform.position;
+                float prevY = pos.y;
                 pos.y -= fallSpeed * dt;
+                // 이번 프레임에 천장 높이를 지났으면 천장 위치에서 이펙트 생성 (시작이 천장 아래면 생성 안 함)
+                float ceiling = boss.groundY + boss.ceilingY;
+                if (prevY > ceiling && pos.y <= ceiling)
+                    SpawnCeilingEffect(pos.x, ceiling, pos.z);
                 if (pos.y <= boss.groundY)
                 {
                     pos.y = boss.groundY;
@@ -70,6 +75,10 @@ public class BossIntroState : BossState
                 break;
         }
     }
+
+    // 천장에서 아래로 터지도록 X축 180° 뒤집어 생성
+    private void SpawnCeilingEffect(float x, float y, float z)
+        => (Pool<PooledEffect>.Instance as EffectPool)?.Get(boss.ceilingEffect, new Vector3(x, y, z), Quaternion.Euler(180f, 0f, 0f));
 
     private void Land(Vector3 pos)
     {
