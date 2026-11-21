@@ -76,9 +76,12 @@ public class BossIntroState : BossState
         }
     }
 
-    // 천장에서 아래로 터지도록 X축 180° 뒤집어 생성
+    // 천장에서 아래로 터지도록 X축 180° 뒤집어 생성 + 천장 깨지는 효과음
     private void SpawnCeilingEffect(float x, float y, float z)
-        => (Pool<PooledEffect>.Instance as EffectPool)?.Get(boss.ceilingEffect, new Vector3(x, y, z), Quaternion.Euler(180f, 0f, 0f));
+    {
+        (Pool<PooledEffect>.Instance as EffectPool)?.Get(boss.ceilingEffect, new Vector3(x, y, z), Quaternion.Euler(180f, 0f, 0f));
+        SoundManager.Instance.PlaySFX(boss.ceilingSfx);
+    }
 
     private void Land(Vector3 pos)
     {
