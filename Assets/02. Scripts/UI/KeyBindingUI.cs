@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -55,6 +56,10 @@ public class KeyBindingUI : MonoBehaviour
         var action = target.Action;
         bool wasEnabled = action.enabled;
         action.Disable();
+
+        // 선택된 키 버튼이 남아 있으면 Space/Enter가 UI Submit으로 버튼을 다시 눌러 리바인딩이 재시작됨
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
 
         IsRebinding = true;
         target.SetWaiting();

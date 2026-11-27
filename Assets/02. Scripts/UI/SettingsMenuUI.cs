@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
-// ESC 설정 메뉴 (UIStack의 rootPanel). 탭 2개: SETTINGS(볼륨 + 타이틀로 나가기) / KEY BINDINGS
+// ESC 설정 메뉴 (UIStack의 rootPanel). 탭 2개: 설정(볼륨 + 타이틀로 나가기) / 키 설정
 public class SettingsMenuUI : UIPanel
 {
     [SerializeField] private GameObject settingsPage;
@@ -17,9 +16,6 @@ public class SettingsMenuUI : UIPanel
 
     [Tooltip("Title 씬에서는 끔 (버튼 숨김)")]
     [SerializeField] private bool allowExitToTitle = true;
-    [SerializeField] private string titleSceneName = "Title";
-
-    private bool exiting;
 
     private void Awake()
     {
@@ -56,16 +52,11 @@ public class SettingsMenuUI : UIPanel
 
     private void ExitToTitle()
     {
-        if (!allowExitToTitle || exiting)
+        // CameraManager/GameManager는 게임 씬에만 있으므로 Title에서는 호출하지 않음 (싱글톤 자동 생성 방지)
+        if (!allowExitToTitle)
             return;
-        exiting = true;
 
         Stack.Clear();
-        Time.timeScale = 1f;
-        // 렌더러 에셋 값(픽셀화/글리치)이 다음 씬에 남지 않도록 기본값으로 (CameraManager는 게임 씬에만 있음)
-        CameraManager.Instance.SetPixelateIntensity(1);
-        CameraManager.Instance.SetGlitch(0.002f);
-        PlayerPrefs.Save();
-        Addressables.LoadSceneAsync(titleSceneName);
+        GameManager.Instance.ReturnToTitle();
     }
 }

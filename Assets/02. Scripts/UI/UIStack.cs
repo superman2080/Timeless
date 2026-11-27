@@ -58,6 +58,9 @@ public class UIStack : MonoBehaviour
             Pop();
     }
 
+    // 버튼 등 외부에서 메뉴를 열 때 (Title의 Settings 버튼)
+    public void OpenRoot() => Push(rootPanel);
+
     public void Push(UIPanel panel)
     {
         if (panel == null || stack.Contains(panel))
