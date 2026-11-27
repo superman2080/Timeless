@@ -149,7 +149,7 @@ public class Player : InteractionObject
         stat.onDied += (player) => {
             CameraManager.Instance.FadeGlitch(0.01f, 0.9f, 1f);
             Col.enabled = false;
-            Invoke("Restart", 1.5f);
+            Invoke("ReturnToTitle", 1.5f);
         };
         stat.onDied += (player) => onPlayerDied.RaiseEvent();
         stat.onDied += (player) => enabled = false;
@@ -370,10 +370,8 @@ public class Player : InteractionObject
             Destroy(m);
     }
 
-    private void Restart()
+    private void ReturnToTitle()
     {
-        CameraManager.Instance.SetGlitch(0.02f);
-        CameraManager.Instance.SetPixelateIntensity(1);
-        UnityEngine.AddressableAssets.Addressables.LoadSceneAsync("SampleScene");
+        GameManager.Instance.ReturnToTitle();
     }
 }

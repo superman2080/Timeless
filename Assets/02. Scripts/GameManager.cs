@@ -29,6 +29,9 @@ public class GameManager : Singleton<GameManager>
     public float threshold3DView => laneManager.patternSet.threshold3DView;
     [Range(1, 16)] public int pixelateIntensity2D = 7;
 
+    [SerializeField] private string titleSceneName = "Title";
+    private bool returningToTitle;
+
 
     private void Start()
     {
@@ -55,6 +58,20 @@ public class GameManager : Singleton<GameManager>
 
         CameraManager.Instance.SwitchCamera(viewMode, changeTime);
         currentViewMode = viewMode;
+    }
+
+    // 사망/ESC 메뉴 공통. 렌더러 에셋 값(픽셀화/글리치)이 Title에 남지 않도록 기본값으로 되돌린 뒤 Title 로드
+    public void ReturnToTitle()
+    {
+        if (returningToTitle)
+            return;
+        returningToTitle = true;
+
+        Time.timeScale = 1f;
+        CameraManager.Instance.SetPixelateIntensity(1);
+        CameraManager.Instance.SetGlitch(0.002f);
+        PlayerPrefs.Save();
+        UnityEngine.AddressableAssets.Addressables.LoadSceneAsync(titleSceneName);
     }
 
     private void OnDrawGizmos()

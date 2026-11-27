@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 922f1b709cf8ea445b30b5f60b404fca
+guid: 9774e63aa4caceb42a403f15dfdcfca7
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 8465028782336820536
+    second: super_mario_transparent_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -53,7 +56,9 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationMethod: 0
   spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -97,23 +102,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: title_IMG_0
+      name: super_mario_transparent_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 402
+        width: 2752
+        height: 1536
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: b5472365cede711418ab7936bb0c6d46
-      internalID: -1212347419
+      spriteID: 835c4a0f3d2d97570800000000000000
+      internalID: 8465028782336820536
       vertices: []
       indices: 
       edges: []
@@ -122,7 +127,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: cb42a478a5a11804e87da7407bd28385
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -130,11 +135,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1024.0,"y":402.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      title_IMG_0: -1212347419
+      super_mario_transparent_0: 8465028782336820536
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

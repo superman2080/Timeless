@@ -30,7 +30,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Timeless — Unity 6 (`6000.6.2f1`), URP 기반 3레인 러너 게임. 플레이어는 레인을 바꾸고(A/D) 점프(Space)하며 다가오는 장애물/아이템을 피하거나 먹는다. HP가 일정 비율 아래로 떨어지면 3D 뷰 → 2D 뷰로 전환되는 것이 핵심 메커닉.
 
-- 씬: `Assets/01. Scenes/Title.unity` → `SampleScene.unity` (빌드 순서). `BackGroundTestScene`, `JHWTestScene`은 개인 테스트용.
+- 씬 흐름: `Boot.unity`(빌드 목록의 유일한 씬) → Addressables `Title` → Addressables `SampleScene`(실제 파일은 `GameScene.unity`). Title/게임 씬은 Addressables 씬이라 빌드 목록에 넣으면 Addressables가 엔트리를 지우거나 비활성화하므로 넣지 말 것. 씬 전환은 `Addressables.LoadSceneAsync(주소)`. `BackGroundTestScene`, `JHWTestScene`은 개인 테스트용.
 - 주요 패키지: URP 17 (Render Graph), Cinemachine 3 (`Unity.Cinemachine` 네임스페이스), Input System, ProBuilder.
 - 모든 게임 코드는 `Assets/02. Scripts/` 아래 단일 `Assembly-CSharp`에 있음 (asmdef 없음, 네임스페이스 없음). 에디터 전용 코드는 `Assets/02. Scripts/Editor/`.
 - 테스트 코드 없음. 빌드/실행은 Unity 에디터에서.
@@ -91,7 +91,7 @@ unity command eval_file --project-path . --file <윈도우 절대경로.cs>  # C
   - 새 아이템: 형태/효과 에셋 생성(고유 규칙이 있으면 `PlayerFormSO`/`PlayerEffectSO` 상속 후 훅 오버라이드, SO는 공유되므로 런타임 값은 SO 필드에 두지 말 것) → 프리팹에 `PowerUpItem` 부착 후 에셋 연결 → `ObjectType` 추가 → `ObjectData.asset` 등록 → Pattern Editor 배치.
 - HP는 시간에 따라 계속 감소(`hpDecrement × 배율`, 무적이면 정지). HP 변경 시 `Player.CheckChangeView()`가 `threshold2DView`/`threshold3DView`로 `GameManager.ChangeViewMode` 호출 + `AudioPlayer.trigger`로 BGM 크로스페이드 + 레인 오브젝트 전부 회수.
 - `ChangeViewMode` → `CameraManager.SwitchCamera`(Cinemachine vCam 우선순위 교체, 2D에서는 `"Right"` 레이어 컬링) + 픽셀화 강도 변경. 2D 모드에서는 플레이어가 마지막 레인에 고정되고 좌우 이동 불가.
-- 사망 시 `SampleScene` 재로드.
+- 사망 시 1.5초 글리치 연출 후 Title로 이동. 타이틀 이동은 `GameManager.ReturnToTitle()`(timeScale/픽셀화/글리치 리셋 + Addressables `Title` 로드)로 통일 — ESC 메뉴의 타이틀로 나가기도 이걸 씀.
 
 ### 이벤트 채널
 `EventChannelSO`(파라미터 없는 SO 이벤트) + `EventListener`(UnityEvent 응답). `Player`가 `onPlayerStatChanged`, `onPlayerDied` 채널로 발행하고, `HPBar`는 `EventListener`를 상속해 인스펙터에서 응답 연결.
@@ -103,6 +103,15 @@ unity command eval_file --project-path . --file <윈도우 절대경로.cs>  # C
 
 ### 입력
 `Assets/02. Scripts/Input/PlayerInput.cs`는 `PlayerInput.inputactions`에서 **자동 생성**된 파일 — 직접 수정 금지, `.inputactions` 수정 후 재생성. `InputHandler`가 이를 감싸서 `MoveInput`/`Jump`(한 프레임 플래그, `LateUpdate`에서 리셋) 노출.
+- 키 리바인딩: `KeyBindingStore`가 바인딩 오버라이드 JSON을 PlayerPrefs(`Input.Bindings`)에 저장/로드. `InputHandler`는 `Awake`에서 로드하고 `Actions`(자기 `PlayerInput` 인스턴스)를 노출 — 리바인딩은 이 인스턴스에 해야 조작에 반영된다. 바인딩 해제는 빈 경로 오버라이드.
+- `InputHandler.SetGameplayEnabled(false)`로 `Player` 맵을 끈다. `Player.Move()`는 `Update`라 `timeScale = 0`에서도 입력을 처리하므로 정지 UI는 이걸 꺼야 함.
+
+### ESC 메뉴 / UI 스택
+- `Assets/07. Prefabs/UI/SettingsMenu.prefab`(자체 Canvas, sort 100)을 Title/GameScene에 배치. `UIStack`이 ESC 처리: 비어 있으면 `rootPanel`(`SettingsMenuUI`) Push, 아니면 맨 위 `UIPanel` 하나 Pop. 첫 Push에 정지(`pauseGame`, Title은 false) + 게임 입력 차단, 비면 복원. 이미 `timeScale == 0`(컷씬 등)이면 열지 않음.
+- Title에는 시작 버튼 아래 `SettingsButton`(시작 버튼 복제)이 있고 onClick으로 `UIStack.OpenRoot()`를 호출해 같은 메뉴를 연다.
+- 새 팝업은 `UIPanel` 상속 후 메뉴 루트 아래에 두고 `Stack.Push(this)`. 리바인딩 중 ESC는 리바인딩 취소용(`KeyBindingUI.IsRebinding`/`LastRebindEndFrame` 가드).
+- Title의 `SoundManager`는 `data` 없이 볼륨 반영만 함(BGM은 `TitleAudio`가 BGM 믹서 그룹으로 재생).
+- 한글 UI 폰트: `Assets/Fonts/NotoSansKR-VF SDF.asset`(TMP Dynamic, 가변 폰트가 Thin으로 로드돼 머티리얼 `_FaceDilate`로 굵기 보정). `LiberationSans SDF`엔 한글이 없음. 에디터 플레이 후 이 에셋에 글리프가 쌓여 diff가 생기면 커밋하지 말 것.
 
 ## 주의사항
 
