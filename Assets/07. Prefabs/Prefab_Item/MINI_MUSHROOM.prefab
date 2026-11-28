@@ -105,7 +105,7 @@ MonoBehaviour:
   fullHeal: 0
   scoreInsteadForm: {fileID: 11400000, guid: 252f05480a1419140b8486aa4037ef97, type: 2}
   scoreInstead: 1000
-  pickupSFX: {fileID: 8300000, guid: a710a0cfdfda58249902f804d6c9ffb9, type: 3}
+  pickupSfx: 2
 --- !u!1001 &452265885967296564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -153,6 +153,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: dfe6cdc986144064b88db03cd2926bcb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: dfe6cdc986144064b88db03cd2926bcb, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dfe6cdc986144064b88db03cd2926bcb, type: 3}
       propertyPath: m_Name
