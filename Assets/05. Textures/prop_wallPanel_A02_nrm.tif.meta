@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 44de62cc6dc6c724fbfb810a5aed880d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 7677
+  packageName: Stealth
+  packageVersion: 1.4
+  assetPath: Assets/Textures/prop_wallPanel_A02_nrm.tif
+  uploadId: 1414
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -53,7 +60,9 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 0
+  spriteTessellationMethod: 0
   spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
   textureType: 1
   textureShape: 1
   singleChannelComponent: 0
@@ -69,7 +78,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -128,10 +137,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 7677
-  packageName: Stealth
-  packageVersion: 1.4
-  assetPath: Assets/Textures/prop_wallPanel_A02_nrm.tif
-  uploadId: 1414
