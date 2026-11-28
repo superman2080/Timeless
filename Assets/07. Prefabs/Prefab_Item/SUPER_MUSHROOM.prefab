@@ -105,7 +105,8 @@ MonoBehaviour:
   fullHeal: 1
   scoreInsteadForm: {fileID: 11400000, guid: 0c152d5a1850eb847a07379767a35203, type: 2}
   scoreInstead: 1000
-  pickupSfx: 2
+  pickupSfx: 7
+  scoreSfx: 11
 --- !u!1001 &4332064136469546839
 PrefabInstance:
   m_ObjectHideFlags: 0

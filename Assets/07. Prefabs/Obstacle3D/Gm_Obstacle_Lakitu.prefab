@@ -109,12 +109,14 @@ MonoBehaviour:
   xSmoothTime: 0.12
   tiltSpeed: 3
   tiltAngle: 10
+  throwSfx: 19
   lifeTime: 10
   attackInterval: 2
   releaseDelay: 0.7
   laneMoveTime: 0.3
   exitTime: 1.5
   landingOffsetZ: -1
+  landingClearance: 1.5
   ballSocket: {fileID: 3888177800295580199}
   animator: {fileID: 1711798733507834634}
 --- !u!1001 &8984659568424192245

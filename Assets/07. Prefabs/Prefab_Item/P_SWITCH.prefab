@@ -195,4 +195,5 @@ MonoBehaviour:
   fullHeal: 0
   scoreInsteadForm: {fileID: 0}
   scoreInstead: 1000
-  pickupSfx: 2
+  pickupSfx: 9
+  scoreSfx: 11

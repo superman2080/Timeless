@@ -106,6 +106,7 @@ MonoBehaviour:
   fallAngle: 90
   fallAxis: {x: -1, y: 0, z: 0}
   model: {fileID: 3100360243899458646}
+  fallSfx: 15
   fragmentCount: 5
   fragmentSpacing: 1.5
   fragmentSpawnDuration: 0.1

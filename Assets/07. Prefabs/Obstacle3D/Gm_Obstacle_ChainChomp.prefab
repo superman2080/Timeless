@@ -1827,13 +1827,13 @@ MonoBehaviour:
     prefab: {fileID: 0}
   damageAmount: 10
   ignoreJumpedPlayer: 1
-  hitSfx: 1
+  hitSfx: 14
   knockSideSpeed: 6
   knockUpSpeed: 8
   knockGravity: 25
   knockSpin: 720
   knockDuration: 0.5
-  knockSfx: 0
+  knockSfx: 23
   head: {fileID: 5505078336621404162}
   anchor: {fileID: 8612502521684431943}
   chain: {fileID: 3994662721774425986}

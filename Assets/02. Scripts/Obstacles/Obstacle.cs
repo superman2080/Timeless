@@ -19,7 +19,7 @@ public class Obstacle : InteractionObject
     [Tooltip("튕긴 뒤 사라질 때까지 시간(초)")]
     [SerializeField] private float knockDuration = 0.5f;
     [Tooltip("튕길 때 효과음 (NONE이면 재생 안 함)")]
-    public SfxType knockSfx = SfxType.NONE;
+    public SfxType knockSfx = SfxType.KNOCK;
 
     private bool knocked;
     private Vector3 knockVelocity;
@@ -69,7 +69,7 @@ public class Obstacle : InteractionObject
             }
             CameraManager.Instance.FadeGlitch(0.5f, 0.01f, 0.2f);
             CameraManager.Instance.CameraShake(0.3f, 5f, 0.2f, CameraShakeMode.DECREMENT);
-            SoundManager.Instance.PlaySFX(hitSfx);
+            (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(hitSfx);
             player.TakeHit(DamageAmount);
             OnHitPlayer(player);
         }
@@ -87,7 +87,7 @@ public class Obstacle : InteractionObject
         knockVelocity = new Vector3(dir * knockSideSpeed, knockUpSpeed, 0f);
         knockElapsed = 0f;
         knocked = true;
-        SoundManager.Instance.PlaySFX(knockSfx);
+        (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(knockSfx);
     }
 
     // 포물선 + 월드 스크롤 + 회전. knockDuration 후 풀로 반환

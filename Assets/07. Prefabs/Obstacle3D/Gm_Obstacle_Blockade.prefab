@@ -89,6 +89,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6182261464962284201
 GameObject:
@@ -138,12 +139,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Obstacle
   currentLane: 0
+  isUpper: 0
   objectData:
     type: 0
     prefab: {fileID: 0}
   damageAmount: 20
   ignoreJumpedPlayer: 0
-  hitSFX: {fileID: 8300000, guid: d46ced8ba38d1df47a6fb33779812c03, type: 3}
+  hitSfx: 1
+  knockSideSpeed: 6
+  knockUpSpeed: 8
+  knockGravity: 25
+  knockSpin: 720
+  knockDuration: 0.5
+  knockSfx: 23
 --- !u!54 &-1448459162915080486
 Rigidbody:
   m_ObjectHideFlags: 0

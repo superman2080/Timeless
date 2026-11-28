@@ -31,7 +31,7 @@ public class HealObject : InteractionObject
             if (player.IsJump != isUpper)
                 return;
 
-            SoundManager.Instance.PlaySFX(healSfx);
+            (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(healSfx);
             player.stat.Heal(HealAmount);
             gameObject.SetActive(false);    
         }

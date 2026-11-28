@@ -9,15 +9,12 @@ public enum VolumeChannel
     SFX,
 }
 
-// 모든 사운드 재생/볼륨 관리. (파일명 AudioManager.cs는 Unity 내장 AudioManager와 충돌해 컴파일에서 제외되므로 SoundManager로 명명)
-// 클립은 AudioDataSO에서 받고, 볼륨은 AudioMixer 그룹으로 조절한다
-// (BGM 페이드는 AudioSource.volume을 쓰므로 믹서 볼륨과 충돌하지 않음)
+// 볼륨과 BGM 순서 관리. (파일명 AudioManager.cs는 Unity 내장 AudioManager와 충돌해 컴파일에서 제외되므로 SoundManager로 명명)
+// 실제 재생은 전부 AudioPool이 담당한다. 효과음은 각 시스템이 AudioPool.PlaySFX로 직접 요청하고, BGM은 여기서 풀 핸들로 재생한다
+// 볼륨은 AudioMixer 그룹으로 조절한다 (BGM 페이드는 AudioSource.volume을 쓰므로 믹서 볼륨과 충돌하지 않음)
 public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField] private AudioMixer mixer;
-    [SerializeField] private AudioMixerGroup bgmGroup;
-    [SerializeField] private AudioMixerGroup sfxGroup;
-    [SerializeField] private AudioDataSO data;
 
     [Header("Volume (0~1, 플레이 중 변경 즉시 반영, PlayerPrefs 저장)")]
     [Range(0f, 1f)] [SerializeField] private float masterVolume = 1f;
@@ -32,29 +29,15 @@ public class SoundManager : Singleton<SoundManager>
     private static readonly string[] MixerParams = { "MasterVolume", "BGMVolume", "SFXVolume" };
     private const string PrefsKey = "Volume.";
 
-    private AudioSource bgmSource;
-    private AudioSource sfxSource;
+    private AudioPool pool;
+    private PooledAudio bgm; // 현재 BGM 핸들 (loop라 직접 Stop해야 반환됨)
     private int cycleIndex;
     private Coroutine bgmCor;
 
     protected override void Awake()
     {
-        dontDestroyOnLoad = false; // SampleScene 전용. 재로드 시 함께 재생성
+        dontDestroyOnLoad = false; // 씬 전용. 재로드 시 함께 재생성
         base.Awake();
-
-        bgmSource = CreateSource("BGM", bgmGroup);
-        bgmSource.loop = true;
-        sfxSource = CreateSource("SFX", sfxGroup);
-    }
-
-    private AudioSource CreateSource(string name, AudioMixerGroup group)
-    {
-        var source = new GameObject(name).AddComponent<AudioSource>();
-        source.transform.SetParent(transform, false);
-        source.outputAudioMixerGroup = group;
-        source.playOnAwake = false;
-        source.spatialBlend = 0f; // 2D
-        return source;
     }
 
     private void Start()
@@ -66,27 +49,9 @@ public class SoundManager : Singleton<SoundManager>
             SetVolume(channel, PlayerPrefs.GetFloat(PrefsKey + channel, GetVolume(channel)));
         }
 
-        if (data == null)
-            return;
-
-        // 클립들이 preloadAudioData=false라 로드 전 Play/PlayOneShot은 무음이 됨 → 시작 시 전부 로드
-        foreach (var sfx in data.sfx)
-            if (sfx.clip != null)
-                sfx.clip.LoadAudioData();
-        foreach (var clip in data.bgmCycle)
-            if (clip != null)
-                clip.LoadAudioData();
-
-        if (data.bgmStart != null)
-            bgmCor = StartCoroutine(PlayWhenLoaded(data.bgmStart));
-    }
-
-    private IEnumerator PlayWhenLoaded(AudioClip clip)
-    {
-        bgmSource.clip = clip;
-        clip.LoadAudioData();
-        yield return new WaitUntil(() => clip.loadState != AudioDataLoadState.Loading && clip.loadState != AudioDataLoadState.Unloaded);
-        bgmSource.Play();
+        pool = Pool<PooledAudio>.Instance as AudioPool;
+        if (pool != null && pool.Data != null && pool.Data.bgmStart != null)
+            bgm = pool.PlayBGM(pool.Data.bgmStart);
     }
 
     private void OnValidate()
@@ -130,70 +95,53 @@ public class SoundManager : Singleton<SoundManager>
 
     #endregion
 
-    #region SFX
-
-    public void PlaySFX(SfxType type)
-    {
-        if (TryGetSfx(type, out var sfx))
-            sfxSource.PlayOneShot(sfx.clip, sfx.volume);
-    }
-
-    private bool TryGetSfx(SfxType type, out SfxData result)
-    {
-        result = default;
-        if (type == SfxType.NONE || data == null)
-            return false;
-
-        foreach (var sfx in data.sfx)
-        {
-            if (sfx.type == type && sfx.clip != null)
-            {
-                result = sfx;
-                return true;
-            }
-        }
-        Debug.LogWarning($"AudioData에 SfxType {type} 클립이 등록되지 않았습니다.");
-        return false;
-    }
-
-    #endregion
-
     #region BGM
 
     // 2D/3D 전환 시 호출. 전환 효과음 → 현재 BGM 페이드아웃 → 다음 BGM 페이드인
     public void NextBgm()
     {
-        if (data == null || data.bgmCycle == null || data.bgmCycle.Length == 0)
+        if (pool == null || pool.Data == null || pool.Data.bgmCycle == null || pool.Data.bgmCycle.Length == 0)
             return;
 
         if (bgmCor != null)
             StopCoroutine(bgmCor);
-        bgmCor = StartCoroutine(NextBgmCoroutine(data.bgmCycle[cycleIndex]));
-        cycleIndex = (cycleIndex + 1) % data.bgmCycle.Length;
+        bgmCor = StartCoroutine(NextBgmCoroutine(pool.Data.bgmCycle[cycleIndex]));
+        cycleIndex = (cycleIndex + 1) % pool.Data.bgmCycle.Length;
     }
 
     private IEnumerator NextBgmCoroutine(AudioClip next)
     {
-        // 전환 효과음은 BGM 소스에서 재생해 페이드아웃에 함께 묻히도록 (기존 동작)
-        if (TryGetSfx(SfxType.BGM_TRANSITION, out var transition))
-            bgmSource.PlayOneShot(transition.clip, transition.volume);
-
-        float start = bgmSource.volume;
-        for (float t = 0f; t < fadeOut; t += Time.unscaledDeltaTime)
+        if (bgm != null && bgm.gameObject.activeSelf)
         {
-            bgmSource.volume = Mathf.Lerp(start, 0f, t / fadeOut);
-            yield return null;
-        }
-        bgmSource.Stop();
+            // 전환 효과음은 BGM 소스에서 재생해 페이드아웃에 함께 묻히도록 (기존 동작)
+            if (pool.TryGetSfx(SfxType.BGM_TRANSITION, out var transition))
+                bgm.Source.PlayOneShot(transition.clip, transition.volume);
 
-        bgmSource.volume = 0f;
-        yield return PlayWhenLoaded(next);
+            float start = bgm.Source.volume;
+            for (float t = 0f; t < fadeOut; t += Time.unscaledDeltaTime)
+            {
+                bgm.Source.volume = Mathf.Lerp(start, 0f, t / fadeOut);
+                yield return null;
+            }
+            bgm.Stop();
+        }
+
+        bgm = pool.PlayBGM(next, 0f);
+        if (bgm == null)
+        {
+            bgmCor = null;
+            yield break;
+        }
+
+        // 로드가 끝나 실제로 재생되기 시작한 뒤 페이드인
+        while (bgm.gameObject.activeSelf && !bgm.Source.isPlaying && !bgm.IsPaused)
+            yield return null;
         for (float t = 0f; t < fadeIn; t += Time.unscaledDeltaTime)
         {
-            bgmSource.volume = Mathf.Lerp(0f, 1f, t / fadeIn);
+            bgm.Source.volume = Mathf.Lerp(0f, 1f, t / fadeIn);
             yield return null;
         }
-        bgmSource.volume = 1f;
+        bgm.Source.volume = 1f;
         bgmCor = null;
     }
 

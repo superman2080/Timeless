@@ -54,7 +54,13 @@ MonoBehaviour:
     prefab: {fileID: 3720953440862370034}
   damageAmount: 20
   ignoreJumpedPlayer: 1
-  hitSFX: {fileID: 8300000, guid: d46ced8ba38d1df47a6fb33779812c03, type: 3}
+  hitSfx: 1
+  knockSideSpeed: 6
+  knockUpSpeed: 8
+  knockGravity: 25
+  knockSpin: 720
+  knockDuration: 0.5
+  knockSfx: 23
 --- !u!54 &-4508878795575364011
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -24,6 +24,8 @@ public class Whomp : InteractionObject
     [SerializeField] private Vector3 fallAxis = Vector3.left;
     [Tooltip("넘어진 뒤 숨길 모델 루트")]
     [SerializeField] private Transform model;
+    [Tooltip("넘어져 폭발할 때 효과음")]
+    public SfxType fallSfx = SfxType.HIT_WHOMP_FALL;
 
     [Header("Fragments")]
     [Tooltip("한쪽 방향 파편 개수. 앞/뒤 각각 이 개수만큼 생성되어 총 2배가 된다")]
@@ -127,6 +129,7 @@ public class Whomp : InteractionObject
         Rb.MoveRotation(end);
 
         PlayEffect(bodyEffect, transform.position);
+        (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(fallSfx);
         if (model != null)
             model.gameObject.SetActive(false);
         ClearLane();

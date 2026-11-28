@@ -201,6 +201,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7918822650813786067}
     m_Modifications:
+    - target: {fileID: -7511558181221131132, guid: 099785b089d319e48832091677f17089, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 099785b089d319e48832091677f17089, type: 3}
+      propertyPath: m_Name
+      value: MarioCoin_RustedCracked
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bbab2ccf5acf23742a2f742728c4de57, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.58
@@ -252,14 +260,6 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bbab2ccf5acf23742a2f742728c4de57, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 099785b089d319e48832091677f17089, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 099785b089d319e48832091677f17089, type: 3}
-      propertyPath: m_Name
-      value: MarioCoin_RustedCracked
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
