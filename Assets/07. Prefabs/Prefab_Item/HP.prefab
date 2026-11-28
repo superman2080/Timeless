@@ -152,7 +152,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8552899506872947536}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -253,7 +253,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: bbab2ccf5acf23742a2f742728c4de57, type: 3}
+    - target: {fileID: -7511558181221131132, guid: 099785b089d319e48832091677f17089, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 099785b089d319e48832091677f17089, type: 3}
       propertyPath: m_Name
       value: MarioCoin_RustedCracked
       objectReference: {fileID: 0}
