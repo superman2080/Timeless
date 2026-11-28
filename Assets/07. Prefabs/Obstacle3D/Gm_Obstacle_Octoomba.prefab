@@ -102,7 +102,13 @@ MonoBehaviour:
     prefab: {fileID: 0}
   damageAmount: 10
   ignoreJumpedPlayer: 0
-  hitSFX: {fileID: 8300000, guid: d46ced8ba38d1df47a6fb33779812c03, type: 3}
+  hitSfx: 20
+  knockSideSpeed: 6
+  knockUpSpeed: 8
+  knockGravity: 25
+  knockSpin: 720
+  knockDuration: 0.5
+  knockSfx: 23
   splashDistance: 15
 --- !u!1001 &1203916571949782680
 PrefabInstance:

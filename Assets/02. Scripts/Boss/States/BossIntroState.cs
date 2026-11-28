@@ -66,7 +66,7 @@ public class BossIntroState : BossState
                 if (!screamed && timer >= boss.landIdleTime)
                 {
                     boss.Animator.SetTrigger(ScreamHash);
-                    SoundManager.Instance.PlaySFX(boss.roarSfx);
+                    (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(boss.roarSfx);
                     screamed = true;
                 }
                 // Screaming → Walk 블렌드가 시작되면 재개 (블렌드는 게임 재개 후에도 이어짐)
@@ -80,13 +80,13 @@ public class BossIntroState : BossState
     private void SpawnCeilingEffect(float x, float y, float z)
     {
         (Pool<PooledEffect>.Instance as EffectPool)?.Get(boss.ceilingEffect, new Vector3(x, y, z), Quaternion.Euler(180f, 0f, 0f));
-        SoundManager.Instance.PlaySFX(boss.ceilingSfx);
+        (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(boss.ceilingSfx);
     }
 
     private void Land(Vector3 pos)
     {
         (Pool<PooledEffect>.Instance as EffectPool)?.Get(boss.landEffect, pos);
-        SoundManager.Instance.PlaySFX(boss.landSfx);
+        (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(boss.landSfx);
         CameraManager.Instance.CameraShake(boss.landShakeAmplitude, boss.landShakeFrequency, boss.landShakeDuration, CameraShakeMode.DECREMENT, true);
         step = Step.Hold;
         timer = 0f;

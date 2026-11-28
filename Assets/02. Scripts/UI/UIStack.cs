@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // ESC 메뉴용 UI 스택. ESC는 비어 있으면 rootPanel을 열고, 아니면 맨 위 UI 하나만 닫는다
-// 첫 Push에서 게임 정지 + 게임 입력 차단, 스택이 비면 복원
+// 첫 Push에서 게임 정지(오디오 일시정지 포함) + 게임 입력 차단, 스택이 비면 복원
 public class UIStack : MonoBehaviour
 {
     [SerializeField] private UIPanel rootPanel;
@@ -99,14 +99,18 @@ public class UIStack : MonoBehaviour
     {
         if (pauseGame)
         {
+            // AudioSource는 timeScale 영향을 받지 않으므로 BGM 포함 전체 오디오를 직접 일시정지
+            var audioPool = Pool<PooledAudio>.Instance as AudioPool;
             if (on)
             {
                 prevTimeScale = Time.timeScale;
                 Time.timeScale = 0f;
+                audioPool?.PauseAll();
             }
             else
             {
                 Time.timeScale = prevTimeScale;
+                audioPool?.ResumeAll();
             }
         }
 

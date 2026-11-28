@@ -103,6 +103,9 @@ public class Player : InteractionObject
     [SerializeField] AnimationCurve jumpCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1.5f), new Keyframe(1, 0));
     [Tooltip("점프 중 레인 변경 허용")]
     [SerializeField] bool allowLaneChangeWhileJumping = true;
+    [Tooltip("점프 / 입력으로 레인을 옮길 때 효과음")]
+    public SfxType jumpSfx = SfxType.PLAYER_JUMP;
+    public SfxType moveSfx = SfxType.PLAYER_MOVE;
     private float groundY;
     private float jumpOffsetY;
     private float laneX;
@@ -205,7 +208,8 @@ public class Player : InteractionObject
     {
         if (handler.MoveInput != 0 && GameManager.Instance.currentViewMode == ViewMode.View3D)
         {
-            ChangeLane(currentLane + Convert.ToInt32(handler.MoveInput));
+            if (ChangeLane(currentLane + Convert.ToInt32(handler.MoveInput)))
+                (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(moveSfx);
         }
         if (handler.Jump)
         {
@@ -218,16 +222,18 @@ public class Player : InteractionObject
         if (IsJump == true)
             return;
 
+        (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(jumpSfx);
         float duration = airTime * StateMachine.Stats.airTimeMultiplier;
         StartCoroutine(JumpCoroutine(duration));
         playerAnimator.Jump(duration);
     }
 
     // force: for 2D switch. cancels in-flight move, ignores view/jump guards
-    public void ChangeLane(int laneIndex, bool force = false)
+    // returns true when a lane move actually started
+    public bool ChangeLane(int laneIndex, bool force = false)
     {
         if (laneIndex < 0 || laneIndex > GameManager.Instance.laneLength - 1)
-            return;
+            return false;
 
         if (force)
         {
@@ -237,9 +243,10 @@ public class Player : InteractionObject
         else if (GameManager.Instance.currentViewMode == ViewMode.View2D ||
             changeLaneCor != null ||
             (!allowLaneChangeWhileJumping && IsJump))
-            return;
+            return false;
 
         changeLaneCor = StartCoroutine(ChangeLaneCoroutine(laneIndex, 0.1f));
+        return true;
     }
 
     private IEnumerator ChangeLaneCoroutine(int laneIndex, float changeTime = 0.2f)

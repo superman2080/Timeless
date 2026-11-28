@@ -31,6 +31,57 @@ MonoBehaviour:
   - type: 6
     clip: {fileID: 8300000, guid: c0958a23c38a3b6469623e387c5c75f1, type: 3}
     volume: 1
+  - type: 7
+    clip: {fileID: 8300000, guid: d024309e520bc3d49a73bde08105f169, type: 3}
+    volume: 0.7
+  - type: 8
+    clip: {fileID: 8300000, guid: e1986ca33761eb44d8c430eb8b45fba0, type: 3}
+    volume: 0.7
+  - type: 9
+    clip: {fileID: 8300000, guid: 7d890a845bfbf924c8e4e0cadd6d2c62, type: 3}
+    volume: 0.7
+  - type: 10
+    clip: {fileID: 8300000, guid: 6e8e9c9ce79e57a428c9d839af8b90fd, type: 3}
+    volume: 0.7
+  - type: 11
+    clip: {fileID: 8300000, guid: fe8f1b3a0130b2d428aa5ed699414b4c, type: 3}
+    volume: 0.7
+  - type: 12
+    clip: {fileID: 8300000, guid: 28aeb46ef7665344c8ba59d8ddf57900, type: 3}
+    volume: 0.5
+  - type: 13
+    clip: {fileID: 8300000, guid: b73b3ff1c6634dc44a9ec052bd041481, type: 3}
+    volume: 0.4
+  - type: 14
+    clip: {fileID: 8300000, guid: 39a5d1a97513d40459d239230cb205db, type: 3}
+    volume: 0.7
+  - type: 15
+    clip: {fileID: 8300000, guid: 438fa2070c8b5b546a6af413e793ff73, type: 3}
+    volume: 0.7
+  - type: 16
+    clip: {fileID: 8300000, guid: decf4e769e9f33341a215c9add9ca75c, type: 3}
+    volume: 0.7
+  - type: 17
+    clip: {fileID: 8300000, guid: 0429060f16be7724f8b7181d034a3c52, type: 3}
+    volume: 0.7
+  - type: 18
+    clip: {fileID: 8300000, guid: 1aa4f464293a1c144b7d304678e7f393, type: 3}
+    volume: 0.7
+  - type: 19
+    clip: {fileID: 8300000, guid: 69ecbd984866f494fb552b27bbf7b2c4, type: 3}
+    volume: 0.7
+  - type: 20
+    clip: {fileID: 8300000, guid: fe8397443e69dd24da9e37b6d72aef21, type: 3}
+    volume: 0.7
+  - type: 21
+    clip: {fileID: 8300000, guid: 83677c221e8d39c4d944791ba15ddba9, type: 3}
+    volume: 0.7
+  - type: 22
+    clip: {fileID: 8300000, guid: efecfeecea69b624fa4aba26e33e4b75, type: 3}
+    volume: 0.7
+  - type: 23
+    clip: {fileID: 8300000, guid: d46ced8ba38d1df47a6fb33779812c03, type: 3}
+    volume: 0.5
   bgmStart: {fileID: 8300000, guid: bcd650d25c31cb44e9a808fe59b25651, type: 3}
   bgmCycle:
   - {fileID: 8300000, guid: 39f6bf2d39a752c4f87795c6eb9a8325, type: 3}

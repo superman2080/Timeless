@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4208822017680427628
+--- !u!1 &6981033459030555223
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1618198405607658929}
-  - component: {fileID: 3000725614308387710}
-  - component: {fileID: 357491674195982714}
+  - component: {fileID: 669259373600428291}
+  - component: {fileID: 6226178825663414142}
+  - component: {fileID: 4560660623336924047}
   m_Layer: 0
-  m_Name: BgmChangeSystem
+  m_Name: PooledAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1618198405607658929
+--- !u!4 &669259373600428291
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4208822017680427628}
+  m_GameObject: {fileID: 6981033459030555223}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -33,19 +33,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &3000725614308387710
+--- !u!82 &6226178825663414142
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4208822017680427628}
+  m_GameObject: {fileID: 6981033459030555223}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -130,26 +130,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &357491674195982714
+--- !u!114 &4560660623336924047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4208822017680427628}
+  m_GameObject: {fileID: 6981033459030555223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b76e6f6943883814b844a056009b9d06, type: 3}
+  m_Script: {fileID: 11500000, guid: cba312f29a408704b922da3193581823, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioPlayer
-  audioClips:
-  - {fileID: 8300000, guid: c83d290580d9743409e4185fd2e1c647, type: 3}
-  - {fileID: 8300000, guid: bcd650d25c31cb44e9a808fe59b25651, type: 3}
-  - {fileID: 8300000, guid: 39f6bf2d39a752c4f87795c6eb9a8325, type: 3}
-  - {fileID: 8300000, guid: 3ee561a6e2895bb4cabcafba22eb85e8, type: 3}
-  - {fileID: 8300000, guid: 39f6bf2d39a752c4f87795c6eb9a8325, type: 3}
-  - {fileID: 8300000, guid: 8c6b445515cf3054d8e24109321c8753, type: 3}
-  fadeOut: 1
-  fadeIn: 1
-  trigger: 0
-  clipNumber: 2
+  m_EditorClassIdentifier: Assembly-CSharp::PooledAudio

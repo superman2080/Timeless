@@ -105,7 +105,8 @@ MonoBehaviour:
   fullHeal: 0
   scoreInsteadForm: {fileID: 0}
   scoreInstead: 1000
-  pickupSfx: 2
+  pickupSfx: 10
+  scoreSfx: 11
 --- !u!1 &3689382073618021738
 GameObject:
   m_ObjectHideFlags: 0

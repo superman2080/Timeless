@@ -13,6 +13,8 @@ public class PowerUpItem : InteractionObject
     [SerializeField] private PlayerFormSO scoreInsteadForm;
     [SerializeField, Min(0)] private int scoreInstead = 1000;
     public SfxType pickupSfx = SfxType.PICKUP;
+    [Tooltip("효과 대신 점수를 받았을 때 효과음")]
+    public SfxType scoreSfx = SfxType.ITEM_SCORE_BONUS;
 
     protected override void Start()
     {
@@ -32,8 +34,12 @@ public class PowerUpItem : InteractionObject
             if (player.IsJump != isUpper)
                 return;
 
+            var sfx = pickupSfx;
             if (scoreInsteadForm != null && player.StateMachine.CurrentForm == scoreInsteadForm)
+            {
                 FindAnyObjectByType<ScoreUI>()?.AddScore(scoreInstead);
+                sfx = scoreSfx;
+            }
             else
             {
                 if (form != null)
@@ -45,7 +51,7 @@ public class PowerUpItem : InteractionObject
                     player.stat.Heal(player.stat.MaxHP);
             }
 
-            SoundManager.Instance.PlaySFX(pickupSfx);
+            (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(sfx);
             gameObject.SetActive(false);
         }
     }

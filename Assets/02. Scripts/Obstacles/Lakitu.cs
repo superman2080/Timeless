@@ -23,6 +23,8 @@ public class Lakitu : InteractionObject
     [SerializeField] private float tiltAngle = 10f;
 
     [Header("Attack")]
+    [Tooltip("공을 던질 때 효과음")]
+    public SfxType throwSfx = SfxType.HIT_LAKITU_THROW;
     [SerializeField] private float lifeTime = 10f;
     [SerializeField] private float attackInterval = 2f;
     [Tooltip("Attack 트리거 후 공이 손을 떠나는 시간 (클립 2.08s / 스테이트 속도 2.958)")]
@@ -124,7 +126,10 @@ public class Lakitu : InteractionObject
         var lane = attackLane;
         Vector3 start = ballSocket.position;
         if (lane.GenerateObstacle(ObjectType.SPIKE_BALL, start) is SpikeBall ball)
+        {
             ball.Throw(start, new Vector3(lane.LaneX, 0f, GetLandingZ(lane, ball)));
+            (Pool<PooledAudio>.Instance as AudioPool)?.PlaySFX(throwSfx);
+        }
     }
 
     // 공이 나는 동안 월드는 -Z로 흐르므로, 착지 시점의 같은 레인 오브젝트 위치를 예측해

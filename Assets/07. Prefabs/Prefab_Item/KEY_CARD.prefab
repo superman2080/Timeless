@@ -88,6 +88,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3090004366065973282
 GameObject:
@@ -178,6 +179,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3090004366065973286
 GameObject:
@@ -299,8 +301,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealObject
   currentLane: 0
+  isUpper: 0
   objectData:
     type: 0
     prefab: {fileID: 0}
   healAmount: 5
-  healSFX: {fileID: 8300000, guid: a710a0cfdfda58249902f804d6c9ffb9, type: 3}
+  healSfx: 2

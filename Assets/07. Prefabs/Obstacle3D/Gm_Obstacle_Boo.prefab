@@ -81,8 +81,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0753145, y: 0.9179013, z: 0.8160008}
-  m_Center: {x: 0.000039219856, y: 0.59026, z: 0.37774026}
+  m_Size: {x: 0.6, y: 0.6, z: 0.6}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &5950449159240489785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +102,13 @@ MonoBehaviour:
     prefab: {fileID: 0}
   damageAmount: 10
   ignoreJumpedPlayer: 0
-  hitSFX: {fileID: 8300000, guid: d46ced8ba38d1df47a6fb33779812c03, type: 3}
+  hitSfx: 17
+  knockSideSpeed: 6
+  knockUpSpeed: 8
+  knockGravity: 25
+  knockSpin: 720
+  knockDuration: 0.5
+  knockSfx: 23
   revealDistance: 5
   fadeDuration: 0.1
   hiddenAlpha: 0
@@ -128,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1134913006707609721, guid: 32c0cf8027ce85d4e8a0aa48127da114, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1134913006707609721, guid: 32c0cf8027ce85d4e8a0aa48127da114, type: 3}
       propertyPath: m_LocalPosition.z
