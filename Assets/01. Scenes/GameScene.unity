@@ -1887,14 +1887,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.787755, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: f1d631e494ac00d4990b6d74ab8d3091, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3488,7 +3488,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893053209}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -5785,8 +5785,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 45, y: 0}
-  m_SizeDelta: {x: 672, y: 1185}
+  m_AnchoredPosition: {x: 28, y: 0}
+  m_SizeDelta: {x: 760, y: 760}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1419232264
 MonoBehaviour:
@@ -5808,9 +5808,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -607962067, guid: 01025e9119300d64b8fba79a84fa9888, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bdb75101df527614d80ecc9429f6af4e, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6155,6 +6155,7 @@ MonoBehaviour:
   generatePos: {x: 0, y: 0, z: 70}
   disposePos: {x: 0, y: 0, z: -50}
   pixelateIntensity2D: 4
+  titleSceneName: Title
 --- !u!1 &1472271648
 GameObject:
   m_ObjectHideFlags: 0
@@ -6846,9 +6847,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2965393001259691005, guid: 1e4b6cde4129fdc41bc93af224fc35a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fa6fa340e2b4db14bbf2f06e7cc8fea6, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -7790,7 +7791,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 278994163, guid: aff7df85b4e9d304c86c930905428df3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1cf9f478f6677eb4eacc5d0839c22e1c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
